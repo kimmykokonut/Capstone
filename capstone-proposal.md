@@ -68,3 +68,10 @@ A streamlined-automated approach for registration/lottery/notification.  Registr
 ### Is there anything else you'd like your instructor to know? 
 This may be overly ambitious to learn Python and Django with the time I have but am curious how it performs compared to building a webapi with ASP.NET.  It seems like React + Django has been done before and hopefully my experience with MYSQL will help me transition to PostgreSQL.
 I would prefer to make this mobile-friendly but my target audience ranges from 18-70+, so I will aim to keep it a responsive desktop app with accessibility in mind.
+
+![sql diagram](./assets/diagrams/sql.png)
+User: Trip (many:many)
+Trip: Mushroom (many:many)
+Leader: Trip (1:many) -will this work if user:trip is already m:m?
+
+Report: Trip - is the report table necessary? I feel like it's just the same data pulled from Trip + leadername + participants.  Maybe the trip table can hold it all (or is that too complicated?)
