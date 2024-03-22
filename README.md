@@ -43,3 +43,4 @@
 * 1430: wip
 * 1500: upload miro board to proposal with notes
 * 1530: job application pause
+* 1615: linkedin learning
