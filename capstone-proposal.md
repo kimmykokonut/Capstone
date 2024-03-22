@@ -5,7 +5,7 @@
 ## Name of Project: 🍄 Fungi Forays 🍄
 
 ### Project's Purpose or Goal: (What will it do for users?)
-A streamlined-automated approach for registration/lottery/notification.  Allow users to sign up for field trips and be notified of their status. Admin roles will be able to manage trips (create, edit, delete). Leader roles will be provided a contact list for their specific trip.
+A streamlined-automated approach for registration/lottery/notification.  Registration page for users to sign up for field trips and be notified of their status. Admin roles will have full CRUD access. Coordinator role will have full CRUD for trip creation and notification. Leader roles will be provided a contact list for their specific trip. Members will have read-access only. User data stored for trip contact list.
 
 ### List the absolute minimum features the project requires to meet this purpose or goal:
 * User authentication
@@ -47,7 +47,7 @@ A streamlined-automated approach for registration/lottery/notification.  Allow u
 * Flag banned members and not allow on trips
 * A social page where users can connect for carpooling for trips (on trip specific page? or general forum?)
 * Add into existing [OMS website](https://www.wildmushrooms.org/) (Site is WordPress, Javascript, jQuery, Html, CSS)
-* Data visualization (#people applied per trip, #trips/season, #people on site..., map bubbles of field trips-bigger bubbles, more trips)
+* Data visualization (#people applied per trip, #trips/season, #people on site #leaders..., map bubbles of field trips-bigger bubbles, more trips)
 * Mobile-friendly: (React Native?)
 
 ### What additional tools, frameworks, libraries, APIs, or other resources will these additional features require?
