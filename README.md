@@ -40,3 +40,4 @@
 * 1200: finish sql diagram, located in proposal for feedback
       : rough sketch of react component diagram
 * 1330: working on miro board
+* 1430: wip
