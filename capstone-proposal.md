@@ -81,3 +81,11 @@ I would prefer to make this mobile-friendly but my target audience ranges from 1
 -unsure if 'activetrips' is it's own component if it just holds dynamic links to active trips to register?
 -unsure if stats component is standalone or built into reports/activetrips? dont' want it hidden.
 -unsure if forum is a standalone component, as it's not a general forum (though that is a possibility for a stretch goal) i think at this point i want a carpool connect or a way for participants to reach out to each other (vs group email) and be notified of new posts to look for rides, ask q's specific to that trip. but want it private just for that list of people to live with that specific trip. Though I do think I need the trip component embedded into the Report Component so the report can pull some of the trip info plus extra stuff (weather api etc). Unsure if TripReport(for all users to see, and participants to add photos, mushrooms found, etc) is different or same as TripDetails(for participants leading up to the trip)
+### Wireframe Thoughts
+![wireframe](./assets/diagrams/wireframe.png)
+Looking at the flow of the application, the sign in/register/nav to user dashboard page feels uncomplicated.
+I think having a Trip Report component that acts as the prep page before the trip (participants can access for details and carpool requests) and after the trip, personal details are hidden and users can upload photos.  Leader/Coord have full crud. Hopefully that page can be created as well as the registration page? when the 'create trip form' is submitted, not sure if I am overthinking it at this point.
+Coordinator: creates trip, by default registration page is created as well as trip report page.
+Leader can edit trip report page.
+Registration page on 'closing date' closes registration, runs lottery, emails everyone their status, populates Trip Contact Info page (e-notifies leader and coordinator)
+Chosen participants have access to Trip Report page for details and carpool.

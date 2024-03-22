@@ -41,3 +41,4 @@
       : rough sketch of react component diagram
 * 1330: working on miro board
 * 1430: wip
+* 1500: upload miro board to proposal with notes
