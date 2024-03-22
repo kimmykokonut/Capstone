@@ -43,4 +43,5 @@
 * 1430: wip
 * 1500: upload miro board to proposal with notes
 * 1530: job application pause
-* 1615: linkedin learning
+* 1615: responsive web design, [fcc](https://www.freecodecamp.org/learn/2022/responsive-web-design/)
+* 1645: finished Part 1 of 4 for Responsive Web Design Certification, CatPhotoApp
