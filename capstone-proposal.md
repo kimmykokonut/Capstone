@@ -68,10 +68,16 @@ A streamlined-automated approach for registration/lottery/notification.  Registr
 ### Is there anything else you'd like your instructor to know? 
 This may be overly ambitious to learn Python and Django with the time I have but am curious how it performs compared to building a webapi with ASP.NET.  It seems like React + Django has been done before and hopefully my experience with MYSQL will help me transition to PostgreSQL.
 I would prefer to make this mobile-friendly but my target audience ranges from 18-70+, so I will aim to keep it a responsive desktop app with accessibility in mind.
-
+---------------------------------------------
+### SQL thoughts
 ![sql diagram](./assets/diagrams/sql.png)
 User: Trip (many:many)
 Trip: Mushroom (many:many)
 Leader: Trip (1:many) -will this work if user:trip is already m:m?
 
 Report: Trip - is the report table necessary? I feel like it's just the same data pulled from Trip + leadername + participants.  Maybe the trip table can hold it all (or is that too complicated?)
+### React component thoughts
+![components](./assets/diagrams/component-diagram.drawio.svg)
+-unsure if 'activetrips' is it's own component if it just holds dynamic links to active trips to register?
+-unsure if stats component is standalone or built into reports/activetrips? dont' want it hidden.
+-unsure if forum is a standalone component, as it's not a general forum (though that is a possibility for a stretch goal) i think at this point i want a carpool connect or a way for participants to reach out to each other (vs group email) and be notified of new posts to look for rides, ask q's specific to that trip. but want it private just for that list of people to live with that specific trip. Though I do think I need the trip component embedded into the Report Component so the report can pull some of the trip info plus extra stuff (weather api etc). Unsure if TripReport(for all users to see, and participants to add photos, mushrooms found, etc) is different or same as TripDetails(for participants leading up to the trip)
