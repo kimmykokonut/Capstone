@@ -35,3 +35,4 @@
 * 830: set up repository and first steps
 * 900: working on proposal
 * 1030: proposal completed
+* 1045: going through teacher's notes and earlier thoughts on project to organize today and next week's goals
