@@ -71,11 +71,11 @@ I would prefer to make this mobile-friendly but my target audience ranges from 1
 ---------------------------------------------
 ### SQL thoughts
 ![sql diagram](./assets/diagrams/sql.png)
-User: Trip (many:many)
-Trip: Mushroom (many:many)
-Leader: Trip (1:many) -will this work if user:trip is already m:m?
+* User: Trip (many:many)
+* Trip: Mushroom (many:many)
+* Leader: Trip (1:many) -will this work if user:trip is already m:m?
 
-Report: Trip - is the report table necessary? I feel like it's just the same data pulled from Trip + leadername + participants.  Maybe the trip table can hold it all (or is that too complicated?)
+* Report: Trip - is the report table necessary? I feel like it's just the same data pulled from Trip + leadername + participants.  Maybe the trip table can hold it all (or is that too complicated?)
 ### React component thoughts
 ![components](./assets/diagrams/component-diagram.drawio.svg)
 -unsure if 'activetrips' is it's own component if it just holds dynamic links to active trips to register?
