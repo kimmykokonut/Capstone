@@ -32,4 +32,5 @@
 -----------------------------
 ### Research and Planning Log
 #### Friday, 03/22/24
-* 8:30: set up repository and first steps
+* 830: set up repository and first steps
+* 900: working on proposal
