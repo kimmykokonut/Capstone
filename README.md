@@ -34,3 +34,4 @@
 #### Friday, 03/22/24
 * 830: set up repository and first steps
 * 900: working on proposal
+* 1030: proposal completed
