@@ -20,3 +20,4 @@
 * 1330: Researching Auth alternative than straight-up django auth: [Oath](https://www.turing.com/kb/django-rest-framework-authentication)
 * 1400 - Scaffold Django project
 * 1500 - Initialize database and setup Django Admin
+* 1540 - Reworking database to add Registration model
