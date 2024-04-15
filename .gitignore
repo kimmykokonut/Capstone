@@ -83,7 +83,8 @@ htmlcov/
 nosetests.xml 
 coverage.xml 
 *.cover 
-.hypothesis/ 
+.hypothesis/
+test.rest
 
 # Jupyter Notebook 
 .ipynb_checkpoints 
@@ -99,6 +100,7 @@ celerybeat-schedule.*
 
 # Environments 
 .env 
+.env*.local
 .venv 
 env/ 
 venv/ 
@@ -136,4 +138,16 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
-test.rest
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# debug
+npm-debug.log*
+
+# misc
+.DS_Store
+*.tsbuildinfo

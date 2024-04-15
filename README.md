@@ -24,24 +24,31 @@
 ### Getting Started
 ### Prerequisites
 ### Setup
+
+notes:
+Install Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+Install python 3 `$ brew install python@3`
+download python.
+clone project
+
+create virtual env
+`$ python3 -m venv .venv`
+
+enter virtual env
+`$ . .venv/bin/activate`
+
+install dependencies
+`$ pip install -r requirements.txt
+run server (http://127.0.0.1:8000/)
+`$ python manage.py runserver`
+
+setupadmin?
+
+
 ### API Documention
 ### Setup Client Side
 ### Stretch Goals
 ### License
 ### Acknowledgements
 -----------------------------
-### Research and Planning Log
-#### Friday, 03/22/24
-* 830: set up repository and first steps
-* 900: working on proposal
-* 1030: proposal completed
-* 1045: going through teacher's notes and earlier thoughts on project to organize today and next week's goals
-* 1115: work on sql diagram
-* 1200: finish sql diagram, located in proposal for feedback
-      : rough sketch of react component diagram
-* 1330: working on miro board
-* 1430: wip
-* 1500: upload miro board to proposal with notes
-* 1530: job application pause
-* 1615: responsive web design, [fcc](https://www.freecodecamp.org/learn/2022/responsive-web-design/)
-* 1645: finished Part 1 of 4 for Responsive Web Design Certification, CatPhotoApp
