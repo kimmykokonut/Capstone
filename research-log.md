@@ -28,6 +28,7 @@
 * 1030: Working on applications
 * 1100: Whiteboard practice
 * 1200: Django Rest Auth/Oath2.0 research
+* 1300: continue setting up auth
 <!-- 
 * 1030: Work on user auth/oath2.0 for capstone
 * 1300: API endpoints for sign in/out/register
