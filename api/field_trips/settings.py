@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'field_trips',
+    'oauth2_provider',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
@@ -131,3 +132,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
