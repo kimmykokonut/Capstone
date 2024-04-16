@@ -15,15 +15,24 @@
 * <a href="#stretch-goals">Stretch Goals</a>
 * <a href="#license">License</a>
 * <a href="#acknowledgements">Acknowledgements</a>
-* <a href="#research-and-planning-log">Research and Planning Log</a>
 ---------------------------
 ### About the Project
+
 ### Description
+describe here
+
 ### Built With
+python, django, react, typescript
+
 ### Known Bugs
+None at this time
+
 ### Getting Started
+
 ### Prerequisites
+
 ### Setup
+
 
 notes:
 Install Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
@@ -44,6 +53,10 @@ run server (http://127.0.0.1:8000/)
 `$ python manage.py runserver`
 
 setupadmin?
+
+#### Database
+
+![Sql Relationship Diagram](./assets/diagrams/sql2.png)
 
 
 ### API Documention

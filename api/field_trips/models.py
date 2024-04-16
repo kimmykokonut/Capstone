@@ -18,6 +18,7 @@ class Mushroom(models.Model):
   common_name = models.CharField(max_length=200, blank=True)
   latin_name = models.CharField(max_length=200)
   image_url = models.URLField(blank=True)
+  info_url = models.URLField(blank=True)
 
   def __str__(self):
     return self.latin_name
