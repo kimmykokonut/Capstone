@@ -44,3 +44,8 @@ class UserTest(TestCase):
     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
     response = self.client.get('/test_token')
     self.assertEqual(response.status_code, 200)
+
+  def test_logout(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.post('/logout')
+    self.assertEqual(response.status_code, 200)
