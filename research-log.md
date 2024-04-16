@@ -18,6 +18,9 @@
 #### Monday 4/15/24
 * 1300: Making goals for the week and finalizing database models
 * 1330: Researching Auth alternative than straight-up django auth: [Oath](https://www.turing.com/kb/django-rest-framework-authentication)
-* 1400 - Scaffold Django project
-* 1500 - Initialize database and setup Django Admin
-* 1540 - Reworking database to add Registration model
+* 1400: Scaffold Django project
+* 1500: Initialize database and setup Django Admin
+* 1540: Reworking database to add Registration model
+
+### Tuesday 4/16/24
+* 0815: Working on seeding database for Mushroom model. 
