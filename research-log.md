@@ -23,4 +23,12 @@
 * 1540: Reworking database to add Registration model
 
 ### Tuesday 4/16/24
-* 0815: Working on seeding database for Mushroom model. 
+* 0815: Working on seeding database for Mushroom model.
+* 0930: Write cover letters for internship applications
+<!-- * 1000: Whiteboard practice
+* 1030: Work on user auth/oath2.0 for capstone
+* 1300: API endpoints for sign in/out/register
+* 1400: Create dummy user account: coordinator, leader, memberx5
+* 1500: Api endpoints before users 
+* 1600: Test endpoints
+* 1630: Api endpoints for crud Trip -->
