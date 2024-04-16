@@ -1,8 +1,11 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
 
 class SignUpTest(TestCase):
+  def setUp(self):
+    self.client = APIClient()
   def test_signup(self):
     response = self.client.post('/signup', {
       'username': 'testuser',
@@ -16,15 +19,15 @@ class SignUpTest(TestCase):
     self.assertIsNotNone(token)
 
 class UserTest(TestCase):
-  @classmethod
-  def setUpTestData(cls):
-    cls.client = Client()
-    response = cls.client.post('/signup', {
+  def setUp(self):
+    self.client = APIClient()
+    response = self.client.post('/signup', {
       'username': 'testuser',
       'password': 'testpassword',
       'email': 'test@test.com',
     })
-    cls.test_user = User.objects.get(username='testuser')
+    self.test_user = User.objects.get(username='testuser')
+    self.token = response.data['token']
   
   def test_login(self):
     response = self.client.post('/login', {
@@ -36,3 +39,8 @@ class UserTest(TestCase):
     self.assertIsNotNone(user)
     token = Token.objects.get(user=user)
     self.assertIsNotNone(token)
+
+  def test_test_token(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.get('/test_token')
+    self.assertEqual(response.status_code, 200)
