@@ -102,3 +102,35 @@ class MushroomTest(TestCase):
     }, format='json')
     self.assertEqual(response.status_code, 201)
 
+class TripTest(TestCase):
+  def setUp(self):
+    self.client = APIClient()
+    response = self.client.post('/signup', {
+            'username': 'testuser',
+            'password': 'testpassword',
+            'email': 'test@test.com',
+        })
+    self.test_user = User.objects.get(username='testuser')
+    self.token = response.data['token']
+  
+  def test_get_trips(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.get('/trips')
+    self.assertEqual(response.status_code, 200)
+  def test_create_trip(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.post('/trips', {
+      "date": "2024-04-25",
+      "general_location": "Mt Hood National Forest",
+      "specific_location": "45.227173, -121.839455",
+      "time_start": "09:00",
+      "time_end": "15:00",
+      "capacity": 5,
+      "restrictions": "No dogs",
+      "note": "Strenuous terrain",
+      "registration_close_date": "2024-04-20",
+      "leader": 6
+    }, format='json')
+    self.assertEqual(response.status_code, 201)
+
+

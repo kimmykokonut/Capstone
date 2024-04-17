@@ -23,7 +23,8 @@ class Mushroom(models.Model):
   latin_name = models.CharField(max_length=200)
   image_url = models.URLField(blank=True)
   info_url = models.URLField(blank=True)
-
+  class Meta:
+    ordering = ['latin_name']
   def __str__(self):
     return self.latin_name
 
