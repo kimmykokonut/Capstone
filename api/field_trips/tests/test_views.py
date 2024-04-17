@@ -77,3 +77,28 @@ class ProfileTest(TestCase):
       'skills': 'Basic ID'
     }, format='json')
     self.assertEqual(response.status_code, 200)
+  
+class MushroomTest(TestCase):
+  def setUp(self):
+    self.client = APIClient()
+    response = self.client.post('/signup', {
+            'username': 'testuser',
+            'password': 'testpassword',
+            'email': 'test@test.com',
+        })
+    self.test_user = User.objects.get(username='testuser')
+    self.token = response.data['token']
+  
+  def test_get_mushrooms(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.get('/mushrooms')
+    self.assertEqual(response.status_code, 200)
+  def test_create_mushroom(self):
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+    response = self.client.post('/mushrooms', {
+      'common_name': 'Dyer\'s Polypore',
+      'latin_name': 'Phaeolus schweinitzii',
+      'image_url': 'https://en.wikipedia.org/wiki/Phaeolus_schweinitzii#/media/'
+    }, format='json')
+    self.assertEqual(response.status_code, 201)
+
