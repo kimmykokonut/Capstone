@@ -35,6 +35,7 @@
 ### Wednesday 4/17/24
 * 0815: whiteboarding
 * 0915: adding oath to api
+* 1000: wip
 <!-- 
 * oath2
 send coverletters internship
