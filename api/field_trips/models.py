@@ -1,18 +1,19 @@
 from django.contrib.auth.models import User
 from django.db import models
 import datetime
+from datetime import timedelta
+from django.utils import timezone
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   phone = models.CharField(max_length=20)
   e_name = models.CharField(max_length=100)
   e_phone = models.CharField(max_length=20)
-  avatar = models.URLField(blank=True)
-  expiration_date = models.DateField()
-  role = models.CharField(max_length=50, default='member')
-  notes = models.TextField()
-  family = models.CharField(max_length=255)
-  skills = models.CharField(max_length=500)
+  avatar = models.URLField(default='https://cdn.pixabay.com/photo/2024/01/24/09/01/ai-generated-8529072_1280.png')
+  expiration_date = models.DateField(default=timezone.now() + timedelta(days=365))
+  notes = models.TextField(null=True)
+  family = models.CharField(max_length=255, null=True)
+  skills = models.CharField(max_length=500, null=True)
 
 class Mushroom(models.Model):
   common_name = models.CharField(max_length=200, blank=True)
