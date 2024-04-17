@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponse
 from .models import Profile, Registration, Trip, Mushroom
-from .serializers import UserSerializer, ProfileSerializer
+from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer
 from rest_framework import status, generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
@@ -70,3 +70,49 @@ def profile(request):
       serializer.save()
       return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+@api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+def mushroom_list(request, format=None):
+  if request.method == 'GET':
+    mushrooms = Mushroom.objects.all()
+    paginator = PageNumberPagination()
+    paginator.page_size = 20
+    paginated_mushrooms = paginator.paginate_queryset(mushrooms, request)
+    serializer = MushroomSerializer(paginated_mushrooms, many=True)
+    return paginator.get_paginated_response(serializer.data)
+  if request.method == 'POST':
+    serializer = MushroomSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+# dumplings/1
+# @api_view(['GET', 'PUT', 'DELETE'])  
+# def dumpling_detail(request, id,):
+#   #make sure valid request
+#   try: 
+#     dumpling = Dumpling.objects.get(pk=id)
+#   except Dumpling.DoesNotExist:
+#     return Response(status=status.HTTP_404_NOT_FOUND)
+
+#   if request.method == 'GET':
+#     serializer = DumplingSerializer(dumpling)
+#     return Response(serializer.data)
+#   # check logged in user is owner
+#   elif request.method in ['PUT', 'DELETE']:
+#     print('Dumpling owner:', dumpling.owner)
+#     print('Request user:', request.user)
+   
+#     if dumpling.owner != request.user:
+#       return Response({'message': 'You do not have permission to edit or delete this dumpling.'}, status=status.HTTP_403_FORBIDDEN)
+#     if request.method == 'PUT':
+#       serializer = DumplingSerializer(dumpling, data=request.data)
+#       if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data)
+#       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'DELETE':
+#       dumpling.delete()
+#       return Response(status=status.HTTP_204_NO_CONTENT)

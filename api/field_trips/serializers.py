@@ -1,13 +1,7 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, Mushroom, Trip
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth.models import User, Group
-
-
-# class MemberSerializer(serializers.ModelSerializer):
-#   class Meta(object):
-#     model = User
-#     fields = ['username']
+from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
   password = serializers.CharField(min_length=8, write_only=True)
@@ -28,4 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     model = Profile
     fields = ['phone', 'e_name', 'e_phone', 'avatar', 'family', 'skills', 'expiration_date']
 
-    
+class MushroomSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Mushroom
+    fields = ['common_name', 'latin_name', 'image_url', 'info_url']  

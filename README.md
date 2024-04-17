@@ -60,6 +60,15 @@ setupadmin?
 
 
 ### API Documention
+
+```
+/signup (post)
+/login (post)
+/logout (post)
+/profile (get, put)
+/trips (wip)-crud with permissions
+```
+
 ### Setup Client Side
 ### Stretch Goals
 ### License
