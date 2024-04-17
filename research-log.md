@@ -35,7 +35,8 @@
 ### Wednesday 4/17/24
 * 0815: whiteboarding
 * 0915: adding oath to api
-* 1000: wip
+* 1000: clean up cover letters/resume for intership applications, update github profile
+* 1100: wip
 <!-- 
 * oath2
 send coverletters internship
