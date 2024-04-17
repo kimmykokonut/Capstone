@@ -32,4 +32,5 @@ urlpatterns = [
     re_path('logout', views.logout),
     path('profile', views.profile),
     path('mushrooms', views.mushroom_list),
+    path('trips', views.trip_list),
 ]

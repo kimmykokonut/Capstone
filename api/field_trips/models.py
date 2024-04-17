@@ -15,6 +15,9 @@ class Profile(models.Model):
   family = models.CharField(max_length=255, null=True)
   skills = models.CharField(max_length=500, null=True)
 
+  def __str__(self):
+    return self.user.first_name
+
 class Mushroom(models.Model):
   common_name = models.CharField(max_length=200, blank=True)
   latin_name = models.CharField(max_length=200)
@@ -34,11 +37,13 @@ class Trip(models.Model):
   restrictions = models.TextField(blank=True)
   image_url = models.URLField(default='https://cdn.pixabay.com/photo/2023/10/21/11/23/ai-generated-8331261_1280.png')
   note = models.TextField(blank=True)
-  status = models.CharField(100)
-  mushrooms = models.ManyToManyField(Mushroom)
+  status = models.CharField(100, default="Registration Open")
+  registration_close_date = models.DateField()
+  mushrooms = models.ManyToManyField(Mushroom, blank=True)
+  leader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
   def __str__(self):
-    return self.date
+    return str(self.date)
   
 class Registration(models.Model):
   STATUS_CHOICES = [

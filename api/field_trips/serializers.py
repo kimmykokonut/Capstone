@@ -12,7 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
   username = serializers.CharField(
     validators=[UniqueValidator(queryset=User.objects.all())]
     )
-  
   class Meta(object):
     model = User
     fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
@@ -26,3 +25,8 @@ class MushroomSerializer(serializers.ModelSerializer):
   class Meta:
     model = Mushroom
     fields = ['common_name', 'latin_name', 'image_url', 'info_url']  
+
+class TripSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Trip
+    fields = ['date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader']
