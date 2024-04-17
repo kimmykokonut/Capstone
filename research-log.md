@@ -31,6 +31,9 @@
 * 1300: continue setting up auth
 * 1430: testing api endpoints with django test
 * 1700: eod
+
+### Wednesday 4/17/24
+* 0815: whiteboarding
 <!-- 
 * oath2
 * 1400: Create dummy user account: coordinator, leader, memberx5
