@@ -36,7 +36,8 @@
 * 0815: whiteboarding
 * 0915: adding oath to api
 * 1000: clean up cover letters/resume for intership applications, update github profile
-* 1100: wip
+* 1100: wip [googlelogin over oath2 or allauth](https://www.hacksoft.io/blog/adding-google-login-to-your-existing-django-and-django-rest-framework-applications)
+* 1130: pause on google login, pin as stretch goal-[tutorial](https://www.youtube.com/watch?v=yO6PP0vEOMc)
 <!-- 
 * oath2
 send coverletters internship
