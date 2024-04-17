@@ -34,8 +34,10 @@
 
 ### Wednesday 4/17/24
 * 0815: whiteboarding
+* 0915: adding oath to api
 <!-- 
 * oath2
+send coverletters internship
 * 1400: Create dummy user account: coordinator, leader, memberx5
 * 1600: Test endpoints for crud-trips, mushrooms (registration?)
 * 1630: Api endpoints for crud Trip -->
