@@ -19,9 +19,9 @@ from django.urls import path, re_path, include
 from . import views
 admin.autodiscover()
 
-from rest_framework import generics, permissions, serializers
-
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+# from rest_framework import generics, permissions, serializers
+from rest_framework.urlpatterns import format_suffix_patterns
+# from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 urlpatterns = [
     path('', views.welcome),
@@ -33,4 +33,6 @@ urlpatterns = [
     path('profile', views.profile),
     path('mushrooms', views.mushroom_list),
     path('trips', views.trip_list),
+    path('trips/<int:pk>', views.trip_detail),
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
