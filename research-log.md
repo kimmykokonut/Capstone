@@ -45,6 +45,7 @@
 * 0900: testing final api endpoints
 * 0930: scrum
 * 1000: troubleshooting testing
+* 1100: created dummy accounts in database
 <!-- 
 * oath2
 send coverletters internship
