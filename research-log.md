@@ -47,7 +47,7 @@
 * 1000: troubleshooting testing
 * 1100: created dummy accounts in database
 * 1300: working on lottery logic
-* 1415: meetng with Erik
+* 1415: meeting with Erik
 <!-- 
 * oath2
 send coverletters internship

@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Prefetch
 import datetime
 from datetime import timedelta
 from django.utils import timezone
+import random
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -45,6 +47,25 @@ class Trip(models.Model):
 
   def __str__(self):
     return str(self.date)
+  
+  def run_lottery(self):
+    registrations = list(self.registration_set.all())
+    random.shuffle(registrations)
+    for i, registration in enumerate(registrations):
+      if i < 2: #change later to be trip.capacity
+        registration.status = 'accepted'
+      elif i < 4: #change later to be 5?
+        registration.status = 'waitlisted'
+      else:
+        registration.status = 'rejected'
+      registration.save()
+
+  def get_registrations_by_status(self):
+    registrations = self.registration_set.order_by('status').select_related('user')
+    accepted = [r for r in registrations if r.status == 'accepted']
+    waitlisted = [r for r in registrations if r.status == 'waitlisted']
+    rejected = [r for r in registrations if r.status == 'rejected']
+    return accepted, waitlisted, rejected
   
 class Registration(models.Model):
   STATUS_CHOICES = [

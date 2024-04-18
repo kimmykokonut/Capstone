@@ -150,3 +150,31 @@ class TripRegistrationView(APIView):
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LotteryResultsView(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def get_user_info(self, registration):
+    user = registration.user
+    profile = user.profile
+    return {
+      'name': user.first_name + ' ' + user.last_name,
+      'email': user.email,
+      'phone': profile.phone,
+      'e_name': profile.e_name,
+      'e_phone': profile.e_phone,
+      'notes': profile.notes,
+      'family': profile.family,
+      'skills': profile.skills
+    }
+  def get(self, request, trip_id):
+    trip = get_object_or_404(Trip, pk=trip_id)
+    accepted, waitlisted, rejected = trip.get_registrations_by_status()
+
+    data = {
+      'accepted': [self.get_user_info(r) for r in accepted],
+      'waitlisted': [r.user.email for r in waitlisted],
+      'rejected': [r.user.email for r in rejected],
+    }
+    return Response(data)
