@@ -41,6 +41,8 @@
 
 ### Thurs 4/18/24
 * 0800: whiteboarding
+* 0830: job boards
+* 0900: testing final api endpoints
 <!-- 
 * oath2
 send coverletters internship
