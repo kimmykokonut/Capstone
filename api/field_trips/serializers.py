@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Mushroom, Trip
+from .models import Profile, Mushroom, Trip, Registration
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 
@@ -30,3 +30,8 @@ class TripSerializer(serializers.ModelSerializer):
   class Meta:
     model = Trip
     fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader']
+
+class RegistrationSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Registration
+    fields = ['user', 'trip', 'status']

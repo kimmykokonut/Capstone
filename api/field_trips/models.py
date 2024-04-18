@@ -56,3 +56,6 @@ class Registration(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
   status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='registered')
+
+  def __str__(self):
+    return str(self.user)

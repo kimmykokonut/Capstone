@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from .models import Profile, Registration, Trip, Mushroom
-from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer
+from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer
 from rest_framework import status, generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
@@ -132,3 +133,20 @@ def trip_detail(request, pk):
     elif request.method == 'DELETE':
       trip.delete()
       return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TripRegistrationView(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def post(self, request, trip_id):
+    trip = get_object_or_404(Trip, pk=trip_id)
+    data = request.data.copy()
+    data.update({
+      'user': request.user.id,
+      'trip': trip.id
+    })
+    serializer = RegistrationSerializer(data=data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
