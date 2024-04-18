@@ -65,12 +65,19 @@ setupadmin?
 /signup (post)
 /login (post)
 /logout (post)
-/profile (get, put)
-/trips (wip)-crud with permissions
+/profile (get, put)-permission to authenticated user
+/mushrooms (get, post)-all members. (put/delete in rest admin)
+/trips (get-all members, post-admin/coordinator)
+/trips/{id} (get-all members, put-admin/coordinator, delete-admin/coordinator) 
 ```
 
 ### Setup Client Side
+-react
+
 ### Stretch Goals
+
 ### License
+GNU, see license.md for more information
+
 ### Acknowledgements
 -----------------------------
