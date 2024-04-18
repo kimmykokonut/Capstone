@@ -49,7 +49,7 @@ class Trip(models.Model):
 class Registration(models.Model):
   STATUS_CHOICES = [
     ('registered', 'Registered'),
-    ('chosen', 'Chosen'),
+    ('accepted', 'Accepted'),
     ('waitlisted', 'Waitlisted'),
     ('rejected', 'Rejected'),
   ]
