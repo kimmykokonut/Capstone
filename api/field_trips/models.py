@@ -37,6 +37,7 @@ class Trip(models.Model):
   time_start = models.TimeField(default=datetime.time(9,0))
   time_end = models.TimeField(default=datetime.time(15,0))
   capacity = models.IntegerField(default=12)
+  waitlist = models.IntegerField(default=6)
   restrictions = models.TextField(blank=True)
   image_url = models.URLField(default='https://cdn.pixabay.com/photo/2023/10/21/11/23/ai-generated-8331261_1280.png')
   note = models.TextField(blank=True)
@@ -52,9 +53,9 @@ class Trip(models.Model):
     registrations = list(self.registration_set.all())
     random.shuffle(registrations)
     for i, registration in enumerate(registrations):
-      if i < 2: #change later to be trip.capacity
+      if i < self.capacity: 
         registration.status = 'accepted'
-      elif i < 4: #change later to be 5?
+      elif i < self.capacity + self.waitlist:
         registration.status = 'waitlisted'
       else:
         registration.status = 'rejected'
