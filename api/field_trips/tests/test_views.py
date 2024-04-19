@@ -8,7 +8,6 @@ from field_trips.serializers import TripSerializer
 import json
 from ..models import Trip, Profile, Registration
 
-
 class SignUpTest(TestCase):
   def setUp(self):
     self.client = APIClient()
@@ -163,7 +162,6 @@ class TripDetailTest(TestCase):
       "registration_close_date": "2024-04-20",
       "leader": self.test_user.id
     }, format='json')
-    # get trip id#
     self.trip = Trip.objects.get(id=response.data['id'])
     
   def test_get_trip_by_id(self):
@@ -211,4 +209,3 @@ class TripDetailTest(TestCase):
       self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
       response = self.client.delete(reverse('trip_detail', kwargs={'pk': 30}))
       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-

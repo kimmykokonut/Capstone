@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Prefetch
 import datetime
 from datetime import timedelta
 from django.utils import timezone
@@ -51,6 +50,7 @@ class Trip(models.Model):
     return str(self.date)
   
   def run_lottery(self):
+    # delete this later
     print('running lottery...')
     registrations = list(self.registration_set.all())
     random.shuffle(registrations)
@@ -67,6 +67,7 @@ class Trip(models.Model):
 
     for registration in Registration.objects.filter(trip=self):
       send_applicant_email(registration)
+    # delete this later
     print('finished lottery...')
 
   def get_registrations_by_status(self):

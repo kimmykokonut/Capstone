@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..models import Trip, User, Registration, Profile
+from ..models import Trip, User, Registration
 
 class TripModelTest(TestCase):
   def setUp(self):
@@ -24,7 +24,7 @@ class TripModelTest(TestCase):
     self.reg1.refresh_from_db()
     self.reg2.refresh_from_db()
     self.reg3.refresh_from_db()
-    # because lottery involves randomizing data, can not pull username in category consistently
+    # because lottery involves randomizing data, can not pull username in category consistently so testing to make sure the right number of people are in each category
     statuses = [reg.status for reg in [self.reg1, self.reg2, self.reg3]]
     self.assertEqual(statuses.count('accepted'), 1)
     self.assertEqual(statuses.count('waitlisted'), 1)

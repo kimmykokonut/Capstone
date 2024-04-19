@@ -65,16 +65,32 @@ setupadmin?
 /signup (post)
 /login (post)
 /logout (post)
-/profile (get, put)-permission to authenticated user
+/profile (get, put)-permission to authenticated user, coordinator and admin
 /mushrooms (get, post)-all members. (put/delete in rest admin)
 /trips (get-all members, post-admin/coordinator)
-/trips/{id} (get-all members, put-admin/coordinator, delete-admin/coordinator) 
+/trips/{id} (get-all members, put-admin/coordinator, delete-admin/coordinator)
+/trips/{id}/register (post-user registers for trip, their token is their id)
+/trips/{id}/results (get-get results of lottery and users' status on trip) 
 ```
 
 ### Setup Client Side
 -react
 
 ### Stretch Goals
+
+- there might be a bug if there is more than 1 coordinator in database for auto-email
+- 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.
+- make lottery weighted. might need more dummy users and more trips to test.
+- integrate weather api for weather report on trip page by date of trip
+- add leaflet map component (ranger stations? trip locations?)
+- data vis for ? # people applied on trips over time...
+- google sign in functionality
+
+### Notes to self
+- Security of my sender email if deployed?
+- update views to all be class or functional for consistency
+- should test.rest be in git or not?
+- need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
 
 ### License
 GNU, see license.md for more information

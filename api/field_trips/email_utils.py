@@ -1,29 +1,25 @@
 from django.core.mail import send_mail
 import os
-#from django.contrib.auth.models import User, Group
 
 def send_email(to_emails, subject, message):
-  print(f'senidng email to {to_emails}...')
   from_email = os.getenv('EMAIL_HOST_USER')
   if not isinstance(to_emails, (list, tuple)):
     to_emails = [to_emails]
   send_mail(subject, message, from_email, to_emails)
-  print('finished sending email')
-
 
 def send_leader_email(trip):
   from django.contrib.auth.models import Group, User
   
-  accepted, waitlisted, rejected = trip.get_registrations_by_status()
+  accepted, waitlisted = trip.get_registrations_by_status()
 
-  subject = f'List for {trip.date} field trip'
-  print(f'Accepted: {accepted}')  # print the value of accepted
-  print(f'Waitlisted: {waitlisted}')  # print the value of waitlisted
-  print(f'Rejected: {rejected}') 
-  message = f'Accepted: {accepted}\nWaitlisted: {waitlisted}\nRejected:{rejected}'
+  accepted_users = [f"{reg.user.first_name}, {reg.user.email}" for reg in accepted]
+  waitlisted_users = [f"{reg.user.first_name}, {reg.user.email}" for reg in waitlisted]
+
+  formatted_date = trip.date.strftime('%B %d, %Y')
+
+  subject = f'List for OMS field trip: {formatted_date}'
+  message = f'Accepted: \n{", ".join(accepted_users)}\nWaitlisted:\n{", ".join(waitlisted_users)}'
   
-  print(Group.objects.values_list('name', flat=True))  # print all group names before
-
   try:
     coordinators = Group.objects.get(name='Coordinator')
     coordinator = User.objects.filter(groups=coordinators).first()
@@ -32,17 +28,18 @@ def send_leader_email(trip):
     else:
       coordinator_email = None
   except Group.DoesNotExist:
-    print("coordinator group doesn't exist")
-    coordinators = None
-  
-  print(Group.objects.values_list('name', flat=True))  # print all group names before
-
-
+    coordinators = None  
+  # pin for later: to send leader a link to the contact list for the day? or email the contact list (name, email, phone, e-name, e-phone etc etc)
   send_email([trip.leader.email, coordinator_email], subject, message)
 
 def send_applicant_email(registration):
-  subject = f'Status for {registration.trip.date} field trip'
-  message = f'Your status is: {registration.status}.  If chosen, {registration.trip.leader} will be in touch.'
-  # update msg if rejected to be nicer...
+  formatted_date = registration.trip.date.strftime('%B %d, %Y')
+
+  subject = f'Status for OMS Field Trip: {formatted_date}'
+  
+  if registration.status == 'rejected':
+    message = 'Sorry, you were not chosen for this trip. We had more members interested than space available. Please try again on a future trip.  ---OMS Field Trip Team'
+  else:
+    message = f'Your status is: {registration.status}.  The leader, {registration.trip.leader}, will be in touch directly.'
 
   send_email(registration.user.email, subject, message)
