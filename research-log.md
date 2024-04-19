@@ -54,6 +54,7 @@
 * 0815: whiteboarding
 * 0845: testing business logic for lottery and list 
 * 1030: lottery functional, email sending function WIP
+* 1330: working on adding react to project
 <!-- 
 * oath2
 send coverletters internship
