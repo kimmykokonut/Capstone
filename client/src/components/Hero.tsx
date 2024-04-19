@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { signIn, signOut, signUp } from "../api-helper";
+import { useEffect, useState } from "react";
+import { signIn, signOut, signUp, checkAuthentication } from "../api-helper";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState('');
   const [userIn, setUserIn] = useState('');
   const [pwIn, setPwIn] = useState('');
   const [username, setUsername] = useState('');
@@ -15,6 +14,17 @@ const Hero = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkUserAuthentication = async () => {
+      const response = await checkAuthentication();
+      setIsAuthenticated(response.isAuthenticated);
+      if (response.isAuthenticated) {
+        navigate('/dashboard');
+      }
+    };
+    checkUserAuthentication();
+  }, [navigate]);
+
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -23,10 +33,7 @@ const Hero = () => {
       password: pwIn
     };
 
-    const response = await signIn(userSignInData);
-    setToken(response.token)
-    console.log(response.token);
-    localStorage.setItem('token', response.token);
+    await signIn(userSignInData);
     setUserIn('');
     setPwIn('');
 
@@ -38,12 +45,10 @@ const Hero = () => {
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       try {
-        const token = localStorage.getItem('token') || '';
-        const message = await signOut(token);
+        const message = await signOut();
         setLogoutMessage(message);
-        setToken('');
-        localStorage.removeItem('token');
         setIsAuthenticated(false);
+        // delete cookie?
       } catch (error) {
         console.error('An error occurred:', error)
       }    
@@ -58,10 +63,7 @@ const Hero = () => {
       email
     };
 
-    const response = await signUp(userData);
-    setToken(response.token)
-    localStorage.setItem('token', response.token);
-    console.log(username, response.token);
+    await signUp(userData);
     setUsername('');
     setEmail('');
     setPassword('');

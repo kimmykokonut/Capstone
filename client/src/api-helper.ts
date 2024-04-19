@@ -36,6 +36,7 @@ export async function signIn(userSignInData: UserSignInData) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userSignInData),
+      credentials: 'include',
     });
     if (response.ok) {
       const responseData = await response.json();
@@ -49,15 +50,35 @@ export async function signIn(userSignInData: UserSignInData) {
   }
 }
 
-export async function signOut(token: string) {
-  console.log(token);
+export async function signOut() {
   try {
     const response = await fetch('http://127.0.0.1:8000/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${token}`
       },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+
+export async function checkAuthentication() {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/check-authentication', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
     });
     if (response.ok) {
       const responseData = await response.json();

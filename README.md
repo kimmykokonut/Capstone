@@ -101,6 +101,9 @@ Local server will be at  `http://localhost:5173/`
 - update views to all be class or functional for consistency
 - should test.rest be in git or not?
 - need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
+- make pw stricter but not during testing
+- better security: https at deploy
+- in deploy: change views-login&signup: secure=False to TRUE once in https
 
 ### License
 GNU, see license.md for more information

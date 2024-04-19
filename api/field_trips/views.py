@@ -24,7 +24,7 @@ def login(request):
   token, created = Token.objects.get_or_create(user=user)
   serializer = UserSerializer(instance=user)
   response = Response({"user": serializer.data})
-  response.set_cookie('auth_token', token.key, httponly=True)
+  response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
   return response
 
 @api_view(['POST'])
@@ -42,7 +42,9 @@ def signup(request):
     #add profile to user
     Profile.objects.create(user=user)
     token = Token.objects.create(user=user)
-    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_201_CREATED)
+    response = Response({"user": serializer.data}, status=status.HTTP_201_CREATED)
+    response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
+    return response
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
@@ -52,8 +54,8 @@ def test_token(request):
   return Response("passed for {}".format(request.user.email))
 
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([AllowAny])
 def check_authentication(request):
   return Response({"isAuthenticated": True})
 
@@ -62,7 +64,9 @@ def check_authentication(request):
 def logout(request):
   #deletes token
   request.user.auth_token.delete()
-  return Response("logged out: {}".format(request.user.email), status=status.HTTP_200_OK)
+  response = Response("logged out: {}".format(request.user.email), status=status.HTTP_200_OK)
+  response.delete_cookie('auth_token')
+  return response
 
 # User can add details to their profile
 @api_view(['GET', 'PUT'])
