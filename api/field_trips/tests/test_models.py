@@ -9,7 +9,9 @@ class TripModelTest(TestCase):
     self.trip = Trip.objects.create(
       date='2024-01-08', 
       general_location='Test Location',
-      registration_close_date='2024-01-01'
+      registration_close_date='2024-01-01', 
+      capacity=1,
+      waitlist=1
       )
 
     self.reg1 = Registration.objects.create(user=self.user1, trip=self.trip)
@@ -24,6 +26,6 @@ class TripModelTest(TestCase):
     self.reg3.refresh_from_db()
 
     statuses = [reg.status for reg in [self.reg1, self.reg2, self.reg3]]
-    self.assertEqual(statuses.count('accepted'), 2)
+    self.assertEqual(statuses.count('accepted'), 1)
     self.assertEqual(statuses.count('waitlisted'), 1)
-    self.assertEqual(statuses.count('rejected'), 0)
+    self.assertEqual(statuses.count('rejected'), 1)
