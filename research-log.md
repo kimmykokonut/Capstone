@@ -51,7 +51,8 @@
 * 1530: need to change Trip model to make number of people in accepted in field trip dynamic.
 
 ### Fri 4/19/24
-* 0815: whiteboarding 
+* 0815: whiteboarding
+* 0845: testing business logic for lottery and list 
 <!-- 
 * oath2
 send coverletters internship
