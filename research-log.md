@@ -55,9 +55,3 @@
 * 0845: testing business logic for lottery and list 
 * 1030: lottery functional, email sending function WIP
 * 1330: working on adding react to project
-<!-- 
-* oath2
-send coverletters internship
-* 1400: Create dummy user account: coordinator, leader, memberx5
-* 1600: Test endpoints for crud-trips, mushrooms (registration?)
-* 1630: Api endpoints for crud Trip -->

@@ -25,7 +25,10 @@ describe here
 python, django, react, typescript
 
 ### Known Bugs
-None at this time
+* None at this time.
+
+Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
+
 
 ### Getting Started
 
@@ -74,7 +77,14 @@ setupadmin?
 ```
 
 ### Setup Client Side
--react
+- This is a React App scaffolded with Vite using Typescript
+- cd into client
+- in terminal: 
+  ```
+  npm install
+  npm run dev  
+  ```
+Local server will be at  `http://localhost:5173/`
 
 ### Stretch Goals
 
