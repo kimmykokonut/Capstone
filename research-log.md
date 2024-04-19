@@ -48,6 +48,10 @@
 * 1100: created dummy accounts in database
 * 1300: working on lottery logic
 * 1415: meeting with Erik
+* 1530: need to change Trip model to make number of people in accepted in field trip dynamic.
+
+### Fri 4/19/24
+* 0815: whiteboarding 
 <!-- 
 * oath2
 send coverletters internship
