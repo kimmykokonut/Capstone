@@ -5,6 +5,7 @@ import datetime
 from datetime import timedelta
 from django.utils import timezone
 import random
+from .email_utils import send_applicant_email, send_leader_email
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -50,6 +51,7 @@ class Trip(models.Model):
     return str(self.date)
   
   def run_lottery(self):
+    print('running lottery...')
     registrations = list(self.registration_set.all())
     random.shuffle(registrations)
     for i, registration in enumerate(registrations):
@@ -60,6 +62,12 @@ class Trip(models.Model):
       else:
         registration.status = 'rejected'
       registration.save()
+
+    send_leader_email(self)
+
+    for registration in Registration.objects.filter(trip=self):
+      send_applicant_email(registration)
+    print('finished lottery...')
 
   def get_registrations_by_status(self):
     registrations = self.registration_set.order_by('status').select_related('user')
