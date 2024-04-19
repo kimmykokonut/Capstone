@@ -29,7 +29,7 @@ class MushroomSerializer(serializers.ModelSerializer):
 class TripSerializer(serializers.ModelSerializer):
   class Meta:
     model = Trip
-    fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader']
+    fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader']
 
 class RegistrationSerializer(serializers.ModelSerializer):
   class Meta:

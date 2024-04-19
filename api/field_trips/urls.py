@@ -36,6 +36,8 @@ urlpatterns = [
     path('trips', views.trip_list),
     path('trips/<int:pk>', views.trip_detail, name='trip_detail'),
     path('trips/<int:trip_id>/register', TripRegistrationView.as_view()),
-    path('trips/<int:trip_id>/results', LotteryResultsView.as_view())
+    path('trips/<int:trip_id>/results', LotteryResultsView.as_view()),
+    #for testing only
+    path('trips/<int:trip_id>/lottery', LotteryResultsView.as_view())
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

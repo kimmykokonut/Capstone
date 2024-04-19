@@ -178,3 +178,8 @@ class LotteryResultsView(APIView):
       'rejected': [r.user.email for r in rejected],
     }
     return Response(data)
+  # for testing lotto action
+  def post(self, request, trip_id):
+    trip = get_object_or_404(Trip, pk=trip_id)
+    trip.run_lottery()
+    return Response({'message': 'Lottery run success'})

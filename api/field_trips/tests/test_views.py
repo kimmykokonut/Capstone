@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from field_trips.serializers import TripSerializer
 import json
-from ..models import Trip
+from ..models import Trip, Profile, Registration
 
 
 class SignUpTest(TestCase):

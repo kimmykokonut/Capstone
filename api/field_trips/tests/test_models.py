@@ -24,8 +24,16 @@ class TripModelTest(TestCase):
     self.reg1.refresh_from_db()
     self.reg2.refresh_from_db()
     self.reg3.refresh_from_db()
-
+    # because lottery involves randomizing data, can not pull username in category consistently
     statuses = [reg.status for reg in [self.reg1, self.reg2, self.reg3]]
     self.assertEqual(statuses.count('accepted'), 1)
     self.assertEqual(statuses.count('waitlisted'), 1)
     self.assertEqual(statuses.count('rejected'), 1)
+
+  def test_get_registrations_by_status(self):
+    self.trip.run_lottery()
+
+    accepted, waitlisted, rejected = self.trip.get_registrations_by_status()
+    self.assertEqual(len(accepted), 1)
+    self.assertEqual(len(waitlisted), 1)
+    self.assertEqual(len(rejected), 1)
