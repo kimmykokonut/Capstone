@@ -27,6 +27,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('', views.welcome),
     path('admin/', admin.site.urls),
+    path('check-authentication', views.check_authentication),
     path('login', views.login),
     path('signup', views.signup),
     path('test_token', views.test_token),

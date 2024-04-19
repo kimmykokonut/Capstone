@@ -23,7 +23,9 @@ def login(request):
     return Response({"detail": "Not Found."}, status=status.HTTP_404_NOT_FOUND)
   token, created = Token.objects.get_or_create(user=user)
   serializer = UserSerializer(instance=user)
-  return Response({"token": token.key, "user": serializer.data})
+  response = Response({"user": serializer.data})
+  response.set_cookie('auth_token', token.key, httponly=True)
+  return response
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -48,6 +50,12 @@ def signup(request):
 @permission_classes([IsAuthenticated])
 def test_token(request):
   return Response("passed for {}".format(request.user.email))
+
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def check_authentication(request):
+  return Response({"isAuthenticated": True})
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
