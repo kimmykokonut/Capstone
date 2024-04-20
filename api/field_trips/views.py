@@ -11,9 +11,19 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import AuthenticationFailed
 
 def welcome(request):
   return HttpResponse("Welcome to the OMS Field Trip API")
+
+class CookieTokenAuthentication(TokenAuthentication):
+  def authenticate(self, request):
+    token = request.COOKIES.get('auth_token')
+    if not token:
+      return None
+    token = get_object_or_404(Token, key=token)
+    return (token.user, token)
+  
 
 # User can login, signup, logout
 @api_view(['POST'])
@@ -54,13 +64,13 @@ def test_token(request):
   return Response("passed for {}".format(request.user.email))
 
 @api_view(['GET'])
-# @authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([AllowAny])
+@authentication_classes([CookieTokenAuthentication])
+#@permission_classes([AllowAny])
 def check_authentication(request):
-  return Response({"isAuthenticated": True})
+  return Response({"isAuthenticated": request.user.is_authenticated})
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([CookieTokenAuthentication])
 def logout(request):
   if request.user.is_authenticated:
   #deletes token
