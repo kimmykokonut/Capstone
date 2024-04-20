@@ -56,3 +56,4 @@
 * 1030: lottery functional, email sending function WIP
 * 1330: working on adding react to project
 * 1730: user could sign in but bug in signing out
+* 1930: debugging issue with cookies and /logout 
