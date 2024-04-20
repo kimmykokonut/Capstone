@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../api-helper";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
+  };
+
   return(
     <>
       <div id="header">
@@ -13,7 +26,7 @@ const Header = () => {
           <Link to="/resources">resources</Link>
           <br />
           {/* maybe add username if signed in? */}
-          <Link to="/">Sign out</Link>
+          <button onClick={handleLogout}>Sign out</button>
         </nav>
       </div>
       <hr />

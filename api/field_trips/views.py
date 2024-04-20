@@ -62,11 +62,14 @@ def check_authentication(request):
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 def logout(request):
+  if request.user.is_authenticated:
   #deletes token
-  request.user.auth_token.delete()
-  response = Response("logged out: {}".format(request.user.email), status=status.HTTP_200_OK)
-  response.delete_cookie('auth_token')
-  return response
+    request.user.auth_token.delete()
+    response = Response("logged out: {}".format(request.user.email), status=status.HTTP_200_OK)
+    response.delete_cookie('auth_token')
+    return response
+  else:
+    return Response("No active session", status=400)
 
 # User can add details to their profile
 @api_view(['GET', 'PUT'])
