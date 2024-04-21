@@ -46,7 +46,12 @@ def signup(request):
   if serializer.is_valid():
     user = serializer.save()
     #hash pw. so og not stored
-    user.set_password(request.data['password'])
+    user.set_password(request.data['password']),
+    user.first_name=serializer.validated_data['first_name'],
+    user.last_name=serializer.validated_data['last_name'],
+    user.save()
+    # user = serializer.save()
+    
     #add user to member group
     group, created = Group.objects.get_or_create(name='Member')
     user.groups.add(group)

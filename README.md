@@ -1,4 +1,4 @@
-# Capstone Proposal and MVP 
+#  Foray Friends (name wip)
 ### by [Kim Robinson](https://github.com/kimmykokonut)
 
 ---------------------------
@@ -22,7 +22,7 @@
 describe here
 
 ### Built With
-python, django, react, typescript
+python, django, react, typescript, postgresql
 
 ### Known Bugs
 * None at this time.
@@ -100,13 +100,13 @@ Local server will be at  `http://localhost:5173/`
 - google sign in functionality
 
 ### Notes to self
-- Security of my sender email if deployed?
 - update views to all be class or functional for consistency
 - should test.rest be in git or not?
 - need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
 - make pw stricter but not during testing
 - better security: https at deploy
 - in deploy: change views-login&signup: secure=False to TRUE once in https
+- may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
 
 ### License
 GNU, see license.md for more information

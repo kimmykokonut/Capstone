@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { signIn, signOut, signUp, checkAuthentication } from "../api-helper";
+import { signIn, signUp, checkAuthentication } from "../api-helper";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -9,8 +9,9 @@ const Hero = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [logoutMessage, setLogoutMessage] = useState<string>('');
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
 
   const navigate = useNavigate();
 
@@ -41,18 +42,6 @@ const Hero = () => {
 
     navigate('/dashboard');
   };
-  //SIGNOUT IS MOVED TO HEADER AS BUTTON
-  // const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //     e.preventDefault();
-  //     try {
-  //       const message = await signOut();
-  //       setLogoutMessage(message);
-  //       setIsAuthenticated(false);
-  //       // delete cookie?
-  //     } catch (error) {
-  //       console.error('An error occurred:', error)
-  //     }    
-  // };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,13 +49,17 @@ const Hero = () => {
     const userData = {
       username,
       password,
-      email
+      email,
+      first_name: fName,
+      last_name: lName
     };
 
     await signUp(userData);
     setUsername('');
     setEmail('');
     setPassword('');
+    setFName('');
+    setLName('');
   
     setIsAuthenticated(true);
     
@@ -102,6 +95,11 @@ const Hero = () => {
                     <label htmlFor="userName"><input type="text" id="userName" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} /></label>
                     <label htmlFor="userEmail"><input type="email" id="userEmail" placeholder="email@email.com" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
                     <label htmlFor="userPW"><input type="password" id="userPW" placeholder="password must have at least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
+                  </fieldset>
+                  <fieldset>
+                  <legend>Registration Info</legend>
+                  <label htmlFor="firstName"><input type="text" id="firstName" placeholder="First Name" value={fName} onChange={(e) => setFName(e.target.value)} /></label>
+                  <label htmlFor="lastName"><input type="text" id="lastName" placeholder="Last Name" value={lName} onChange={(e) => setLName(e.target.value)} /></label>
                   </fieldset>
                   <button type="submit">Sign Up</button>
                 </form>
