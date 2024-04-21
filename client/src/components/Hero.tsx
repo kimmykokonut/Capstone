@@ -41,18 +41,18 @@ const Hero = () => {
 
     navigate('/dashboard');
   };
-
-  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      try {
-        const message = await signOut();
-        setLogoutMessage(message);
-        setIsAuthenticated(false);
-        // delete cookie?
-      } catch (error) {
-        console.error('An error occurred:', error)
-      }    
-  };
+  //SIGNOUT IS MOVED TO HEADER AS BUTTON
+  // const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //     e.preventDefault();
+  //     try {
+  //       const message = await signOut();
+  //       setLogoutMessage(message);
+  //       setIsAuthenticated(false);
+  //       // delete cookie?
+  //     } catch (error) {
+  //       console.error('An error occurred:', error)
+  //     }    
+  // };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,13 +81,7 @@ const Hero = () => {
     <>
       <h1>welcome to the hero page.</h1>
       <p>please sign in or up</p>
-      {isAuthenticated ? (
-        <div id="signOut">
-        <p>Welcome, user!</p>
-        <button onClick={handleSignOut}>Sign Out</button>
-        <p>{logoutMessage}</p>
-        </div>
-      ) : (
+      {!isAuthenticated && (
         <div id="signIn">
           <form action="POST" onSubmit={handleSignIn}>
             <fieldset>

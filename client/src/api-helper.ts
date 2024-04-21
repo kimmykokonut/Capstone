@@ -16,9 +16,11 @@ export async function signUp(userData: UserData) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData),
+      credentials: 'include',
     });
     if (response.ok) {
       const responseData = await response.json();
+      await signIn(userData);
       return responseData;
     } else {
       throw new Error('Failed to fetch');
