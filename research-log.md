@@ -57,3 +57,6 @@
 * 1330: working on adding react to project
 * 1730: user could sign in but bug in signing out
 * 1930: debugging issue with cookies and /logout 
+
+### Sun 4/21/24
+* 1215: picking back up cookie issue
