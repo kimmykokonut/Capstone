@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 export interface UserData {
   username: string;
   email: string;
@@ -104,6 +106,28 @@ export async function getProfile() {
         'Content-Type': 'application/json'
       },
       credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+
+export async function updateProfile(profileData) {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/profile', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(profileData),
     });
     if (response.ok) {
       const responseData = await response.json();

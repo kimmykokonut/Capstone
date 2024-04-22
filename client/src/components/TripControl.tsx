@@ -10,7 +10,7 @@ const TripControl = () => {
           path='/'
           element={<Hero />} />
         <Route
-          path='/dashboard'
+          path='/dashboard/*'
           element={<Dashboard />} />
       </Routes>
     </>
