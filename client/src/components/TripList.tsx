@@ -11,11 +11,10 @@ interface TripListProps {
   restrictions: string;
   image_url: string;
   status: string;
-  leader: string;
-  onTripClick: (id: number) => void;
+  leader: number;
 }
 
-const TripList: React.FC<TripListProps> = () => {
+const TripList: React.FC = () => {
   const [trips, setTrips] = useState<TripListProps[]>([]);
 
   useEffect(() => {
@@ -30,10 +29,6 @@ const TripList: React.FC<TripListProps> = () => {
     fetchTrips();
   }, []);
 
-  const onTripClick = (id: number) => {
-    //nav to detail page
-    id;
-  }
 
   if (!trips) {
     return <div>Loading...</div>
@@ -44,6 +39,7 @@ const TripList: React.FC<TripListProps> = () => {
       {trips.map((trip: TripListProps) => (
         <Trip
           key={trip.id}
+          id={trip.id}
           date={trip.date}
           general_location={trip.general_location}
           time_start={trip.time_start}
@@ -52,8 +48,6 @@ const TripList: React.FC<TripListProps> = () => {
           image_url={trip.image_url}
           status={trip.status}
           leader={trip.leader}
-          whenTripClicked={() => onTripClick(trip.id)}
-          id={trip.id}
         />
       ))}
       <hr />

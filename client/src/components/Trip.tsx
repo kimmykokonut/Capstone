@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../api-helper";
+import { Link } from "react-router-dom";
 
 interface TripProps {
   id: number;
@@ -10,11 +11,10 @@ interface TripProps {
   restrictions: string;
   image_url: string;
   status: string;
-  leader: string;
-  whenTripClicked: (id: number) => void;
+  leader: number;
 };
 
-const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leader, whenTripClicked }) => {
+const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leader }) => {
   const [leaderName, setLeaderName] = useState<string>('');
 
   useEffect(() => {
@@ -46,7 +46,7 @@ fetchLeader();
 
   return (
     <>
-      <div onClick={() => whenTripClicked(id)}>
+      <div>
         <img src={image_url} alt="forest scene" style={{ width: '150px', height: '150px' }} />
         <h3>{dateString}</h3>
         <h4>Status: {status}</h4>
@@ -54,6 +54,9 @@ fetchLeader();
         <p>{general_location}</p>
         <p>{startTime} - {endTime}</p>
         <p>Restrictions: {restrictions || 'None'} </p>
+        <Link to={`/trip/${id}`}>
+          <button>Details/Register</button>
+        </Link>
         <hr />
       </div>
     </>
