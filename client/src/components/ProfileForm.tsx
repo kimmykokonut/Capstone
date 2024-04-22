@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { getProfile, ProfileData, updateProfile } from "../api-helper";
+import { ProfileData, updateProfile } from "../api-helper";
 
 type User = {
   phone: string;
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const ProfileForm = ({ user }: Props) => {
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,12 +26,10 @@ const ProfileForm = ({ user }: Props) => {
       skills: formData.get('skills') as string,
       e_name: formData.get('e_name') as string,
       e_phone: formData.get('e_phone') as string,
-    }
+    };
 
     updateProfile(formValues).then(() => {
-      getProfile().then(() => {
-        navigate('/dashboard');
-      });
+      window.location.href = '/dashboard';
     });
   };
 
