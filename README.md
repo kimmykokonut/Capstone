@@ -107,6 +107,7 @@ Local server will be at  `http://localhost:5173/`
 - better security: https at deploy
 - in deploy: change views-login&signup: secure=False to TRUE once in https
 - may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
+** LEFT OFF: want to have user do full registration at sign in? added fname and lname with success but data is being stored as a tuple. 
 
 ### License
 GNU, see license.md for more information
