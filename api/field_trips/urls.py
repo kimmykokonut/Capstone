@@ -33,6 +33,7 @@ urlpatterns = [
     path('test_token', views.test_token),
     path('logout', views.logout),
     path('profile', views.profile),
+    path('user/<int:pk>', views.user_details),
     path('mushrooms', views.mushroom_list),
     path('trips', views.trip_list),
     path('trips/<int:pk>', views.trip_detail, name='trip_detail'),

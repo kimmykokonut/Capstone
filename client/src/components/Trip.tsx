@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getUser } from "../api-helper";
 
 interface TripProps {
   id: number;
@@ -13,6 +15,20 @@ interface TripProps {
 };
 
 const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leader, whenTripClicked }) => {
+  const [leaderName, setLeaderName] = useState<string>('');
+
+  useEffect(() => {
+    const fetchLeader = async () => {
+      try {
+        const leaderData = await getUser(leader);
+        setLeaderName(leaderData.first_name);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+fetchLeader();
+  }, [leader]);
+
 
   const formattedDate = new Date(date);
   const dateString = `${formattedDate.toLocaleString('default', { month: 'long'})} ${formattedDate.getDate()}, ${formattedDate.getFullYear()}`;
@@ -34,7 +50,7 @@ const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, tim
         <img src={image_url} alt="forest scene" style={{ width: '150px', height: '150px' }} />
         <h3>{dateString}</h3>
         <h4>Status: {status}</h4>
-        <p>Leader: {leader}</p>
+        <p>Leader: {leaderName}</p>
         <p>{general_location}</p>
         <p>{startTime} - {endTime}</p>
         <p>Restrictions: {restrictions || 'None'} </p>

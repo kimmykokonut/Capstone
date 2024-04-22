@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from .models import Profile, Registration, Trip, Mushroom
-from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer
+from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer
 from rest_framework import status, generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
@@ -103,6 +103,18 @@ def profile(request):
       serializer.save()
       return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+@api_view(['GET'])
+@authentication_classes([CookieTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def user_details(request, pk):
+  try:
+    user = get_object_or_404(User, pk=pk)
+    serializer = UserNameSerializer(user)
+    return Response(serializer.data)
+  except Exception as e:
+    return Response({'Error': 'something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
   # UPDATE BELOW WITH COOKIE TOKEN AND TEST
 
 @api_view(['GET', 'POST'])
