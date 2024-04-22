@@ -56,7 +56,7 @@ const Dashboard = () => {
       <p>Trips registered:</p>
       <p>Trips attended:</p>
       <hr />
-      <a href="/trips">Register for upcoming trips</a>
+      <a href="/trips">See upcoming trips</a>
       <hr />
       
     </>
