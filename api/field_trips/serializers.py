@@ -17,9 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
     fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
 
 class ProfileSerializer(serializers.ModelSerializer):
+  user = UserSerializer()
+
   class Meta:
     model = Profile
-    fields = ['phone', 'e_name', 'e_phone', 'avatar', 'family', 'skills', 'expiration_date']
+    fields = ['user', 'phone', 'e_name', 'e_phone', 'avatar', 'family', 'skills', 'expiration_date']
 
 class MushroomSerializer(serializers.ModelSerializer):
   class Meta:

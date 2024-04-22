@@ -87,10 +87,10 @@ def logout(request):
     return response
   else:
     return Response("No active session", status=400)
-# UPDATE BELOW WITH COOKIE TOKEN AND TEST
+
 # User can add details to their profile
 @api_view(['GET', 'PUT'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def profile(request):
   profile = Profile.objects.get(user=request.user)
@@ -103,7 +103,8 @@ def profile(request):
       serializer.save()
       return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-  
+  # UPDATE BELOW WITH COOKIE TOKEN AND TEST
+
 @api_view(['GET', 'POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 def mushroom_list(request, format=None):
