@@ -60,3 +60,6 @@
 
 ### Sun 4/21/24
 * 1215: picking back up cookie issue
+
+### Mon 4/22/24
+* 0815: whiteboarding practice
