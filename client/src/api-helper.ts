@@ -11,6 +11,14 @@ export interface UserSignInData {
   username: string;
   password: string;
 }
+export interface ProfileData {
+  phone: string;
+  avatar: string;
+  family: string;
+  skills: string;
+  e_name: string;
+  e_phone: string;
+}
 
 export async function signUp(userData: UserData) {
   try {
@@ -119,7 +127,7 @@ export async function getProfile() {
   }
 }
 
-export async function updateProfile(profileData) {
+export async function updateProfile(profileData: ProfileData) {
   try {
     const response = await fetch('http://127.0.0.1:8000/profile', {
       method: 'PUT',
