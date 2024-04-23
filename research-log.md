@@ -68,3 +68,4 @@
 ### Tues 4/23/24
 * 0800: whiteboarding practice
 * 0840: job applications (2)
+* 1000: refactoring tripreports component to move state up a level to minimize api calls.
