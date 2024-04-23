@@ -64,3 +64,6 @@
 ### Mon 4/22/24
 * 0815: whiteboarding practice
 * 0900: bug in name in registration
+
+### Tues 4/23/24
+* 0800: whiteboarding practice
