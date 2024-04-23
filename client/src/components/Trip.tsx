@@ -11,23 +11,24 @@ interface TripProps {
   restrictions: string;
   image_url: string;
   status: string;
-  leader: number;
+  //leader: number;
+  leaderName: string;
 };
 
-const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leader }) => {
-  const [leaderName, setLeaderName] = useState<string>('');
+const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leaderName }) => {
+  //const [leaderName, setLeaderName] = useState<string>('');
 
-  useEffect(() => {
-    const fetchLeader = async () => {
-      try {
-        const leaderData = await getUser(leader);
-        setLeaderName(leaderData.first_name);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-fetchLeader();
-  }, [leader]);
+//   useEffect(() => {
+//     const fetchLeader = async () => {
+//       try {
+//         const leaderData = await getUser(leader);
+//         setLeaderName(leaderData.first_name);
+//       } catch (error) {
+//         console.error('Error:', error);
+//       }
+//     };
+// fetchLeader();
+//   }, [leader]);
 
 
   const formattedDate = new Date(date);
