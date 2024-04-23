@@ -1,15 +1,17 @@
 import TripDetails from "./TripDetails";
 import TripComments from "./TripComments";
-//import Trip from "./Trip";
+import { TripProps } from "./TripControl";
 
-const TripReport = () => {
+interface TripDetailProps {
+  trips: TripProps[];
+}
+
+const TripReport: React.FC<TripDetailProps> = ({ trips }) => {
   return (
     <>
-      <TripDetails />
+      <TripDetails trips={trips}/>
       <hr />
-      <button>Register for trip</button>
-      <p>Or confirmation registered</p>
-      <hr />
+      <p>comments cmponent here</p>
       <TripComments />
       <hr />
       <p>Mushrooms seen</p>

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getUser } from "../api-helper";
 import { Link } from "react-router-dom";
 
 interface TripProps {
@@ -16,20 +14,6 @@ interface TripProps {
 };
 
 const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, time_end, restrictions, image_url, status, leaderName }) => {
-  //const [leaderName, setLeaderName] = useState<string>('');
-
-//   useEffect(() => {
-//     const fetchLeader = async () => {
-//       try {
-//         const leaderData = await getUser(leader);
-//         setLeaderName(leaderData.first_name);
-//       } catch (error) {
-//         console.error('Error:', error);
-//       }
-//     };
-// fetchLeader();
-//   }, [leader]);
-
 
   const formattedDate = new Date(date);
   const dateString = `${formattedDate.toLocaleString('default', { month: 'long'})} ${formattedDate.getDate()}, ${formattedDate.getFullYear()}`;
@@ -55,7 +39,7 @@ const Trip: React.FC<TripProps> = ({ id, date, general_location, time_start, tim
         <p>{general_location}</p>
         <p>{startTime} - {endTime}</p>
         <p>Restrictions: {restrictions || 'None'} </p>
-        <Link to={`/trip/${id}`}>
+        <Link to={`/trips/${id}`}>
           <button>Details/Register</button>
         </Link>
         <hr />

@@ -188,3 +188,24 @@ export async function getUser(id: number) {
     throw error;
   }
 }
+//need userId??
+export async function registerTrip(tripId: number) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
