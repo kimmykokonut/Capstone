@@ -21,7 +21,7 @@ const TripList: React.FC = () => {
     const fetchTrips = async () => {
       try {
         const response = await getTrips();
-        setTrips(response.results);
+        setTrips(response.results); //props.setTrips
       } catch (error) {
         console.error('Error:', error);
       }

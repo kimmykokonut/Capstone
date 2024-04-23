@@ -5,6 +5,9 @@ import TripList from './TripList';
 import TripReport from './TripReport';
 
 const TripControl = () => {
+  //function taht sets state, call this inside of 
+  //hold state
+
   return (
     <>
       <Routes>
