@@ -67,3 +67,4 @@
 
 ### Tues 4/23/24
 * 0800: whiteboarding practice
+* 0840: job applications (2)
