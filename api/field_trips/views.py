@@ -179,11 +179,36 @@ def trip_detail(request, pk):
       trip.delete()
       return Response(status=status.HTTP_204_NO_CONTENT)
 # yes updated w/cookie
-class TripRegistrationView(APIView):
-  authentication_classes = [CookieTokenAuthentication]
-  permission_classes = [IsAuthenticated]
+# class TripRegistrationView(APIView):
+#   authentication_classes = [CookieTokenAuthentication]
+#   permission_classes = [IsAuthenticated]
 
-  def post(self, request, trip_id):
+#   def get(self, request, trip_id):
+#     is_registered = Registration.objects.filter(user=request.user, trip_id=trip_id).exists()
+#     return Response({'isRegistered': is_registered})
+
+#   def post(self, request, trip_id):
+#     trip = get_object_or_404(Trip, pk=trip_id)
+#     data = request.data.copy()
+#     data.update({
+#       'user': request.user.id,
+#       'trip': trip.id
+#     })
+#     serializer = RegistrationSerializer(data=data)
+#     if serializer.is_valid():
+#       serializer.save()
+#       return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+@authentication_classes([CookieTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def trip_registration(request, trip_id):
+  if request.method == 'GET':
+    is_registered = Registration.objects.filter(user=request.user, trip_id=trip_id).exists()
+    return Response({'isRegistered': is_registered})
+  
+  elif request.method == 'POST':
     trip = get_object_or_404(Trip, pk=trip_id)
     data = request.data.copy()
     data.update({

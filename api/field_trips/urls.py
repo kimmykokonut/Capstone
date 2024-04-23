@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from . import views
 admin.autodiscover()
-from .views import TripRegistrationView, LotteryResultsView
+from .views import LotteryResultsView
 
 # from rest_framework import generics, permissions, serializers
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -37,7 +37,7 @@ urlpatterns = [
     path('mushrooms', views.mushroom_list),
     path('trips', views.trip_list),
     path('trips/<int:pk>', views.trip_detail, name='trip_detail'),
-    path('trips/<int:trip_id>/register', TripRegistrationView.as_view()),
+    path('trips/<int:trip_id>/register', views.trip_registration),
     path('trips/<int:trip_id>/results', LotteryResultsView.as_view()),
     #for testing only
     path('trips/<int:trip_id>/lottery', LotteryResultsView.as_view())
