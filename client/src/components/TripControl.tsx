@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Hero from './Hero';
 import Dashboard from './Dashboard';
 import TripList from './TripList';
-import TripReport from './TripReport';
+import TripDetails from './TripDetails';
 import { getTrips, getUser } from '../api-helper';
 
 export interface TripProps {
@@ -54,7 +54,7 @@ const TripControl: React.FC = () => {
           element={<Dashboard />} />
         <Route
           path='/trips/:id'
-          element={<TripReport trips={trips} />} />
+          element={<TripDetails trips={trips} />} />
         <Route
           path='/trips'
           element={<TripList trips={trips}/>} />

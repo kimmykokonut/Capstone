@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { TripProps } from "./TripControl";
 import { useState } from "react";
 import { registerTrip } from "../api-helper";
+import TripComments from "./TripComments";
 
 interface TripDetailProps {
   trips: TripProps[];
@@ -96,11 +97,15 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
           <button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</button>
         </form>
       ) : (
-        <p>You have registered for this trip</p>
+        <h3>You have registered for this trip</h3>
       )}
       <hr />
       <p>weather api call based on specific_location</p>
       <p>leaflet map? specific_location</p>
+      <hr />
+      <TripComments/>
+      <hr />
+      <p>mushroom component</p>
     </>
   )
 }
