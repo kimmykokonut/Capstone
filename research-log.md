@@ -69,3 +69,4 @@
 * 0800: whiteboarding practice
 * 0840: job applications (2)
 * 1000: refactoring tripreports component to move state up a level to minimize api calls.
+* 1215: issue rendering trip detail page, api call successful, console error that no routes matched location
