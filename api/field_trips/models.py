@@ -36,6 +36,9 @@ class Permit(models.Model):
   day_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
   annual_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
+  def __str__(self):
+    return str(self.name)
+
 class Trip(models.Model):
   date = models.DateField()
   general_location = models.CharField(max_length=100)

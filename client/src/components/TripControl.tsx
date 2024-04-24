@@ -7,6 +7,14 @@ import TripDetails from './TripDetails';
 import Resources from './Resources';
 import { getTrips, getUser, getUserRegistrations } from '../api-helper';
 
+export interface PermitProps {
+  id: number;
+  type: string;
+  day_cost: number;
+  annual_cost: number;
+  name: string;
+}
+
 export interface TripProps {
   id: number;
   date: string;
@@ -22,6 +30,7 @@ export interface TripProps {
   capacity: string;
   note: string;
   registration_close_date: string;
+  permits: PermitProps[];
 }
 
 const TripControl: React.FC = () => {

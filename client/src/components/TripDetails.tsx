@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { TripProps } from "./TripControl";
+import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
 import { registerTrip, getRegistration } from "../api-helper";
 import TripComments from "./TripComments";
@@ -79,6 +79,13 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <p>Restrictions: {trip.restrictions}</p>
       <p>Additional information: {trip.note}</p>
       <h3>Registration closes: {closeDate}</h3>
+      <p>Permits required:</p>
+      {trip.permits.map((permit: PermitProps) => {
+        <div key={permit.id}>
+          <h5>Permit: {permit.name}</h5>
+          <p>Cost: Annual: {permit.annual_cost} Daily: {permit.day_cost}</p>
+        </div>
+      })}
       <hr />
       <div id="genericInfo">
         <p>Field trips are for educational purposes. They take place rain or shine.  There is no guarantee of what will be found in the area.</p>
