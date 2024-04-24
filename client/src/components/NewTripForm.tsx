@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { getPermitList, getLeaders } from "../api-helper";
 
+interface LeaderProps {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+interface PermitProps {
+  id: number;
+  name: string;
+}
+
 const NewTripForm = () => {
-  const [leaders, setLeaders] = useState([]);
-  const [permitList, setPermitList] = useState([]);
+  const [leaders, setLeaders] = useState<LeaderProps[]>([]);
+  const [permitList, setPermitList] = useState<PermitProps[]>([]);
 
   const fetchLeaders = async () => {
     setLeaders(await getLeaders());
