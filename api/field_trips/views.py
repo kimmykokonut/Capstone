@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
-from .models import Profile, Registration, Trip, Mushroom
-from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer
+from .models import Profile, Registration, Trip, Mushroom, Permit
+from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer, PermitSerializer
 from rest_framework import status, generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
@@ -178,27 +178,6 @@ def trip_detail(request, pk):
     elif request.method == 'DELETE':
       trip.delete()
       return Response(status=status.HTTP_204_NO_CONTENT)
-# yes updated w/cookie
-# class TripRegistrationView(APIView):
-#   authentication_classes = [CookieTokenAuthentication]
-#   permission_classes = [IsAuthenticated]
-
-#   def get(self, request, trip_id):
-#     is_registered = Registration.objects.filter(user=request.user, trip_id=trip_id).exists()
-#     return Response({'isRegistered': is_registered})
-
-#   def post(self, request, trip_id):
-#     trip = get_object_or_404(Trip, pk=trip_id)
-#     data = request.data.copy()
-#     data.update({
-#       'user': request.user.id,
-#       'trip': trip.id
-#     })
-#     serializer = RegistrationSerializer(data=data)
-#     if serializer.is_valid():
-#       serializer.save()
-#       return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 @authentication_classes([CookieTokenAuthentication])
@@ -272,3 +251,21 @@ def user_registrations(request):
     for r in registrations
   ]
   return Response(data)
+
+@api_view(['GET'])
+@authentication_classes([CookieTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def permit_list(request):
+  permits = Permit.objects.all().order_by('name')
+  if request.method == 'GET':
+    serializer = PermitSerializer(permits, many=True)
+    return Response(serializer.data)
+#not testsed
+@api_view(['GET'])
+@authentication_classes([CookieTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def leader_list(request):
+  permit = Permit.objects.get(user=request.user)
+  if request.method == 'GET':
+    serializer = PermitSerializer(permit)
+    return Response(serializer.data)

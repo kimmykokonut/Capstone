@@ -36,6 +36,8 @@ urlpatterns = [
     path('user/registrations', views.user_registrations),
     path('mushrooms', views.mushroom_list),
     path('trips', views.trip_list),
+    path('permits', views.permit_list),
+    path('leaders', views.leader_list),
     path('trips/<int:pk>', views.trip_detail, name='trip_detail'),
     path('trips/<int:trip_id>/register', views.trip_registration),
     path('trips/<int:trip_id>/results', views.lottery_results),
