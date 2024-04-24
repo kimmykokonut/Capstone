@@ -20,7 +20,11 @@ type User = {
   skills: string;
 }
 
-const Dashboard = () => {
+type RegistrationProps = {
+  userRegistrations: { trip_id: number, status: string }[];
+}
+
+const Dashboard: React.FC<RegistrationProps> = ({ userRegistrations }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -53,8 +57,10 @@ const Dashboard = () => {
         <Route path='profile' element={<ProfileForm user={user} />} />
       </Routes>
       <hr />
-      <p>Trips registered:</p>
-      <p>Trips attended:</p>
+      <p>Trip registrations:</p>
+      {userRegistrations.map((regStatus, index) => (
+        <p key={index}>Trip ID: {regStatus.trip_id}, Status: {regStatus.status}</p>
+    ))}
       <hr />
       <a href="/trips">See upcoming trips</a>
       <hr />

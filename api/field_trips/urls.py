@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from . import views
 admin.autodiscover()
-from .views import LotteryResultsView
 
 # from rest_framework import generics, permissions, serializers
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -34,12 +33,13 @@ urlpatterns = [
     path('logout', views.logout),
     path('profile', views.profile),
     path('user/<int:pk>', views.user_details),
+    path('user/registrations', views.user_registrations),
     path('mushrooms', views.mushroom_list),
     path('trips', views.trip_list),
     path('trips/<int:pk>', views.trip_detail, name='trip_detail'),
     path('trips/<int:trip_id>/register', views.trip_registration),
-    path('trips/<int:trip_id>/results', LotteryResultsView.as_view()),
+    path('trips/<int:trip_id>/results', views.lottery_results),
     #for testing only
-    path('trips/<int:trip_id>/lottery', LotteryResultsView.as_view())
+    path('trips/<int:trip_id>/lottery', views.lottery_results),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -23,7 +23,8 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   useEffect(() => {
     const checkTripRegistration = async () => {
       try {
-        const registrationStatus = await getRegistration(Number(id));        
+        const registrationStatus = await getRegistration(Number(id));
+        console.log('tripid', id);        
         setIsRegistered(registrationStatus);
       } catch (error) {
         console.error('An error occurred:', error)

@@ -4,7 +4,7 @@ import Hero from './Hero';
 import Dashboard from './Dashboard';
 import TripList from './TripList';
 import TripDetails from './TripDetails';
-import { getTrips, getUser } from '../api-helper';
+import { getTrips, getUser, getUserRegistrations } from '../api-helper';
 
 export interface TripProps {
   id: number;
@@ -22,8 +22,10 @@ export interface TripProps {
   note: string;
   registration_close_date: string;
 }
+
 const TripControl: React.FC = () => {
   const [trips, setTrips] = useState<TripProps[]>([]);
+  const [userRegistrations, setUserRegistrations] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -34,13 +36,23 @@ const TripControl: React.FC = () => {
           return { ...trip, leaderName: leaderData.first_name }
         }));
         setTrips(tripsWithLeaderName);
-        console.log(tripsWithLeaderName);
-        console.log(trips);
       } catch (error) {
         console.error('Error:', error);
       }
     };
     fetchTrips();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserRegistrations = async () => {
+      try {
+        const registrations = await getUserRegistrations();
+        setUserRegistrations(registrations);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchUserRegistrations();
   }, []);
 
   return (
@@ -51,7 +63,7 @@ const TripControl: React.FC = () => {
           element={<Hero />} />
         <Route
           path='/dashboard/*'
-          element={<Dashboard />} />
+          element={<Dashboard userRegistrations={userRegistrations}/>} />
         <Route
           path='/trips/:id'
           element={<TripDetails trips={trips} />} />
