@@ -74,3 +74,4 @@
 
 ### Wed 4/24/24
 * 0815: interview prep
+* 1330: interview
