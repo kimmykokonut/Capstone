@@ -210,6 +210,9 @@ def trip_registration(request, trip_id):
   
   elif request.method == 'POST':
     trip = get_object_or_404(Trip, pk=trip_id)
+    is_registered = Registration.objects.filter(user=request.user, trip_id=trip_id).exists()
+    if is_registered:
+      return Response({'error': 'You are already registered'}, status=status.HTTP_400_BAD_REQUEST)
     data = request.data.copy()
     data.update({
       'user': request.user.id,

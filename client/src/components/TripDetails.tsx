@@ -62,7 +62,14 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       setIsRegistered(true);
       localStorage.setItem(`tripRegistered-${id}`, 'true');
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.log('test', error);
+      const err = error as any;
+      console.error('An error occurred:', err);
+      if (err.response && err.statusText === 400) {
+        setErrorMessage('You are already registered for this trip.');
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
