@@ -77,7 +77,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
 
   const formattedDate = new Date(trip.date);
   const formatCloseDate = new Date(trip.registration_close_date)
-  const dateString = `${formattedDate.toLocaleString('default', { month: 'long' })} ${formattedDate.getDate()}, ${formattedDate.getFullYear()}`;
+  const dateString = `${formattedDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`; 
   const closeDate = `${formatCloseDate.toLocaleString('default', { month: 'long' })} ${formatCloseDate.getDate()}, ${formatCloseDate.getFullYear()}`;
 
   const formatTime = (time: string) => {
