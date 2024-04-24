@@ -1,4 +1,5 @@
 import Trip from "./Trip";
+import { Link } from "react-router-dom";
 
 interface TripListProps {
   trips: {
@@ -29,6 +30,9 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
   return (
     <>
       <h2>Upcoming Field Trips</h2>
+      {/* make this visible to admin/coordinator/leader */}
+      <Link to='/add-trip'>Add new trip (auth only)</Link>
+      <hr />
       {trips.map((trip: TripProps) => (
         <Trip
           key={trip.id}
