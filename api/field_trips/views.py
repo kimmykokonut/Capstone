@@ -257,15 +257,14 @@ def user_registrations(request):
 @permission_classes([IsAuthenticated])
 def permit_list(request):
   permits = Permit.objects.all().order_by('name')
-  if request.method == 'GET':
-    serializer = PermitSerializer(permits, many=True)
-    return Response(serializer.data)
-#not testsed
+  serializer = PermitSerializer(permits, many=True)
+  return Response(serializer.data)
+# returns list of users that are part of Leader Group
 @api_view(['GET'])
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def leader_list(request):
-  permit = Permit.objects.get(user=request.user)
-  if request.method == 'GET':
-    serializer = PermitSerializer(permit)
-    return Response(serializer.data)
+  leader_group = Group.objects.get(name='Leader')
+  leaders = leader_group.user_set.all().order_by('first_name')
+  serializer = UserSerializer(leaders, many=True)
+  return Response(serializer.data)
