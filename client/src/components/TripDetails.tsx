@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
 import { registerTrip, getRegistration } from "../api-helper";
@@ -15,16 +15,18 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-
-  if (!trip) {
-    return <div>Loading...</div>
-  }
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const checkTripRegistration = async () => {
+      if (!trip) {
+        return;
+      }
       try {
         const registrationStatus = await getRegistration(Number(id));
-        console.log('tripid', id);        
+        console.log('tripid', id);
         setIsRegistered(registrationStatus);
       } catch (error) {
         console.error('An error occurred:', error)
@@ -33,12 +35,32 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     checkTripRegistration();
   }, [id]);
 
+  if (!trip) {
+    return <div>Loading...</div>
+  }
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCheckboxChecked(e.target.checked);
+  }
+
   const handleRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isCheckboxChecked) {
+      setErrorMessage('You must agree to the terms and conditions before registering.');
+      return;
+    }
     setIsLoading(true);
     try {
       await registerTrip(Number(id));
       setIsRegistered(true);
+      localStorage.setItem(`tripRegistered-${id}`, 'true');
     } catch (error) {
       console.error('An error occurred:', error);
     } finally {
@@ -62,11 +84,8 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const startTime = formatTime(trip.time_start);
   const endTime = formatTime(trip.time_end);
 
-
-
   return (
     <>
-
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
       <h3>Status: {trip.status}</h3>
 
@@ -79,13 +98,15 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <p>Restrictions: {trip.restrictions}</p>
       <p>Additional information: {trip.note}</p>
       <h3>Registration closes: {closeDate}</h3>
-      <p>Permits required:</p>
-      {trip.permits.map((permit: PermitProps) => {
-        <div key={permit.id}>
-          <h5>Permit: {permit.name}</h5>
-          <p>Cost: Annual: {permit.annual_cost} Daily: {permit.day_cost}</p>
-        </div>
-      })}
+      <h4>Permits required:</h4>
+      <ul>
+        {trip.permits.map((permit: PermitProps) => (
+          <div key={permit.id}>
+            <li>{permit.name}: Annual: {permit.annual_cost}, Daily: {permit.day_cost}</li>
+          </div>
+        ))}
+      </ul>
+      <p>See the <Link to="/resources">resources page</Link> for more info about permits and preparation</p>
       <hr />
       <div id="genericInfo">
         <p>Field trips are for educational purposes. They take place rain or shine.  There is no guarantee of what will be found in the area.</p>
@@ -110,14 +131,31 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
           For general questions about OMS, email us at info@wildmushrooms.org.</p>
       </div>
       <hr />
-      <p>Checkbox to agree</p>
+      {errorMessage && <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>}
       {!isRegistered ? (
         <form onSubmit={handleRegistration}>
-          <legend>Apply here</legend>
+          <legend>Apply</legend>
+          <input id="agree" type="checkbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
+          <label htmlFor="agree">I agree to the terms and conditions.</label>
+          <button type="button" onClick={openModal}>Read terms and conditions</button>
+          {isModalOpen && (
+            <div className="modal">
+              <button type="button" onClick={closeModal}>Close terms</button>
+              <p>I understand if I am selected and fail to attend this field trip, I may not attend future trips through next season. </p>
+              <p>I accept responsibility for my safety and conduct, and of others I bring on this field trip.</p>
+              <h5>Oregon Mycological Society / Liability Release and Promise Not to Sue</h5>
+              <p>I understand there is some risk in participating in a mushroom mycology camp, field trip or other activity - all those risks one assumes by being away from home, risks associated with moving about in fields and woods, risks involved in eating wild mushrooms, risks of losing personal property by theft or misplacement, and all other expected and unexpected risks.
+                In joining OMS or registering for or attending any OMS mycology camp, field trip or other activity, I agree to assume total responsibility during an event for my own
+                safety and well-being and that of any minor children under my care, and for the protection of my and their personal property.
+                I release The Oregon Mycological Society (OMS), its directors, officers, volunteers, contractors, and all other persons assisting in the planning and presentation of an OMS mycology camp, field trip or other activity from liability for any sickness, injury, or loss, I, or any minor children under my care, may suffer during an OMS mycology camp, field trip or other activity or as a result of attending or participating. I further promise not to file a lawsuit or make a claim against any of the persons listed above, even if they negligently cause me or any minor children under my care injury or loss.
+                Finally, I agree to hold The Oregon Mycological Society harmless from any liability it may incur as a result of any damage to any property I may cause. This
+                release and promise is part of the consideration I give in order to participate in an OMS mycology camp, field trip or other activity. I understand it affects my legal rights. I intend it to apply not only to me but to anyone who may have the right to make a claim on my behalf.</p>
+            </div>
+          )}
           <button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</button>
         </form>
       ) : (
-        <h3>You have registered for this trip</h3>
+        <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
       )}
       <hr />
       <p>weather api call based on specific_location</p>

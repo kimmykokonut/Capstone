@@ -33,8 +33,14 @@ class MushroomSerializer(serializers.ModelSerializer):
     model = Mushroom
     fields = ['id', 'common_name', 'latin_name', 'image_url', 'info_url']  
 
+class PermitSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Permit
+    fields = ['id', 'type', 'day_cost', 'annual_cost', 'name']
+
 class TripSerializer(serializers.ModelSerializer):
-  permits = serializers.PrimaryKeyRelatedField(many=True, queryset=Permit.objects.all(), required=False)
+  permits = PermitSerializer(many=True, read_only=True)
+  
   class Meta:
     model = Trip
     fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader', 'permits']

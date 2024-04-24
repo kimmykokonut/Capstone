@@ -41,6 +41,7 @@ const TripControl: React.FC = () => {
     const fetchTrips = async () => {
       try {
         const response: { results: TripProps[] } = await getTrips();
+        console.log(response);
         const tripsWithLeaderName = await Promise.all(response.results.map(async (trip) => {
           const leaderData = await getUser(trip.leader);
           return { ...trip, leaderName: leaderData.first_name }
