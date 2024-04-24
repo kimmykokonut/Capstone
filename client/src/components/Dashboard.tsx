@@ -78,7 +78,6 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
       <hr />
       <a href="/trips">See upcoming trips</a>
       <hr />
-
     </>
   );
 };
