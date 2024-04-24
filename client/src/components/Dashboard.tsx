@@ -3,6 +3,7 @@ import { getProfile } from "../api-helper";
 import { Link } from "react-router-dom";
 import { Routes, Route } from 'react-router-dom';
 import ProfileForm from "./ProfileForm";
+import { TripProps } from "./TripControl";
 
 type User = {
   user: {
@@ -20,11 +21,12 @@ type User = {
   skills: string;
 }
 
-type RegistrationProps = {
+type DashboardProps = {
   userRegistrations: { trip_id: number, status: string }[];
+  trips: TripProps[];
 }
 
-const Dashboard: React.FC<RegistrationProps> = ({ userRegistrations }) => {
+const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const Dashboard: React.FC<RegistrationProps> = ({ userRegistrations }) => {
   }
   return (
     <>
-      <img src={user.avatar} alt="user avatar" style={{ width: '100px', height: '100px', borderRadius: '50%'}}/>
+      <img src={user.avatar} alt="user avatar" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
       <h1>{user?.user.first_name} {user?.user.last_name}</h1>
       <p>Username: {user?.user.username}</p>
       <p>Phone: {user?.phone || 'None provided'}</p>
@@ -58,13 +60,25 @@ const Dashboard: React.FC<RegistrationProps> = ({ userRegistrations }) => {
       </Routes>
       <hr />
       <p>Trip registrations:</p>
-      {userRegistrations.map((regStatus, index) => (
-        <p key={index}>Trip ID: {regStatus.trip_id}, Status: {regStatus.status}</p>
-    ))}
+      {userRegistrations
+        .sort((a, b) => {
+          const tripA = trips.find(trip => trip.id === a.trip_id);
+          const tripB = trips.find(trip => trip.id === b.trip_id);
+          if (!tripA || !tripB) {
+            return 0;
+          }
+          return new Date(tripB.date).getTime() - new Date(tripA.date).getTime();
+        })
+        .map((regStatus, index) => {
+          const trip = trips.find(trip => trip.id === regStatus.trip_id);
+          return (
+            <p key={index}>{regStatus.status}: {trip ? new Date(trip.date).toLocaleDateString() : 'Not found'} </p>
+          );
+        })}
       <hr />
       <a href="/trips">See upcoming trips</a>
       <hr />
-      
+
     </>
   );
 };

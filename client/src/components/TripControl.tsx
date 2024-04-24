@@ -63,7 +63,7 @@ const TripControl: React.FC = () => {
           element={<Hero />} />
         <Route
           path='/dashboard/*'
-          element={<Dashboard userRegistrations={userRegistrations}/>} />
+          element={<Dashboard userRegistrations={userRegistrations} trips={trips}/>} />
         <Route
           path='/trips/:id'
           element={<TripDetails trips={trips} />} />
