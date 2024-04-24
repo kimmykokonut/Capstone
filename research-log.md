@@ -71,3 +71,6 @@
 * 1000: refactoring tripreports component to move state up a level to minimize api calls.
 * 1215: issue rendering trip detail page, api call successful, console error that no routes matched location
 * 1315: wip
+
+### Wed 4/24/24
+* 0815: interview prep
