@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Mushroom, Trip, Registration
+from .models import Profile, Mushroom, Trip, Registration, Permit
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 
@@ -34,9 +34,10 @@ class MushroomSerializer(serializers.ModelSerializer):
     fields = ['id', 'common_name', 'latin_name', 'image_url', 'info_url']  
 
 class TripSerializer(serializers.ModelSerializer):
+  permits = serializers.PrimaryKeyRelatedField(many=True, queryset=Permit.objects.all(), required=False)
   class Meta:
     model = Trip
-    fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader']
+    fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader', 'permits']
 
 class RegistrationSerializer(serializers.ModelSerializer):
   class Meta:
