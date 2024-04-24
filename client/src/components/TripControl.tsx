@@ -4,6 +4,7 @@ import Hero from './Hero';
 import Dashboard from './Dashboard';
 import TripList from './TripList';
 import TripDetails from './TripDetails';
+import Resources from './Resources';
 import { getTrips, getUser, getUserRegistrations } from '../api-helper';
 
 export interface TripProps {
@@ -70,6 +71,9 @@ const TripControl: React.FC = () => {
         <Route
           path='/trips'
           element={<TripList trips={trips}/>} />
+        <Route
+          path='/resources'
+          element={<Resources />} />
         
       </Routes>
     </>

@@ -30,6 +30,12 @@ class Mushroom(models.Model):
   def __str__(self):
     return self.latin_name
 
+class Permit(models.Model):
+  name = models.CharField(max_length=250)
+  type = models.CharField(max_length=250)
+  day_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+  annual_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+
 class Trip(models.Model):
   date = models.DateField()
   general_location = models.CharField(max_length=100)
@@ -44,6 +50,7 @@ class Trip(models.Model):
   status = models.CharField(100, default="Registration Open")
   registration_close_date = models.DateField()
   mushrooms = models.ManyToManyField(Mushroom, blank=True)
+  permits = models.ManyToManyField(Permit, blank=True)
   leader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
   def __str__(self):
