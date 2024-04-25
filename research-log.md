@@ -76,3 +76,6 @@
 * 0815: interview prep
 * 1330: interview
 * 1545: career services meeting
+
+### Thurs 4/25/24
+* 0830: whiteboarding practice
