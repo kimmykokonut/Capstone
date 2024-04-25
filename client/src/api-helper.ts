@@ -1,4 +1,5 @@
 import { json } from "react-router-dom";
+import { NewTripData } from "./components/NewTripForm";
 
 export interface UserData {
   username: string;
@@ -327,7 +328,7 @@ export async function getLeaders() {
   }
 }
 // creates trip
-export async function createTrip(tripData: TripData) {
+export async function createTrip(tripData: NewTripData) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/trips`, {
       method: 'POST',

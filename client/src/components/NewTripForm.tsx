@@ -10,13 +10,25 @@ interface PermitProps {
   id: number;
   name: string;
 }
+export interface NewTripData {
+  date: string;
+  generalLocation: string;
+  specificLocation: string;
+  timeStart: string;
+  timeEnd: string;
+  leader: number;
+  capacity: number;
+  waitlist: number;
+  restrictions: string;
+  imageUrl: string;
+  note: string;
+  registrationClose: string;
+  permits: number[];
+}
 
 const NewTripForm = () => {
   const [leaders, setLeaders] = useState<LeaderProps[]>([]);
   const [permitList, setPermitList] = useState<PermitProps[]>([]);
-
-  //add state here for form fields
-  // date, generalLocation, specificLocation, timeStart, timeEnd, leader, capacity, waitlist, restrictions, imageUrl, note, registrationClose, permits,
 
   const fetchLeaders = async () => {
     setLeaders(await getLeaders());
@@ -31,24 +43,46 @@ const NewTripForm = () => {
     fetchPermitList();
   }, []);
 
-  const handleTripCreation = async (e: React.FormEvent) => {
+  const handleTripCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newTrip = {
-      date, generalLocation, specificLocation, timeStart, timeEnd, leader, capacity, waitlist, restrictions, imageUrl, note, registrationClose, permits,
+
+    const formData = new FormData(e.currentTarget);
+
+    const newTrip: NewTripData = {
+      date: formData.get('date') as string,
+      generalLocation: formData.get('generalLocation') as string,
+      specificLocation: formData.get('specificLocation') as string,
+      timeStart: formData.get('timeStart') as string,
+      timeEnd: formData.get('timeEnd') as string,
+      leader: Number(formData.get('leader')),
+      capacity: Number(formData.get('capacity')),
+      waitlist: Number(formData.get('waitlist')),
+      restrictions: formData.get('restrictions') as string,
+      imageUrl: formData.get('imageUrl') as string,
+      note: formData.get('note') as string,
+      registrationClose: formData.get('registrationClose') as string,
+      permits: formData.getAll('permits').map(value => Number(value)),
     };
-    await createTrip(newTrip)
-  }
+    await createTrip(newTrip).then(() => {
+      window.location.href = '/trips';
+    });
+  };
 
   return (
     <>
       <form onSubmit={handleTripCreation}>
+        <title>Add New Trip</title>
         <fieldset>
-          <legend>Create new field trip</legend>
-          <input type="date" name="date" placeholder="Date" id="date" />
+          <legend>Trip Details</legend>
+          <label htmlFor="date">Date <input type="date" name="date" placeholder="Date" id="date" /></label>
+          <br />
           <input type="text" name="generalLocation" placeholder="Location (i.e. Mt Hood NF)" id="generalLocation" />
+          <br />
           <input type="text" name="specificLocation" placeholder="Lat/Long of location" id="specificLocation" />
-          <input type="time" name="timeStart" placeholder="Start Time" id="timeStart" />
-          <input type="time" name="timeEnd" placeholder="End time" id="timeEnd" />
+          <br />
+          <label htmlFor="timeStart">Start Time <input type="time" name="timeStart" placeholder="Start Time" id="timeStart" /></label>
+          <label htmlFor="timeEnd">End Time <input type="time" name="timeEnd" placeholder="End time" id="timeEnd" /></label>
+          
         </fieldset>
         <fieldset>
           <legend>Trip Leader</legend>
@@ -60,11 +94,15 @@ const NewTripForm = () => {
         </fieldset>
         <fieldset>
           <input type="number" name="capacity" placeholder="Capacity Number" id="capacity" />
-          <input type="text" name="waitlist" placeholder="Waitlist Number" id="waitlist" />
+          <input type="number" name="waitlist" placeholder="Waitlist Number" id="waitlist" />
+          <br />
           <textarea name="restrictions" placeholder="Restrictions" id="restrictions" />
-          <input type="text" name="imageUrl" placeholder="Image Url" id="imageUrl" />
+          <br />
+          <input type="text" name="imageUrl" placeholder="Optional: Image Url" id="imageUrl" />
+          <br />
           <textarea name="note" placeholder="Notes" id="note" />
-          <input type="date" name="registrationClose" placeholder="Date registration closes" id="registrationClose" />
+          <br />
+          <label htmlFor="registrationClose">Registration Close Date <input type="date" name="registrationClose" id="registrationClose" /></label>
         </fieldset>
 
         <fieldset>
