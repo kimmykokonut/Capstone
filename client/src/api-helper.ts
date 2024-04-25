@@ -19,6 +19,21 @@ export interface ProfileData {
   e_name: string;
   e_phone: string;
 }
+export interface TripData {
+  date: Date;
+  generalLocation: string;
+  specificLocation: string;
+  timeStart: string;
+  timeEnd: string;
+  leader: number;
+  capacity: number;
+  waitlist: number;
+  restrictions: string;
+  imageUrl: string;
+  note: string;
+  registrationClose: Date;
+  permits: number[];
+}
 
 export async function signUp(userData: UserData) {
   try {
@@ -298,6 +313,28 @@ export async function getLeaders() {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+// creates trip
+export async function createTrip(tripData: TripData) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/trips`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(tripData),
       credentials: 'include',
     });
     if (response.ok) {

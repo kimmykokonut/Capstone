@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPermitList, getLeaders } from "../api-helper";
+import { getPermitList, getLeaders, createTrip } from "../api-helper";
 
 interface LeaderProps {
   id: number;
@@ -15,6 +15,9 @@ const NewTripForm = () => {
   const [leaders, setLeaders] = useState<LeaderProps[]>([]);
   const [permitList, setPermitList] = useState<PermitProps[]>([]);
 
+  //add state here for form fields
+  // date, generalLocation, specificLocation, timeStart, timeEnd, leader, capacity, waitlist, restrictions, imageUrl, note, registrationClose, permits,
+
   const fetchLeaders = async () => {
     setLeaders(await getLeaders());
   };
@@ -28,8 +31,12 @@ const NewTripForm = () => {
     fetchPermitList();
   }, []);
 
-  const handleTripCreation = () => {
-    //create trip
+  const handleTripCreation = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newTrip = {
+      date, generalLocation, specificLocation, timeStart, timeEnd, leader, capacity, waitlist, restrictions, imageUrl, note, registrationClose, permits,
+    };
+    await createTrip(newTrip)
   }
 
   return (
