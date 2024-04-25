@@ -7,6 +7,7 @@ import TripDetails from './TripDetails';
 import Resources from './Resources';
 import { getTrips, getUser, getUserRegistrations } from '../api-helper';
 import NewTripForm from './NewTripForm';
+import EditTripForm from './EditTripForm';
 
 export interface PermitProps {
   id: number;
@@ -85,6 +86,9 @@ const TripControl: React.FC = () => {
         <Route
           path='/add-trip'
           element={<NewTripForm />} />
+        <Route
+          path='/trips/edit/:id'
+          element={<EditTripForm trips={trips}/>} />
         <Route
           path='/resources'
           element={<Resources />} />

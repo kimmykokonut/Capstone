@@ -165,6 +165,10 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
         <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
       )}
       <hr />
+      <p>ADMIN ONLY PERMISSIONS WIP</p>
+      <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link>
+      <button>Delete Trip</button>
+      <hr />
       <p>weather api call based on specific_location</p>
       <p>leaflet map? specific_location</p>
       <hr />
