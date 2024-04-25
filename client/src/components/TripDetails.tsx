@@ -1,13 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip } from "../api-helper";
 import TripComments from "./TripComments";
 
 interface TripDetailProps {
   trips: TripProps[];
 };
-
 
 const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const { id } = useParams<{ id: string }>();
@@ -91,6 +90,16 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const startTime = formatTime(trip.time_start);
   const endTime = formatTime(trip.time_end);
 
+  const handleDelete = async () => {
+    try {
+      await deleteTrip(Number(id));
+      window.location.href = '/trips';
+    } catch(error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+
   return (
     <>
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
@@ -167,7 +176,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <hr />
       <p>ADMIN ONLY PERMISSIONS WIP</p>
       <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link>
-      <button>Delete Trip</button>
+      <button onClick={handleDelete}>Delete Trip</button>
       <hr />
       <p>weather api call based on specific_location</p>
       <p>leaflet map? specific_location</p>

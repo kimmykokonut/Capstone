@@ -370,3 +370,26 @@ export async function editTrip(tripData: TripData, tripId: number) {
     throw error;
   }
 }
+export async function deleteTrip(tripId: number) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const text = await response.text();
+      if (text) {
+        const responseData = JSON.parse(text);
+        return responseData;
+      }
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
