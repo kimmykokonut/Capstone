@@ -12,17 +12,16 @@ interface PermitProps {
 }
 export interface NewTripData {
   date: string;
-  generalLocation: string;
-  specificLocation: string;
-  timeStart: string;
-  timeEnd: string;
+  general_location: string;
+  specific_location: string;
+  time_start: string;
+  time_end: string;
   leader: number;
   capacity: number;
   waitlist: number;
   restrictions: string;
-  imageUrl: string;
   note: string;
-  registrationClose: string;
+  registration_close_date: string;
   permits: number[];
 }
 
@@ -50,17 +49,16 @@ const NewTripForm = () => {
 
     const newTrip: NewTripData = {
       date: formData.get('date') as string,
-      generalLocation: formData.get('generalLocation') as string,
-      specificLocation: formData.get('specificLocation') as string,
-      timeStart: formData.get('timeStart') as string,
-      timeEnd: formData.get('timeEnd') as string,
+      general_location: formData.get('generalLocation') as string,
+      specific_location: formData.get('specificLocation') as string,
+      time_start: formData.get('timeStart') as string,
+      time_end: formData.get('timeEnd') as string,
       leader: Number(formData.get('leader')),
       capacity: Number(formData.get('capacity')),
       waitlist: Number(formData.get('waitlist')),
       restrictions: formData.get('restrictions') as string,
-      imageUrl: formData.get('imageUrl') as string,
       note: formData.get('note') as string,
-      registrationClose: formData.get('registrationClose') as string,
+      registration_close_date: formData.get('registrationClose') as string,
       permits: formData.getAll('permits').map(value => Number(value)),
     };
     await createTrip(newTrip).then(() => {
