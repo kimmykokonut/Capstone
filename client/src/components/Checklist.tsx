@@ -16,7 +16,7 @@ const Checklist = () => {
         <li><strong>Water</strong>(pack extra)</li>
         <li>High energy snacks (trail mix, dried fruit, power bars, etc)</li>
         <li>Sun protection (hat, sunblock)</li>
-        <li>Navigation: Good topographic map of the area that is accessible offline</li>
+        <li>Navigation: Good topographic map of the area that is accessible offline (Gaia GPS App is helpful for having a map on your phone)</li>
         <li>Compass</li>
         <li>Flashlight or headlamp with extra batteries</li>
         <li>Extra clothing </li>
@@ -30,14 +30,14 @@ const Checklist = () => {
 
       <h3>Clothes: <em>either on your body or in  your backpack</em></h3>
       <ul>
-        <li>Synthetic (polyester, nylon, fleece, wool, or silk) layers. Please, NO COTTON or JEANS</li>
+        <li>Synthetic (polyester, nylon, fleece, wool, or silk) layers. Please, <strong>NO cotton or jeans</strong></li>
         <li>Rain jacket with hood</li>
         <li>Rain pants</li>
       </ul>
 
       <ul>
         <li>Sturdy, moisture-proof boots (no street shoes, tennis shoes or sandals)</li>
-        <li>Hat(s) <em>for warmth/shade from sun/repel rain</em></li>
+        <li>Hat(s) <em>for warmth/shade/rain</em></li>
         <li>Mittens or gloves </li>
         <li>Brightly colored / Highly visible / Reflective vest or jacket</li>
       </ul>
@@ -58,6 +58,7 @@ const Checklist = () => {
         <li>Camera</li>
         <li>Flagging tape</li>
         <li>Two or more FRS walkie-talkies. This type of radio is small, effective over several miles and often modestly priced. FRS radios do not require a license.</li>
+        <li>iNaturalist/Seek App can be helpful for a starting point for ID</li>
       </ul>
     </>
   )
