@@ -79,3 +79,4 @@
 
 ### Thurs 4/25/24
 * 0830: whiteboarding practice
+* 1000: interview
