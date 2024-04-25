@@ -103,6 +103,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   return (
     <>
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
+      <button>Close trip & Run lottery (test mode)</button>
       <h3>Status: {trip.status}</h3>
 
       <p>Date: {dateString}</p>
