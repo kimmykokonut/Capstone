@@ -81,3 +81,4 @@
 * 0830: whiteboarding practice
 * 1000: interview
 * 1415: interview
+* 1900: thank you emails to interviewers and epicenter rankings
