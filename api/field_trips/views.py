@@ -152,7 +152,7 @@ def trip_list(request, format=None):
     print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
-@api_view(['GET', 'PUT', 'DELETE'])  
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])  
 def trip_detail(request, pk):
   try: 
     trip = Trip.objects.get(pk=pk)
@@ -162,22 +162,23 @@ def trip_detail(request, pk):
   if request.method == 'GET':
     serializer = TripSerializer(trip)
     return Response(serializer.data)
-  elif request.method in ['PUT', 'DELETE']:
+  
+  elif request.method in ['PUT', 'PATCH']:
       # check logged in user is owner
     # print('Dumpling owner:', dumpling.owner)
     # print('Request user:', request.user)
     
     # if dumpling.owner != request.user:
     #   return Response({'message': 'You do not have permission to edit or delete this dumpling.'}, status=status.HTTP_403_FORBIDDEN)
-    if request.method == 'PUT':
-      serializer = TripSerializer(trip, data=request.data)
+      serializer = TripSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
       if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE':
-      trip.delete()
-      return Response(status=status.HTTP_204_NO_CONTENT)
+  elif request.method == 'DELETE':
+    trip.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+    
 
 @api_view(['GET', 'POST'])
 @authentication_classes([CookieTokenAuthentication])

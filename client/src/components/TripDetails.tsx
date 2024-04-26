@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip } from "../api-helper";
 import TripComments from "./TripComments";
 
 interface TripDetailProps {
@@ -104,7 +104,10 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     try {
       await closeTripRunLotto(trip.id);
       setLotteryRun(true);
-      trip.status = 'Closed';
+      //trip.status = 'Closed';
+      const updatedTrip = { ...trip, status: 'Closed' };
+      await editTrip(updatedTrip, trip.id);
+      console.log('trip status updated', trip.status);
     } catch (error) {
       console.error('An error occurred:', error);
     }
