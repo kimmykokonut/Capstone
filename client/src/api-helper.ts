@@ -413,3 +413,24 @@ export async function getMushrooms() {
     throw error;
   }
 }
+// Run lottery automatically via button for testing purposes
+export async function closeTripRunLotto(tripId: number) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/lottery`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}

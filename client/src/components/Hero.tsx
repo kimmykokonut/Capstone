@@ -12,6 +12,7 @@ const Hero = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -33,14 +34,17 @@ const Hero = () => {
       username: userIn,
       password: pwIn
     };
+    try {
+      await signIn(userSignInData);
+      setUserIn('');
+      setPwIn('');
 
-    await signIn(userSignInData);
-    setUserIn('');
-    setPwIn('');
+      setIsAuthenticated(true);
 
-    setIsAuthenticated(true);
-
-    navigate('/dashboard');
+      navigate('/dashboard');
+    } catch (error) {
+      setErrorMessage('An error occurred during sign in. Please check your username and password and try again.');
+    } 
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,17 +57,20 @@ const Hero = () => {
       first_name: fName,
       last_name: lName
     };
+    try {
+      await signUp(userData);
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setFName('');
+      setLName('');
 
-    await signUp(userData);
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setFName('');
-    setLName('');
-  
-    setIsAuthenticated(true);
-    
-    navigate('/dashboard');
+      setIsAuthenticated(true);
+
+      navigate('/dashboard');
+    } catch (error) {
+      setErrorMessage('An error occurred during sign up. Please check your username and password and try again.');
+    } 
   };
 
   const toggleRegisterForm = () => {
@@ -74,6 +81,7 @@ const Hero = () => {
     <>
       <h1>welcome to the hero page.</h1>
       <p>please sign in or up</p>
+      {errorMessage && <p>{errorMessage}</p>}
       {!isAuthenticated && (
         <div id="signIn">
           <form action="POST" onSubmit={handleSignIn}>

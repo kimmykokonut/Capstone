@@ -10,7 +10,7 @@ def send_email(to_emails, subject, message):
 def send_leader_email(trip):
   from django.contrib.auth.models import Group, User
   
-  accepted, waitlisted = trip.get_registrations_by_status()
+  accepted, waitlisted, rejected = trip.get_registrations_by_status()
 
   accepted_users = [f"{reg.user.first_name}, {reg.user.email}" for reg in accepted]
   waitlisted_users = [f"{reg.user.first_name}, {reg.user.email}" for reg in waitlisted]

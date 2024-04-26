@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto } from "../api-helper";
 import TripComments from "./TripComments";
 
 interface TripDetailProps {
@@ -17,6 +17,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [lotteryRun, setLotteryRun] = useState(false);
 
   useEffect(() => {
     const checkTripRegistration = async () => {
@@ -99,11 +100,21 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     }
   };
 
+  const runLottery = async () => {
+    try {
+      await closeTripRunLotto(trip.id);
+      setLotteryRun(true);
+      trip.status = 'Closed';
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
 
   return (
     <>
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
-      <button>Close trip & Run lottery (test mode)</button>
+      
       <h3>Status: {trip.status}</h3>
 
       <p>Date: {dateString}</p>
@@ -114,7 +125,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <p>Capacity: {trip.capacity}</p>
       <p>Restrictions: {trip.restrictions}</p>
       <p>Additional information: {trip.note}</p>
-      <h3>Registration closes: {closeDate}</h3>
+      
       <h4>Permits required:</h4>
       <ul>
         {trip.permits.map((permit: PermitProps) => (
@@ -123,6 +134,11 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
           </div>
         ))}
       </ul>
+
+      {!lotteryRun ? (
+        <>
+      <h3>Registration closes: {closeDate}</h3>
+      <button onClick={runLottery}>Close trip & Run lottery (test mode)</button>
       <p>See the <Link to="/resources">resources page</Link> for more info about permits and preparation</p>
       <hr />
       <div id="genericInfo">
@@ -174,6 +190,16 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       ) : (
         <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
       )}
+</>
+      ) : (
+        <>
+            <TripComments />
+            <hr />
+            <p>mushroom component</p>
+            <hr />
+            </>
+      )}
+
       <hr />
       <p>ADMIN ONLY PERMISSIONS WIP</p>
       <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link>
@@ -182,9 +208,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <p>weather api call based on specific_location</p>
       <p>leaflet map? specific_location</p>
       <hr />
-      <TripComments />
-      <hr />
-      <p>mushroom component</p>
+      
     </>
   )
 }

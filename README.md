@@ -26,6 +26,9 @@ python, django, react, typescript, postgresql
 
 ### Known Bugs
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
+* MushroomList: issue displaying image
+* TripEditForm: wip, issue on front end. back end independently functional.
+* Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
 
 Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
 

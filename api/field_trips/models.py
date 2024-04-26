@@ -60,7 +60,7 @@ class Trip(models.Model):
     return str(self.date)
   
   def run_lottery(self):
-    # delete this later
+    # for Testing Lottery Automation
     print('running lottery...')
     registrations = list(self.registration_set.all())
     random.shuffle(registrations)
