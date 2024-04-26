@@ -14,8 +14,8 @@ class Profile(models.Model):
   avatar = models.URLField(default='https://cdn.pixabay.com/photo/2024/01/24/09/01/ai-generated-8529072_1280.png')
   expiration_date = models.DateField(default=timezone.now() + timedelta(days=365))
   notes = models.TextField(null=True)
-  family = models.CharField(max_length=255, null=True)
-  skills = models.CharField(max_length=500, null=True)
+  family = models.CharField(max_length=255, null=True, blank=True)
+  skills = models.CharField(max_length=500, null=True, blank=True)
 
   def __str__(self):
     return self.user.first_name
