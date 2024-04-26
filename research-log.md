@@ -82,3 +82,6 @@
 * 1000: interview
 * 1415: interview
 * 1900: thank you emails to interviewers and epicenter rankings
+
+### Fri 4/26/24
+* 0830: building out lottery button on front end
