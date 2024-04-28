@@ -9,7 +9,7 @@ interface TripDetailProps {
 };
 
 interface ForecastItem {
-  date: Date;
+  date: string;
   weather: string;
   description: string;
   tempMin: number;
@@ -68,20 +68,25 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       }
       try {
         const weatherData = await getWeather(trip.specific_location);
-        const parsedWeatherData = weatherData.map((item: WeatherData) => {
-          const date = new Date(item.dt_txt);
-          const formattedDate = date.toLocaleString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
-          const weather = item.weather[0].main;
-          const description = item.weather[0].description;
-          const tempMin = item.main.temp_min;
-          const tempMax = item.main.temp_max;
-          const chanceRain = item.pop;
-          const volumeRain = item.rain?.['3h'] || 0;
+        const parsedWeatherData = weatherData
+          .filter((item: WeatherData) => {
+            const date = new Date(item.dt_txt);
+            return date.getHours() === 9;
+          })
+          .map((item: WeatherData) => {
+            const date = new Date(item.dt_txt);
+            const formattedDate = date.toLocaleString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+            const weather = item.weather[0].main;
+            const description = item.weather[0].description;
+            const tempMin = item.main.temp_min;
+            const tempMax = item.main.temp_max;
+            const chanceRain = item.pop;
+            const volumeRain = item.rain?.['3h'] || 0;
 
-          return {
-            date: formattedDate, weather, description, tempMin, tempMax, chanceRain, volumeRain,
-          };
-        });
+            return {
+              date: formattedDate, weather, description, tempMin, tempMax, chanceRain, volumeRain,
+            };
+          });
         setForecast(parsedWeatherData);
       } catch (error) {
         console.error('An error occurred:', error)
@@ -178,19 +183,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   return (
     <>
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
-      <div id='weather'>
-        <h3>5 day forecast</h3>
-        {forecast.map((item, index) => (
-          
-          <div key={index}>
-            <h3>{item.date}: {item.weather}, {item.description} </h3>
-            <p>Temperature Min: {item.tempMin}, Max: {item.tempMax}</p>
-            <p>Chance of Rain: ({item.chanceRain} * 100)%</p>
-            <p>Volume of Rain: {item.volumeRain}</p>
-          </div>
-        ))}
-        </div>
-      <hr />
       <h3>Status: {trip.status}</h3>
 
       <p>Date: {dateString}</p>
@@ -269,8 +261,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
 </>
       ) : (
         <>
-            <h3>Status: {trip.status}</h3>
-
+        <hr />
             <TripComments />
             <hr />
             <p>mushroom component</p>
@@ -283,8 +274,21 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link>
       <button onClick={handleDelete}>Delete Trip</button>
       <hr />
-      <p>weather api call based on specific_location</p>
-      <p>leaflet map? specific_location</p>
+      <div id='weather'>
+        <h3>5 day forecast</h3>
+        {forecast.map((item, index) => (
+
+          <div key={index}>
+            <h4>{item.date}: {item.weather}, {item.description} </h4>
+            <p>Temperature Low: {Math.round(((item.tempMin - 273.15) * 9 / 5 + 32))}°F, High: {Math.round(((item.tempMax - 273.15) * 9 / 5 + 32))}°F</p>
+            <p>Chance of Rain: {(item.chanceRain * 100)}%</p>
+            <p>Volume of rain (last 3 hours): {(item.volumeRain * 0.0393701).toFixed(2)} inches</p>
+            <hr />
+          </div>
+        ))}
+      </div>
+      <hr />
+            <p>leaflet map? specific_location</p>
       <hr />
       
     </>
