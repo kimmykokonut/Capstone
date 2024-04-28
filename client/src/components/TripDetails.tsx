@@ -140,17 +140,20 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     }
   }
 
-  const formattedDate = new Date(trip.date);
-  const formatCloseDate = new Date(trip.registration_close_date)
-  const dateString = `${formattedDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`; 
-  const closeDate = `${formatCloseDate.toLocaleString('default', { month: 'long' })} ${formatCloseDate.getDate()}, ${formatCloseDate.getFullYear()}`;
+  const formattedDate = new Date(`${trip.date}T00:00:00`);
+  const formatCloseDate = new Date(`${trip.registration_close_date}T00:00:00`)
+  //const dateString = `${formattedDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`; 
+  //const closeDate = `${formatCloseDate.toLocaleString('default', { month: 'long' })} ${formatCloseDate.getDate()}, ${formatCloseDate.getFullYear()}`;
+  const dateString = formattedDate.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' });
+  const closeDate = formatCloseDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' });
 
   const formatTime = (time: string) => {
     const [hours, minutes] = time.split(':');
     const tripTime = new Date();
     tripTime.setHours(Number(hours));
     tripTime.setMinutes(Number(minutes));
-    return tripTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    //return tripTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return tripTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'America/Los_Angeles' });
   };
 
   const startTime = formatTime(trip.time_start);

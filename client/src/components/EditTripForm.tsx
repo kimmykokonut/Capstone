@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPermitList, getLeaders, editTrip } from "../api-helper";
-import { useParams } from "react-router-dom";
-//import { TripProps } from "./TripControl";
+import { useParams, useNavigate } from "react-router-dom";
 import { TripData } from "../api-helper";
 
 interface LeaderProps {
@@ -33,6 +32,7 @@ interface EditTripProps {
 }
 
 const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const trip = trips.find(trip => trip.id === Number(id));
 
@@ -78,7 +78,7 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
       permits: formData.getAll('permits').map(value => Number(value)),
     };
     await editTrip(formEdits, trip.id).then(() => {
-      window.location.href = '/trips';
+      navigate('/trips');
     });
   };
 
