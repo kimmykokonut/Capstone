@@ -86,3 +86,6 @@
 ### Fri 4/26/24
 * 0830: building out lottery button on front end
 * 1200: stuck with details page rendering accurate data
+
+### Sun 4/28/24
+* 1000: adding weather api data to app
