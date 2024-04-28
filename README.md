@@ -26,7 +26,7 @@ python, django, react, typescript, postgresql
 
 ### Known Bugs
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
-* MushroomList: issue displaying image-console log says the cookie will expire
+* MushroomList: issue displaying image-console log says the cookie will expire. The issue is not related to storing the URLs, but to the same-origin policy of the browser, which restricts how resources loaded from different origins can interact.  Look into GoogleCloud Storage and django-storages library
 * TripEditForm: wip, issue on front end. back end independently functional.
 * Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
 
@@ -97,20 +97,20 @@ Local server will be at  `http://localhost:5173/`
 - there might be a bug if there is more than 1 coordinator in database for auto-email
 - 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.
 - make lottery weighted. might need more dummy users and more trips to test.
-- integrate weather api for weather report on trip page by date of trip
 - add leaflet map component (ranger stations? trip locations?)
 - data vis for ? # people applied on trips over time...
 - google sign in functionality
 
 ### Notes to self
-- update views to all be class or functional for consistency
 - should test.rest be in git or not?
 - need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
 - make pw stricter but not during testing
 - better security: https at deploy
 - in deploy: change views-login&signup: secure=False to TRUE once in https
 - may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
-** LEFT OFF: want to have user do full registration at sign in? added fname and lname with success but data is being stored as a tuple. 
+** LEFT OFF: want to have user do full registration at sign in? 
+- currently weather results are a 5 day forecast. i want when the trip closes, to have the weather for that date saved and displayed indefinitely and then hide the forecast
+
 
 ### License
 GNU, see license.md for more information
