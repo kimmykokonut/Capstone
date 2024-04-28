@@ -1,12 +1,38 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather } from "../api-helper";
 import TripComments from "./TripComments";
 
 interface TripDetailProps {
   trips: TripProps[];
 };
+
+interface ForecastItem {
+  date: Date;
+  weather: string;
+  description: string;
+  tempMin: number;
+  tempMax: number;
+  chanceRain: number;
+  volumeRain: number;
+}
+interface WeatherData {
+  dt_txt: number;
+  main: {
+    temp_min: number;
+    temp_max: number;
+  };
+  weather: {
+    main: string;
+    description: string;
+  }[];
+  pop: number;
+  rain?: {
+    '3h': number;
+  };
+}
+
 
 const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +43,8 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [lotteryRun, setLotteryRun] = useState(false);
+  const [lotteryRun, setLotteryRun] = useState(trip?.status === 'Closed');
+  const [forecast, setForecast] = useState<ForecastItem[]>([]);
 
   useEffect(() => {
     const checkTripRegistration = async () => {
@@ -26,7 +53,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       }
       try {
         const registrationStatus = await getRegistration(Number(id));
-        console.log('tripid', id);
         setIsRegistered(registrationStatus);
       } catch (error) {
         console.error('An error occurred:', error)
@@ -34,6 +60,40 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     };
     checkTripRegistration();
   }, [id]);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (!trip) {
+        return;
+      }
+      try {
+        const weatherData = await getWeather(trip.specific_location);
+        const parsedWeatherData = weatherData.map((item: WeatherData) => {
+          const date = new Date(item.dt_txt);
+          const formattedDate = date.toLocaleString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+          const weather = item.weather[0].main;
+          const description = item.weather[0].description;
+          const tempMin = item.main.temp_min;
+          const tempMax = item.main.temp_max;
+          const chanceRain = item.pop;
+          const volumeRain = item.rain?.['3h'] || 0;
+
+          return {
+            date: formattedDate, weather, description, tempMin, tempMax, chanceRain, volumeRain,
+          };
+        });
+        setForecast(parsedWeatherData);
+      } catch (error) {
+        console.error('An error occurred:', error)
+      }
+    };
+    fetchWeather();
+  }, [trip]);
+
+  
+  
+
+
 
   if (!trip) {
     return <div>Loading...</div>
@@ -104,20 +164,33 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     try {
       await closeTripRunLotto(trip.id);
       setLotteryRun(true);
-      //trip.status = 'Closed';
-      const updatedTrip = { ...trip, status: 'Closed' };
+      const updatedTrip = { status: 'Closed' };
       await editTrip(updatedTrip, trip.id);
+      //setTripStatus('Closed')
       console.log('trip status updated', trip.status);
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
 
+  
 
   return (
     <>
       <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
-      
+      <div id='weather'>
+        <h3>5 day forecast</h3>
+        {forecast.map((item, index) => (
+          
+          <div key={index}>
+            <h3>{item.date}: {item.weather}, {item.description} </h3>
+            <p>Temperature Min: {item.tempMin}, Max: {item.tempMax}</p>
+            <p>Chance of Rain: ({item.chanceRain} * 100)%</p>
+            <p>Volume of Rain: {item.volumeRain}</p>
+          </div>
+        ))}
+        </div>
+      <hr />
       <h3>Status: {trip.status}</h3>
 
       <p>Date: {dateString}</p>
@@ -196,6 +269,8 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
 </>
       ) : (
         <>
+            <h3>Status: {trip.status}</h3>
+
             <TripComments />
             <hr />
             <p>mushroom component</p>

@@ -35,6 +35,23 @@ export interface TripData {
   registrationClose: Date;
   permits: number[];
 }
+export interface PatchTripData {
+  date?: Date;
+  generalLocation?: string;
+  specificLocation?: string;
+  timeStart?: string;
+  timeEnd?: string;
+  leader?: number;
+  capacity?: number;
+  waitlist?: number;
+  status?: string;
+  restrictions?: string;
+  imageUrl?: string;
+  note?: string;
+  registrationClose?: Date;
+  permits?: number[];
+}
+
 
 export async function signUp(userData: UserData) {
   try {
@@ -349,10 +366,10 @@ export async function createTrip(tripData: NewTripData) {
     throw error;
   }
 }
-export async function editTrip(tripData: TripData, tripId: number) {
+export async function editTrip(tripData: PatchTripData, tripId: number) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -426,6 +443,24 @@ export async function closeTripRunLotto(tripId: number) {
     if (response.ok) {
       const responseData = await response.json();
       return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+//get 5 day forecast from openweather api
+export async function getWeather(location: string) {
+  const [lat, long] = location.split(',').map(Number);
+  try {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_WEATHER_API}`, {
+      method: 'GET',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData.list;
     } else {
       throw new Error('Failed to fetch');
     }
