@@ -89,3 +89,4 @@
 
 ### Sun 4/28/24
 * 1000: adding weather api data to app
+* 1230: update portfolio to include capstone repository and put portfolio link in github profile page.
