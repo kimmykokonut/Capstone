@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getPermitList, getLeaders, editTrip } from "../api-helper";
 import { useParams, useNavigate } from "react-router-dom";
 import { TripData, getTripById } from "../api-helper";
+import { TripProps } from "./TripControl";
 
 interface LeaderProps {
   id: number;
@@ -12,24 +13,24 @@ interface PermitProps {
   id: number;
   name: string;
 }
-export interface Trip {
-  id: number;
-  date: string;
-  general_location: string;
-  specific_location: string;
-  time_start: string;
-  time_end: string;
-  leader: number;
-  capacity: number;
-  waitlist: number;
-  restrictions: string;
-  note: string;
-  registration_close_date: string;
-  permits: number[];
-}
+// export interface Trip {
+//   id: number;
+//   date: string;
+//   general_location: string;
+//   specific_location: string;
+//   time_start: string;
+//   time_end: string;
+//   leader: number;
+//   capacity: number;
+//   waitlist: number;
+//   restrictions: string;
+//   note: string;
+//   registration_close_date: string;
+//   permits: number[];
+// }
 interface EditTripProps {
-  trips: Trip[];
-  updateTrips: (updatedTrip: Trip) => void;
+  trips: TripProps[];
+  updateTrips: (updatedTrip: TripProps) => void;
 }
 
 const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {

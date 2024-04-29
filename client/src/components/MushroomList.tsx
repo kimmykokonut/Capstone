@@ -4,13 +4,7 @@ import { Link } from "react-router-dom";
 
 
 interface MushroomListProps {
-  Mushrooms: {
-    id: number;
-    common_name: string;
-    latin_name: string;
-    image_url: string;
-    info_url: string;
-  }[];
+  mushrooms: MushroomProps[];
 }
 
 const MushroomList: React.FC<MushroomListProps> = ({ mushrooms }) => {

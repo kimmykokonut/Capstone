@@ -32,10 +32,11 @@ export interface TripProps {
   leader: number;
   leaderName: string;
   specific_location: string;
-  capacity: string;
+  capacity: number;
   note: string;
   registration_close_date: string;
-  permits: PermitProps[];
+  permits: number[];
+  waitlist: number;
 }
 
 const TripControl: React.FC = () => {
