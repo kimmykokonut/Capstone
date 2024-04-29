@@ -1,10 +1,11 @@
+import { Box } from "@mui/material";
+
 const Footer = () => {
   // update link if project name changes
   return (
-    <>
-    <hr />
-      <a href="https://github.com/kimmykokonut/Capstone">built with mush love</a>
-    </>
+    <Box sx={{ position: 'fixed', bottom: 0, width: '100%', textAlign: 'center' }}>
+      built with mush love by <a href="https://github.com/kimmykokonut/Capstone" style={{ textDecoration: 'none', color: 'green' }}>kimmykokonut</a>
+    </Box>
   )
 }
 export default Footer;
