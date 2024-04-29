@@ -85,6 +85,10 @@ const TripControl: React.FC = () => {
     fetchMushrooms();
   }, []);
 
+  const updateTrips = (updatedTrip: TripProps) => {
+    setTrips(trips => trips.map(trip => trip.id === updatedTrip.id ? updatedTrip : trip));
+  }
+
   return (
     <>
       <Routes>
@@ -96,7 +100,7 @@ const TripControl: React.FC = () => {
           element={<Dashboard userRegistrations={userRegistrations} trips={trips} />} />
         <Route
           path='/trips/:id'
-          element={<TripDetails trips={trips} />} />
+          element={<TripDetails trips={trips} updateTrips={updateTrips}/>} />
         <Route
           path='/trips'
           element={<TripList trips={trips} />} />
@@ -105,7 +109,7 @@ const TripControl: React.FC = () => {
           element={<NewTripForm />} />
         <Route
           path='/trips/edit/:id'
-          element={<EditTripForm trips={trips} />} />
+          element={<EditTripForm trips={trips} updateTrips={updateTrips}/>} />
         <Route
           path='/resources/checklist'
           element={<Checklist />} />

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from .models import Profile, Registration, Trip, Mushroom, Permit
-from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer, PermitSerializer
+from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer, PermitSerializer, TripEditSerializer
 from rest_framework import status, generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
@@ -170,7 +170,7 @@ def trip_detail(request, pk):
     
     # if dumpling.owner != request.user:
     #   return Response({'message': 'You do not have permission to edit or delete this dumpling.'}, status=status.HTTP_403_FORBIDDEN)
-      serializer = TripSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
+      serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
       if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)

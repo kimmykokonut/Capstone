@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPermitList, getLeaders, editTrip } from "../api-helper";
 import { useParams, useNavigate } from "react-router-dom";
-import { TripData } from "../api-helper";
+import { TripData, getTripById } from "../api-helper";
 
 interface LeaderProps {
   id: number;
@@ -29,9 +29,10 @@ export interface Trip {
 }
 interface EditTripProps {
   trips: Trip[];
+  updateTrips: (updatedTrip: Trip) => void;
 }
 
-const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
+const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const trip = trips.find(trip => trip.id === Number(id));
@@ -77,9 +78,12 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
       registration_close_date: formData.get('registrationClose') as string,
       permits: formData.getAll('permits').map(value => Number(value)),
     };
-    await editTrip(formEdits, trip.id).then(() => {
+    console.log('permits', formEdits.permits);
+    const updatedTrip = await editTrip(formEdits, trip.id);
+    console.log(updatedTrip);
+    const fetchedTrip = await getTripById(trip.id);
+      updateTrips(fetchedTrip);
       navigate('/trips');
-    });
   };
 
   return (
@@ -109,7 +113,7 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
         </fieldset>
         <fieldset>
           <label htmlFor="capacity">Capacity
-            <input type="number" name="capacity" placeholder="Capacity Number" id="capacity" /></label>
+            <input type="number" name="capacity" placeholder="Capacity Number" id="capacity" defaultValue={trip?.capacity} /></label>
           <br />
           <label htmlFor="waitlist">Waitlist size
             <input type="number" name="waitlist" placeholder="Waitlist Number" id="waitlist" defaultValue={trip?.waitlist} /></label>
@@ -127,7 +131,7 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips }) => {
           {permitList.map((permit) => (
             <div key={permit.id}>
               <label htmlFor={`permit-${permit.id}`}>
-                <input type="checkbox" id={`permit-${permit.id}`} name="permits" value={permit.id} />{permit.name}</label>
+                <input type="checkbox" id={`permit-${permit.id}`} name="permits" value={permit.id} defaultChecked={trip?.permits.includes(permit.id)}/>{permit.name}</label>
             </div>
           ))}
         </fieldset>

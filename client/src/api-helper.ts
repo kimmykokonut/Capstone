@@ -469,3 +469,20 @@ export async function getWeather(location: string) {
     throw error;
   }
 }
+export async function getTripById(tripId: number) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}

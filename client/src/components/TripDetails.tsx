@@ -6,6 +6,7 @@ import TripComments from "./TripComments";
 
 interface TripDetailProps {
   trips: TripProps[];
+  updateTrips: (updatedTrip: TripProps) => void;
 };
 
 interface ForecastItem {
@@ -34,9 +35,10 @@ interface WeatherData {
 }
 
 
-const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
+const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const { id } = useParams<{ id: string }>();
   const trip = trips.find(trip => trip.id === Number(id));
+  console.log(trip);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -95,9 +97,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     fetchWeather();
   }, [trip]);
 
-  
-  
-
 
 
   if (!trip) {
@@ -142,8 +141,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
 
   const formattedDate = new Date(`${trip.date}T00:00:00`);
   const formatCloseDate = new Date(`${trip.registration_close_date}T00:00:00`)
-  //const dateString = `${formattedDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`; 
-  //const closeDate = `${formatCloseDate.toLocaleString('default', { month: 'long' })} ${formatCloseDate.getDate()}, ${formatCloseDate.getFullYear()}`;
   const dateString = formattedDate.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' });
   const closeDate = formatCloseDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' });
 
@@ -152,7 +149,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
     const tripTime = new Date();
     tripTime.setHours(Number(hours));
     tripTime.setMinutes(Number(minutes));
-    //return tripTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     return tripTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'America/Los_Angeles' });
   };
 
@@ -174,7 +170,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       setLotteryRun(true);
       const updatedTrip = { status: 'Closed' };
       await editTrip(updatedTrip, trip.id);
-      //setTripStatus('Closed')
+      updateTrips(updatedTrip);
       console.log('trip status updated', trip.status);
     } catch (error) {
       console.error('An error occurred:', error);
@@ -200,9 +196,9 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips }) => {
       <h4>Permits required:</h4>
       <ul>
         {trip.permits.map((permit: PermitProps) => (
-          <div key={permit.id}>
-            <li>{permit.name}: Annual: {permit.annual_cost}, Daily: {permit.day_cost}</li>
-          </div>
+          <li key={permit.id}>
+            {permit.name}: Annual: {permit.annual_cost}, Daily: {permit.day_cost}
+          </li>
         ))}
       </ul>
 

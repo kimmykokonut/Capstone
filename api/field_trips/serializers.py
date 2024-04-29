@@ -39,11 +39,31 @@ class PermitSerializer(serializers.ModelSerializer):
     fields = ['id', 'type', 'day_cost', 'annual_cost', 'name']
 
 class TripSerializer(serializers.ModelSerializer):
-  permits = PermitSerializer(many=True, read_only=True)
-  
+  permits = PermitSerializer(many=True)
+
   class Meta:
     model = Trip
     fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader', 'permits']
+
+class TripEditSerializer(serializers.ModelSerializer):
+  permits = serializers.PrimaryKeyRelatedField(many=True, queryset=Permit.objects.all())
+
+  class Meta:
+        model = Trip
+        fields = ['id', 'date', 'general_location', 'specific_location', 'time_start', 'time_end', 'capacity', 'waitlist', 'restrictions', 'image_url', 'note', 'status', 'registration_close_date', 'leader', 'permits']
+
+  def update(self, instance, validated_data):
+    print('validated data', validated_data)
+    permits_data = validated_data.pop('permits', [])
+    print('permit data', permits_data)
+    instance = super().update(instance, validated_data)
+
+    instance.permits.clear()
+    for permit in permits_data:
+      instance.permits.add(permit.id)
+    
+    instance.save()
+    return instance
 
 class RegistrationSerializer(serializers.ModelSerializer):
   class Meta:
