@@ -94,3 +94,4 @@
 ### Mon 4/29/24
 * 0830: bug: working on state issue with page not rendering accurate data
 * 1000: bug: working on updating permit info on edit trip form.
+* 1315: starting styling
