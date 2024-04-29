@@ -1,14 +1,13 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather, getPermitList } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather } from "../api-helper";
 import TripComments from "./TripComments";
 
 
 import "../App.css"
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Icon } from "leaflet";
 
 interface TripDetailProps {
   trips: TripProps[];
@@ -318,7 +317,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         />
         <Marker position={[lat, long]}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            Not exact location <br /> Leader will provide location closer to trip
           </Popup>
         </Marker>
       </MapContainer>      
