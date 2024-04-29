@@ -105,13 +105,14 @@ const Header = () => {
                   sx={{ minWidth: '30px', p: '4px' }}>
                   <MenuIcon />
                 </Button>
+
                 <Drawer
                   anchor="right"
                   open={open}
                   onClose={toggleDrawer(false)}>
                   <Box
                     sx={{
-                      minWidth: '60vw',
+                      minWidth: '30vw',
                       p: 2,
                       backgroundColor: 'background.paper',
                       flexGrow: 1,
@@ -123,8 +124,7 @@ const Header = () => {
                     </MenuItem>
                     <MenuItem
                       component={Link}
-                      to="/trips"
-                    >
+                      to="/trips">
                       <Typography>trips</Typography>
                     </MenuItem>
                     <MenuItem
@@ -147,6 +147,7 @@ const Header = () => {
             </Toolbar>
           </Container>
         </AppBar>
+        <Toolbar />
       </div>
     </>
   )

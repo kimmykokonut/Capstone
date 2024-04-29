@@ -45,7 +45,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
     return <div>Loading...</div>
   }
   return (
-    <>
+    <div style={{ marginTop: '64px' }}>
       <img src={user.avatar} alt="user avatar" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
       <h1>{user?.user.first_name} {user?.user.last_name}</h1>
       <p>Username: {user?.user.username}</p>
@@ -78,7 +78,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
       <hr />
       <a href="/trips">See upcoming trips</a>
       <hr />
-    </>
+    </div>
   );
 };
 export default Dashboard;
