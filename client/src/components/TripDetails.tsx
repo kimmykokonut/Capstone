@@ -72,20 +72,20 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
     checkTripRegistration();
   }, [id]);
 
-  useEffect(() => {
-    const fetchPermits = async () => {
-      if (!trip) {
-        return;
-      }
-      try{
-        const fetchedPermits = await getPermitsByIds(trip.permits);
-        setPermits(fetchedPermits);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchPermits();
-  }, [trip]);
+  // useEffect(() => {
+  //   const fetchPermits = async () => {
+  //     if (!trip) {
+  //       return;
+  //     }
+  //     try{
+  //       const fetchedPermits = await getPermitsByIds(trip.permits);
+  //       setPermits(fetchedPermits);
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
+  //   fetchPermits();
+  // }, [trip]);
 
   useEffect(() => {
     const fetchWeather = async () => {
