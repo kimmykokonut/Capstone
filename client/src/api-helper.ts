@@ -1,4 +1,3 @@
-import { json } from "react-router-dom";
 import { NewTripData } from "./components/NewTripForm";
 
 export interface UserData {

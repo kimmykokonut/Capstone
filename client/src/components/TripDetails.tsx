@@ -4,6 +4,12 @@ import { useState, useEffect } from "react";
 import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather, getPermitList } from "../api-helper";
 import TripComments from "./TripComments";
 
+
+import "../App.css"
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
+
 interface TripDetailProps {
   trips: TripProps[];
   updateTrips: (updatedTrip: TripProps) => void;
@@ -48,6 +54,8 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const [lotteryRun, setLotteryRun] = useState(trip?.status === 'Closed');
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [permits, setPermits] = useState<PermitProps[]>([]);
+  const [lat, long] = trip?.specific_location.split(', ').map(parseFloat) || [0, 0];
+  console.log(lat, long);
 
   useEffect(() => {
     const checkTripRegistration = async () => {
@@ -192,7 +200,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
       console.error('An error occurred:', error);
     }
   };
-
+  console.log(trip);
   
 
   return (
@@ -204,7 +212,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
       <p>Leader: {trip.leaderName}</p>
       <p>Time: {startTime} to {endTime}</p>
       <p>Area: {trip.general_location}</p>
-      <p>(to become a map) Location: {trip.specific_location}</p>
+      {/* <p>(to become a map) Location: {trip.specific_location}</p> */}
       <p>Capacity: {trip.capacity}</p>
       <p>Restrictions: {trip.restrictions}</p>
       <p>Additional information: {trip.note}</p>
@@ -303,7 +311,17 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         ))}
       </div>
       <hr />
-            <p>leaflet map? specific_location</p>
+      <MapContainer id="map" style={{ height: '300px' }} center={[lat, long]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[lat, long]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>      
       <hr />
       
     </>
