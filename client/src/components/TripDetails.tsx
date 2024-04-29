@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather, getPermitList } from "../api-helper";
 import TripComments from "./TripComments";
 
 interface TripDetailProps {
@@ -47,6 +47,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [lotteryRun, setLotteryRun] = useState(trip?.status === 'Closed');
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
+  const [permits, setPermits] = useState<PermitProps[]>([]);
 
   useEffect(() => {
     const checkTripRegistration = async () => {
@@ -62,6 +63,21 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
     };
     checkTripRegistration();
   }, [id]);
+
+  useEffect(() => {
+    const fetchPermits = async () => {
+      if (!trip) {
+        return;
+      }
+      try{
+        const fetchedPermits = await getPermitsByIds(trip.permits);
+        setPermits(fetchedPermits);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchPermits();
+  }, [trip]);
 
   useEffect(() => {
     const fetchWeather = async () => {

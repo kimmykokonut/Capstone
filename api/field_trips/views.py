@@ -257,9 +257,15 @@ def user_registrations(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def permit_list(request):
-  permits = Permit.objects.all().order_by('name')
+  ids = request.GET.get('ids')
+  if ids:
+    ids = [int(id) for id in ids.split(',')]
+    permits = Permit.objects.filter(id__in=ids).order_by('name')
+  else:  
+    permits = Permit.objects.all().order_by('name')
   serializer = PermitSerializer(permits, many=True)
   return Response(serializer.data)
+
 # returns list of users that are part of Leader Group
 @api_view(['GET'])
 @authentication_classes([CookieTokenAuthentication])

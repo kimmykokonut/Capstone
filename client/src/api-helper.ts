@@ -324,6 +324,26 @@ export async function getPermitList() {
     throw error;
   }
 }
+export async function getPermitsByIds(ids: number[]) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/permits?ids=${ids.join(',')}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
 export async function getLeaders() {
   try {
     const response = await fetch(`http://127.0.0.1:8000/leaders`, {
