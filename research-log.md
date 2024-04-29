@@ -92,4 +92,5 @@
 * 1230: update portfolio to include capstone repository and put portfolio link in github profile page.
 
 ### Mon 4/29/24
-* 0830: working on state issue with page not rendering accurate data
+* 0830: bug: working on state issue with page not rendering accurate data
+* 1000: bug: working on updating permit info on edit trip form.
