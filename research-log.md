@@ -90,3 +90,6 @@
 ### Sun 4/28/24
 * 1000: adding weather api data to app
 * 1230: update portfolio to include capstone repository and put portfolio link in github profile page.
+
+### Mon 4/29/24
+* 0830: working on state issue with page not rendering accurate data
