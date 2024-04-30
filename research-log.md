@@ -95,3 +95,4 @@
 * 0830: bug: working on state issue with page not rendering accurate data
 * 1000: bug: working on updating permit info on edit trip form.
 * 1315: starting styling
+* 2015: debug issue, application isn't working on Chrome. 401, possible issue with samesite='none' for bypassing https in dev mode

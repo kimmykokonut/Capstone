@@ -36,7 +36,8 @@ def login(request):
   token, created = Token.objects.get_or_create(user=user)
   serializer = UserSerializer(instance=user)
   response = Response({"user": serializer.data})
-  response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
+  # once using Https change samesite='None'
+  response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True)
   return response
 
 @api_view(['POST'])
@@ -60,7 +61,7 @@ def signup(request):
     Profile.objects.create(user=user)
     token = Token.objects.create(user=user)
     response = Response({"user": serializer.data}, status=status.HTTP_201_CREATED)
-    response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
+    response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True)
     return response
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -150,7 +151,6 @@ def trip_list(request, format=None):
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
   #not confirmed sicne cookie change
@@ -167,12 +167,9 @@ def trip_detail(request, pk):
     return Response(serializer.data)
   
   elif request.method in ['PUT', 'PATCH']:
-      # check logged in user is owner
-    # print('Dumpling owner:', dumpling.owner)
-    # print('Request user:', request.user)
-    
-    # if dumpling.owner != request.user:
-    #   return Response({'message': 'You do not have permission to edit or delete this dumpling.'}, status=status.HTTP_403_FORBIDDEN)
+      # check logged in user belongs to group admin, coordinator or leader
+    # if  != request.user:
+    #   return Response({'message': 'You do not have permission to edit or delete this trip.'}, status=status.HTTP_403_FORBIDDEN)
       serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
       if serializer.is_valid():
         serializer.save()

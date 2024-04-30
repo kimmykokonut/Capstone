@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { signIn, signUp, checkAuthentication } from "../api-helper";
+import { useState } from "react";
+import { signIn, signUp } from "../api-helper";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, CssBaseline, Grid, Typography, Avatar, Paper, TextField, Button } from "@mui/material";
 import HikingIcon from '@mui/icons-material/Hiking';
 import chicken from '../assets/images/chicken.jpg';
 
-const Hero = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+interface HeroProps {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
   const [userIn, setUserIn] = useState('');
   const [pwIn, setPwIn] = useState('');
   const [username, setUsername] = useState('');
@@ -18,17 +22,6 @@ const Hero = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkUserAuthentication = async () => {
-      const response = await checkAuthentication();
-      setIsAuthenticated(response.isAuthenticated);
-      if (response.isAuthenticated) {
-        navigate('/dashboard');
-      }
-    };
-    checkUserAuthentication();
-  }, [navigate]);
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,8 +91,9 @@ const Hero = () => {
   return (
     <div id="hero">
       {errorMessage && <p>{errorMessage}</p>}
-      {!isAuthenticated && (
-
+      {isAuthenticated ? (
+        <p>You are already signed in</p>
+      ) : (
         <Grid container component="main" sx={{ height: '100vh' }}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7}
@@ -227,41 +221,3 @@ const Hero = () => {
   )
 }
 export default Hero;
-
-{/* <hr />
-      {errorMessage && <p>{errorMessage}</p>}
-      {!isAuthenticated && (
-        <div id="signIn">
-          <form action="POST" onSubmit={handleSignIn}>
-            <fieldset>
-              <legend>Sign In</legend>
-                <label htmlFor="usernameIn"><input type="text" id="usernameIn" placeholder="username" value={userIn} onChange={(e) => setUserIn(e.target.value)} /></label>
-                <label htmlFor="userPwIn"><input type="password" id="userPwIn" placeholder="password" value={pwIn} onChange={(e) => setPwIn(e.target.value)} /></label>
-            </fieldset>
-              <button type="submit">Sign In</button>
-          </form>
-        
-        <hr />
-        <div id="signup">
-              <button onClick={toggleRegisterForm}>No account?</button>
-              {showRegisterForm && (
-                <form action="POST" onSubmit={handleSignUp}>
-                  <fieldset>
-                    <legend>Sign Up</legend>
-                    <label htmlFor="userName"><input type="text" id="userName" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} /></label>
-                    <label htmlFor="userEmail"><input type="email" id="userEmail" placeholder="email@email.com" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
-                    <label htmlFor="userPW"><input type="password" id="userPW" placeholder="password must have at least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
-                  </fieldset>
-                  <fieldset>
-                  <legend>Registration Info</legend>
-                  <label htmlFor="firstName"><input type="text" id="firstName" placeholder="First Name" value={fName} onChange={(e) => setFName(e.target.value)} /></label>
-                  <label htmlFor="lastName"><input type="text" id="lastName" placeholder="Last Name" value={lName} onChange={(e) => setLName(e.target.value)} /></label>
-                  </fieldset>
-                  <button type="submit">Sign Up</button>
-                </form>
-       
-              )}
-            </div>
-            
-        </div>
-      )} */}
