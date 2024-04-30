@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Routes, Route } from 'react-router-dom';
 import ProfileForm from "./ProfileForm";
 import { TripProps } from "./TripControl";
-import { Container, CardHeader, Avatar, CardContent, Typography, Card, CardActions, Box, Divider } from "@mui/material";
+import { Container, CardHeader, Avatar, CardContent, Typography, Card, CardActions, Box } from "@mui/material";
 
 type User = {
   user: {
