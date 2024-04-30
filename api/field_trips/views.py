@@ -115,10 +115,10 @@ def user_details(request, pk):
   except Exception as e:
     return Response({'Error': 'something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-  # UPDATE BELOW WITH COOKIE TOKEN AND TEST
+  # UPDATE BELOW WITH COOKIE TOKEN AND TEST. not tested
 
 @api_view(['GET', 'POST'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
+@authentication_classes([CookieTokenAuthentication])
 def mushroom_list(request, format=None):
   if request.method == 'GET':
     mushrooms = Mushroom.objects.all()
@@ -134,8 +134,9 @@ def mushroom_list(request, format=None):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
+  # not confirmed since cookie change
 @api_view(['GET', 'POST'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
+@authentication_classes([CookieTokenAuthentication])
 def trip_list(request, format=None):
   if request.method == 'GET':
     trips = Trip.objects.all().order_by('-date')
@@ -152,7 +153,9 @@ def trip_list(request, format=None):
     print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
+  #not confirmed sicne cookie change
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])  
+@authentication_classes([CookieTokenAuthentication])
 def trip_detail(request, pk):
   try: 
     trip = Trip.objects.get(pk=pk)

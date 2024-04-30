@@ -13,21 +13,7 @@ interface PermitProps {
   id: number;
   name: string;
 }
-// export interface Trip {
-//   id: number;
-//   date: string;
-//   general_location: string;
-//   specific_location: string;
-//   time_start: string;
-//   time_end: string;
-//   leader: number;
-//   capacity: number;
-//   waitlist: number;
-//   restrictions: string;
-//   note: string;
-//   registration_close_date: string;
-//   permits: number[];
-// }
+
 interface EditTripProps {
   trips: TripProps[];
   updateTrips: (updatedTrip: TripProps) => void;

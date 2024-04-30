@@ -1,8 +1,9 @@
 import { useParams, Link } from "react-router-dom";
 import { TripProps, PermitProps } from "./TripControl";
 import { useState, useEffect } from "react";
-import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather } from "../api-helper";
+import { registerTrip, getRegistration, deleteTrip, closeTripRunLotto, editTrip, getWeather, getPermitsByIds } from "../api-helper";
 import TripComments from "./TripComments";
+import { PatchTripData } from "../api-helper";
 
 
 import "../App.css"
@@ -71,20 +72,20 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
     checkTripRegistration();
   }, [id]);
 
-  // useEffect(() => {
-  //   const fetchPermits = async () => {
-  //     if (!trip) {
-  //       return;
-  //     }
-  //     try{
-  //       const fetchedPermits = await getPermitsByIds(trip.permits);
-  //       setPermits(fetchedPermits);
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     }
-  //   };
-  //   fetchPermits();
-  // }, [trip]);
+  useEffect(() => {
+    const fetchPermits = async () => {
+      if (!trip || trip.permits.length === 0) {
+        return;
+      }
+      try{
+        const fetchedPermits = await getPermitsByIds(trip.permits);
+        setPermits(fetchedPermits);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchPermits();
+  }, [trip]);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -123,7 +124,14 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
 
 
   if (!trip) {
-    return <div>Loading...</div>
+    return (<div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 'calc(100vh - 60px)', // Adjust as needed
+    }}>
+      Loading...</div>
+    );
   }
 
   const openModal = () => {
@@ -191,7 +199,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
     try {
       await closeTripRunLotto(trip.id);
       setLotteryRun(true);
-      const updatedTrip = { status: 'Closed' };
+      const updatedTrip: PatchTripData = { status: 'Closed' };
       await editTrip(updatedTrip, trip.id);
       updateTrips(updatedTrip);
       console.log('trip status updated', trip.status);
@@ -218,7 +226,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
       
       <h4>Permits required:</h4>
       <ul>
-        {trip.permits.map((permit: PermitProps) => (
+        {permits.map((permit: PermitProps) => (
           <li key={permit.id}>
             {permit.name}: Annual: {permit.annual_cost}, Daily: {permit.day_cost}
           </li>
