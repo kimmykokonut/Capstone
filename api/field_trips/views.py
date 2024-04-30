@@ -19,11 +19,14 @@ def welcome(request):
 class CookieTokenAuthentication(TokenAuthentication):
   def authenticate(self, request):
     token = request.COOKIES.get('auth_token')
+    print('token', token)
     if not token:
+      print('Token not found in cookies')
       return None
     try:
       token = Token.objects.get(key=token)
     except Token.DoesNotExist:
+      print('Token not valid', token)
       return None
     return (token.user, token)
   
@@ -36,7 +39,8 @@ def login(request):
   token, created = Token.objects.get_or_create(user=user)
   serializer = UserSerializer(instance=user)
   response = Response({"user": serializer.data})
-  response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
+  # once using Https change samesite='None'
+  response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True)
   return response
 
 @api_view(['POST'])
@@ -60,7 +64,7 @@ def signup(request):
     Profile.objects.create(user=user)
     token = Token.objects.create(user=user)
     response = Response({"user": serializer.data}, status=status.HTTP_201_CREATED)
-    response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=False)
+    response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True)
     return response
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -93,9 +97,11 @@ def logout(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def profile(request):
+  print('profile request', request)
   profile = Profile.objects.get(user=request.user)
   if request.method == 'GET':
     serializer = ProfileSerializer(profile)
+    print('profile response', Response(serializer.data))
     return Response(serializer.data)
   elif request.method == 'PUT':
     serializer = ProfileSerializer(profile, data=request.data, partial=True)

@@ -144,8 +144,10 @@ export async function getProfile() {
       method: 'GET',
       credentials: 'include',
     });
+    console.log('getProfile response', response);
     if (response.ok) {
       const responseData = await response.json();
+      console.log('getProfile responseData', responseData);
       return responseData;
     } else {
       throw new Error('Failed to fetch');
