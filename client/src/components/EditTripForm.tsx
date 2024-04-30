@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPermitList, getLeaders, editTrip, PatchTripData } from "../api-helper";
+import { getPermitList, getLeaders, editTrip } from "../api-helper";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTripById } from "../api-helper";
 import { TripProps } from "./TripControl";
