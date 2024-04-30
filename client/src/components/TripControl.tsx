@@ -50,7 +50,6 @@ const TripControl: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('isauth-1', isAuthenticated)
     const checkUserAuthentication = async () => {
       const response = await checkAuthentication();
       setIsAuthenticated(response.isAuthenticated);
@@ -62,17 +61,12 @@ const TripControl: React.FC = () => {
   }, [navigate, location.pathname]);
 
   useEffect(() => {
-    console.log('isauth-2', isAuthenticated)
-
     if (isAuthenticated) {
     const fetchTrips = async () => {
-      console.log('fetching trips..');
       try {
         const response: { results: TripProps[] } = await getTrips();
-        console.log(response.results);
         const tripsWithLeaderName = await Promise.all(response.results.map(async (trip) => {
           const leaderData = await getUser(trip.leader);
-          console.log('Fetching leader data for each trip...');
           return { ...trip, leaderName: leaderData.first_name }
         }));
         setTrips(tripsWithLeaderName);
@@ -85,8 +79,6 @@ const TripControl: React.FC = () => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    console.log('isauth-3', isAuthenticated)
-
     if (isAuthenticated) {
 
     const fetchUserRegistrations = async () => {
@@ -102,13 +94,10 @@ const TripControl: React.FC = () => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    console.log('isauth-4', isAuthenticated)
-
     if (isAuthenticated) {
     const fetchMushrooms = async () => {
       try {
         const response: { results: MushroomProps[] } = await getMushrooms();
-        console.log(response);
         setMushrooms(response.results);
       } catch (error) {
         console.error('Error:', error);

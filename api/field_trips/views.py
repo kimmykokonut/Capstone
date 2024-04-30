@@ -19,14 +19,11 @@ def welcome(request):
 class CookieTokenAuthentication(TokenAuthentication):
   def authenticate(self, request):
     token = request.COOKIES.get('auth_token')
-    print('token', token)
     if not token:
-      print('Token not found in cookies')
       return None
     try:
       token = Token.objects.get(key=token)
     except Token.DoesNotExist:
-      print('Token not valid', token)
       return None
     return (token.user, token)
   
@@ -97,11 +94,9 @@ def logout(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def profile(request):
-  print('profile request', request)
   profile = Profile.objects.get(user=request.user)
   if request.method == 'GET':
     serializer = ProfileSerializer(profile)
-    print('profile response', Response(serializer.data))
     return Response(serializer.data)
   elif request.method == 'PUT':
     serializer = ProfileSerializer(profile, data=request.data, partial=True)
@@ -156,7 +151,6 @@ def trip_list(request, format=None):
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
   #not confirmed sicne cookie change
@@ -173,12 +167,9 @@ def trip_detail(request, pk):
     return Response(serializer.data)
   
   elif request.method in ['PUT', 'PATCH']:
-      # check logged in user is owner
-    # print('Dumpling owner:', dumpling.owner)
-    # print('Request user:', request.user)
-    
-    # if dumpling.owner != request.user:
-    #   return Response({'message': 'You do not have permission to edit or delete this dumpling.'}, status=status.HTTP_403_FORBIDDEN)
+      # check logged in user belongs to group admin, coordinator or leader
+    # if  != request.user:
+    #   return Response({'message': 'You do not have permission to edit or delete this trip.'}, status=status.HTTP_403_FORBIDDEN)
       serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
       if serializer.is_valid():
         serializer.save()
