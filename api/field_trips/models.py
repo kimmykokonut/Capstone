@@ -42,7 +42,7 @@ class Permit(models.Model):
 class Trip(models.Model):
   date = models.DateField()
   general_location = models.CharField(max_length=100)
-  specific_location = models.CharField(max_length=200, blank=True)
+  specific_location = models.CharField(max_length=200, blank=True, default="45.3420633, -121.9420244")
   time_start = models.TimeField(default=datetime.time(9,0))
   time_end = models.TimeField(default=datetime.time(15,0))
   capacity = models.IntegerField(default=12)

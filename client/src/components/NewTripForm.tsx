@@ -59,7 +59,7 @@ const NewTripForm = () => {
       restrictions: formData.get('restrictions') as string,
       note: formData.get('note') as string,
       registration_close_date: formData.get('registrationClose') as string,
-      permits: formData.getAll('permits').map(value => Number(value)),
+      permits: formData.getAll('permits').map(Number),
     };
     await createTrip(newTrip).then(() => {
       window.location.href = '/trips';
@@ -76,7 +76,7 @@ const NewTripForm = () => {
           <br />
           <input type="text" name="generalLocation" placeholder="Location (i.e. Mt Hood NF)" id="generalLocation" />
           <br />
-          <input type="text" name="specificLocation" placeholder="Lat/Long of location" id="specificLocation" />
+          <input type="text" name="specificLocation" placeholder="45.3420633, -121.9420244" id="specificLocation" />
           <br />
           <label htmlFor="timeStart">Start Time <input type="time" name="timeStart" placeholder="Start Time" id="timeStart" /></label>
           <label htmlFor="timeEnd">End Time <input type="time" name="timeEnd" placeholder="End time" id="timeEnd" /></label>
