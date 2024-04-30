@@ -96,3 +96,6 @@
 * 1000: bug: working on updating permit info on edit trip form.
 * 1315: starting styling
 * 2015: debug issue, application isn't working on Chrome. 401, possible issue with samesite='none' for bypassing https in dev mode
+
+### Tues 4/30/24
+* 0815: bug: changed code to allow permits to be set as list of ids, but now it is showing as permit objects like before, so permits are not rendering on trip details page.
