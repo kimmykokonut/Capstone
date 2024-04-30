@@ -5,12 +5,13 @@ import Dashboard from './Dashboard';
 import TripList from './TripList';
 import TripDetails from './TripDetails';
 import Resources from './Resources';
-import { getTrips, getUser, getUserRegistrations, getMushrooms } from '../api-helper';
+import { getTrips, getUser, getUserRegistrations, getMushrooms, checkAuthentication } from '../api-helper';
 import NewTripForm from './NewTripForm';
 import EditTripForm from './EditTripForm';
 import Checklist from './Checklist';
 import MushroomList from './MushroomList';
 import { MushroomProps } from './Mushroom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface PermitProps {
   id: number;
@@ -40,11 +41,27 @@ export interface TripProps {
 }
 
 const TripControl: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [trips, setTrips] = useState<TripProps[]>([]);
   const [userRegistrations, setUserRegistrations] = useState<any[]>([]);
   const [mushrooms, setMushrooms] = useState<MushroomProps[]>([]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
+    const checkUserAuthentication = async () => {
+      const response = await checkAuthentication();
+      setIsAuthenticated(response.isAuthenticated);
+      if (response.isAuthenticated && location.pathname === '/') {
+        navigate('/dashboard');
+      }
+    };
+    checkUserAuthentication();
+  }, [navigate, location.pathname]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
     const fetchTrips = async () => {
       try {
         const response: { results: TripProps[] } = await getTrips();
@@ -59,9 +76,12 @@ const TripControl: React.FC = () => {
       }
     };
     fetchTrips();
-  }, []);
+  }
+  }, [isAuthenticated]);
 
   useEffect(() => {
+    if (isAuthenticated) {
+
     const fetchUserRegistrations = async () => {
       try {
         const registrations = await getUserRegistrations();
@@ -71,9 +91,11 @@ const TripControl: React.FC = () => {
       }
     };
     fetchUserRegistrations();
-  }, []);
+  }
+  }, [isAuthenticated]);
 
   useEffect(() => {
+    if (isAuthenticated) {
     const fetchMushrooms = async () => {
       try {
         const response: { results: MushroomProps[] } = await getMushrooms();
@@ -84,7 +106,8 @@ const TripControl: React.FC = () => {
       }
     };
     fetchMushrooms();
-  }, []);
+  }
+  }, [isAuthenticated]);
 
   const updateTrips = (updatedTrip: TripProps) => {
     setTrips(trips => trips.map(trip => trip.id === updatedTrip.id ? updatedTrip : trip));
@@ -95,7 +118,7 @@ const TripControl: React.FC = () => {
       <Routes>
         <Route
           path='/'
-          element={<Hero />} />
+          element={<Hero isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
         <Route
           path='/dashboard/*'
           element={<Dashboard userRegistrations={userRegistrations} trips={trips} />} />

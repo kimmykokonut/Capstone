@@ -5,8 +5,13 @@ import { Box, CssBaseline, Grid, Typography, Avatar, Paper, TextField, Button } 
 import HikingIcon from '@mui/icons-material/Hiking';
 import chicken from '../assets/images/chicken.jpg';
 
-const Hero = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+interface HeroProps {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
+  //const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userIn, setUserIn] = useState('');
   const [pwIn, setPwIn] = useState('');
   const [username, setUsername] = useState('');
@@ -19,16 +24,16 @@ const Hero = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkUserAuthentication = async () => {
-      const response = await checkAuthentication();
-      setIsAuthenticated(response.isAuthenticated);
-      if (response.isAuthenticated) {
-        navigate('/dashboard');
-      }
-    };
-    checkUserAuthentication();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const checkUserAuthentication = async () => {
+  //     const response = await checkAuthentication();
+  //     setIsAuthenticated(response.isAuthenticated);
+  //     if (response.isAuthenticated && location.pathname === '/') {
+  //       navigate('/dashboard');
+  //     }
+  //   };
+  //   checkUserAuthentication();
+  // }, [navigate]);
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,8 +103,9 @@ const Hero = () => {
   return (
     <div id="hero">
       {errorMessage && <p>{errorMessage}</p>}
-      {!isAuthenticated && (
-
+      {isAuthenticated ? (
+        <p>You are already signed in</p>
+      ) : (
         <Grid container component="main" sx={{ height: '100vh' }}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7}
