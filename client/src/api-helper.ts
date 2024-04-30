@@ -35,7 +35,7 @@ export interface TripData {
   permits: number[];
 }
 export interface PatchTripData {
-  date?: Date;
+  date?: string;
   generalLocation?: string;
   specificLocation?: string;
   timeStart?: string;

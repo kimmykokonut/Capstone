@@ -24,11 +24,11 @@ describe here
 ### Built With
 python, django, react, typescript, postgresql
 
-### Known Bugs
+### Known Bugs 
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
 * MushroomList: issue displaying image-console log says the cookie will expire. The issue is not related to storing the URLs, but to the same-origin policy of the browser, which restricts how resources loaded from different origins can interact.  Look into GoogleCloud Storage and django-storages library
-* TripEditForm: works except for updating Permits
 * Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
+* Chrome console warning: Reading cookie in cross-site context will be blocked in future Chrome versions. Once deployed in https, try: cookie = "name=value; SameSite=None; Secure";  (currently: response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True))
 
 Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
 

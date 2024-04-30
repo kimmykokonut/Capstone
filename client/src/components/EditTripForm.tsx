@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPermitList, getLeaders, editTrip } from "../api-helper";
 import { useParams, useNavigate } from "react-router-dom";
-import { TripData, getTripById } from "../api-helper";
+import { getTripById } from "../api-helper";
 import { TripProps } from "./TripControl";
 
 interface LeaderProps {
@@ -18,6 +18,20 @@ interface EditTripProps {
   trips: TripProps[];
   updateTrips: (updatedTrip: TripProps) => void;
 }
+interface EditTripFormData {
+  date: string;
+  general_location: string;
+  time_start: string;
+  time_end: string;
+  restrictions: string;
+  leader: number;
+  specific_location: string;
+  capacity: number;
+  note: string;
+  registration_close_date: string;
+  permits: number[];
+  waitlist: number;
+}
 
 const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
   const navigate = useNavigate();
@@ -26,13 +40,6 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
 
   const [leaders, setLeaders] = useState<LeaderProps[]>([]);
   const [permitList, setPermitList] = useState<PermitProps[]>([]);
-  const [tripData, setTripData] = useState<TripData | null>(null);
-
-  useEffect(() => {
-    if (trip) {
-      setTripData(trip);
-    }
-  }, [trip]);
 
   const fetchLeaders = async () => {
     setLeaders(await getLeaders());
@@ -50,8 +57,12 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!trip) {
+      throw new Error('Trip is undefined');
+    }
+
     const formData = new FormData(e.currentTarget);
-    const formEdits: TripData = {
+    const formEdits: EditTripFormData = {
       date: formData.get('date') as string,
       general_location: formData.get('generalLocation') as string,
       specific_location: formData.get('specificLocation') as string,
