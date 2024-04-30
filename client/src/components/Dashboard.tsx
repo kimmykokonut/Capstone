@@ -53,7 +53,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
             <Avatar
               src={user?.avatar}
               aria-label="user avatar"
-              sx={{ width: 100, height: 100 }} />
+              sx={{ width: 100, height: 100, border: '1px solid black' }} />
           }
           title={`${user?.user.first_name} ${user?.user.last_name}`}
           titleTypographyProps={{ variant: 'h5', sx: { fontSize: '1.5rem' } }}
@@ -63,7 +63,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
         </CardHeader>
         <CardContent >
           <Typography variant="subtitle1" color="text.secondary">Phone: {user?.phone || 'None provided'}</Typography>
-          <Typography variant="subtitle1" color="text.secondary">Emergency Contact: {user?.e_name || 'None provided'} ({user?.e_phone || 'None provided'})</Typography>
+          <Typography variant="subtitle1" color="text.secondary">Emergency Contact: {user?.e_name || 'None provided'} </Typography>
+          <Typography variant="subtitle1" color="text.secondary">Emergency Phone: ({user?.e_phone || 'None provided'})</Typography>
           <Typography variant="subtitle1" color="text.secondary">Membership expiration: {user?.expiration_date ? new Date(user.expiration_date).toLocaleDateString() : 'None provided'}</Typography>
           <Typography variant="subtitle1" color="text.secondary">Family: {user?.family || 'None provided'}</Typography>
           <Typography variant="subtitle1" color="text.secondary">Skills: {user?.skills || 'None provided'}</Typography>

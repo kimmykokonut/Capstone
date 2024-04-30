@@ -1,4 +1,5 @@
 import { ProfileData, updateProfile } from "../api-helper";
+import { Container, Box, Button, TextField } from '@mui/material';
 
 type User = {
   phone: string;
@@ -35,22 +36,24 @@ const ProfileForm = ({ user }: Props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+    <Container>
+      <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
         <title>Update your info needed for field tirp registration</title>
         <fieldset>
-          <legend>Your information</legend>
-          <input type="text" name="phone" placeholder="Phone Number" id="phone" defaultValue={user?.phone} />
-          <input type="text" name="avatar" placeholder="url of avatar image" id="avatar" defaultValue={user?.avatar} />
-          <input type="text" name="family" placeholder="Family you share a membership with" id="family" defaultValue={user?.family} />
-          <input type="text" name="skills" placeholder="what skills can you offer? i.e. identication level" defaultValue={user?.skills} />
+          <legend>You</legend>
+            <TextField name="phone" label="Phone Number" id="phone" defaultValue={user?.phone} variant="standard" />
+            <TextField name="avatar" label="url of avatar image" id="avatar" variant="standard" defaultValue={user?.avatar} />
+            <TextField name="family" label="Family you share a membership with" id="family" variant="standard" defaultValue={user?.family} />
+            <TextField name="skills" label="skills? i.e. identication level" variant="standard" defaultValue={user?.skills} />
         </fieldset>
         <fieldset>
-          <legend>Emergency Contact</legend>
-          <input type="text" name="e_name" placeholder="Name" id="eName" defaultValue={user?.e_name} />
-          <input type="text" name="e_phone" placeholder="Phone" id="ePhone" defaultValue={user?.e_phone} />
+          <legend>Emergency Contact Info</legend>
+            <TextField name="e_name" label="Name" id="eName" variant="standard" defaultValue={user?.e_name} />
+            <TextField name="e_phone" label="Phone" id="ePhone" variant="standard" defaultValue={user?.e_phone} />
         </fieldset>
-        <button type="submit">Update</button>
-      </form>
+        <Button type="submit" variant="contained" color="success" sx={{ mt: 2 }}>Update</Button>
+        </Box>
+      </Container>
       </>
   )
 }
