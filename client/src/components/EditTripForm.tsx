@@ -40,13 +40,6 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
 
   const [leaders, setLeaders] = useState<LeaderProps[]>([]);
   const [permitList, setPermitList] = useState<PermitProps[]>([]);
-  //const [tripData, setTripData] = useState<TripProps | null>(null);
-
-  // useEffect(() => {
-  //   if (trip) {
-  //     setTripData(trip);
-  //   }
-  // }, [trip]);
 
   const fetchLeaders = async () => {
     setLeaders(await getLeaders());
