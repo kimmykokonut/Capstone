@@ -59,6 +59,10 @@ Explore the API endpoints in Postman, RestClient or Django Admin
 
 ### Using Django Admin
 
+<div style="text-align: center">
+  <img src="../assets/diagrams/screenshots/django-admin.png" alt="Django Admin Screenshot" width="500" >
+</div>
+
 Django Admin [Documentation](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Admin_site)
 
 1. The admin.py file is already setup, you need to create a superuser. Navigate to the same directory as manage.py
@@ -66,10 +70,6 @@ Django Admin [Documentation](https://developer.mozilla.org/en-US/docs/Learn/Serv
 3. Start the development server `$python manage.py runserver`
 4. In the browser, open the /admin URL `http://127.0.0.1:8000/admin`, enter your new superuser credentials.
 5.  The page you will be brought to displays all the models, which you can explore the data and create, edit or delete records.
-
-<div style="text-align: center">
-  <img src="../assets/diagrams/screenshots/django-admin.png" alt="Django Admin Screenshot" width="500" >
-</div>
 
 #### PostgreSQL Database Diagram
 
@@ -85,6 +85,7 @@ Django Admin [Documentation](https://developer.mozilla.org/en-US/docs/Learn/Serv
 
 ### API Endpoints
 
+* Pagination built into mushroom_list and trip_list (how much?)
 *** UPDATE---------------------------------------
 
 ```
@@ -98,6 +99,102 @@ Django Admin [Documentation](https://developer.mozilla.org/en-US/docs/Learn/Serv
 /trips/{id}/register (post-user registers for trip, their token is their id)
 /trips/{id}/results (get-get results of lottery and users' status on trip) 
 ```
+- Base Url: `http://127.0.0.1:8000`
+
+#### HTTP Request Structure
+```
+POST /login | Log in registered user and receive auth token
+POST /signup | Register new user
+POST /logout | Logs out user by deleting token
+GET /profile | Retrieves user profile of signed in user
+PUT /profile | Edit user profile data
+
+GET /mushrooms | Retrieves list of mushroom objects from database
+POST /mushrooms | Create new mushroom object
+PATCH?
+DELETE?
+
+GET /trips | Retrieves list of trip objects
+POST /trips | Create new trip object
+GET /trips/:id | Retrieves trip object by id
+PATCH /trips/:id | Edits trip object
+PUT /trips/:id | Edits entire trip object
+DELETE /trips/:id | Deletes trip object by id
+POST /trips/:id/register | Signed in user registers for specific field trip, upon registration, status in Registration join table is 'registered'
+GET /trips/:id/register | Retrieve registration data for specific trip
+POST /trips/:id/lottery | Activate lottery, where registered users are randomized, registration status changed to 'accepted, waitlisted or rejected' and automated emails sent to users with their updated status. Leader is emailed the group of accepted and waitlisted participants.
+GET /trips/:id/results | Retrieve results of lottery and registrants by status
+
+GET /user/registrations | Retrieve list of trips user is registered for and their status
+GET /user/:id | Retrieve user data by id
+
+GET /permits | Retrieve list of permit objects
+GET /permits?ids={id} | Retrieve permit by id number
+
+GET /leaders | Retrieve list of users belonging to Leader Group Class
+```
+---
+
+#### Example Query
+```
+http://127.0.0.1:8000/trips/15
+```
+
+#### Sample JSON Response
+```
+  {
+  "id": 15,
+  "date": "2024-05-10",
+  "general_location": "Kelly Point State Park",
+  "specific_location": "45.64025, -122.76294",
+  "time_start": "08:00:00",
+  "time_end": "15:00:00",
+  "capacity": 4,
+  "waitlist": 2,
+  "restrictions": "none",
+  "image_url": "https://cdn.pixabay.com/photo/2023/10/21/11/23/ai-generated-8331261_1280.png",
+  "note": "foraging not allowed, educational foray only",
+  "status": "Registration Open",
+  "registration_close_date": "2024-05-06",
+  "leader": 22,
+  "permits": [
+    2
+  ]
+}
+```
+** NEEDED?
+#### Example Query to create restaurant entry
+```
+POST http://127.0.0.1:8000/restaurants
+Content-Type: application/json
+
+ {
+    "name": "Gracie's Apizza",
+    "address": "7304 N Leavitt Ave, Portland, OR 97203",
+    "website": "https://www.graciesapizza.com/",
+    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
+    "latitude": 45.589974368346105,
+    "longitude": -122.75392355397106,
+    "type_id": 1
+  }
+```
+
+#### Sample JSON Response
+200 OK
+```
+{
+    "id": 2, 
+    "name": "Gracie's Apizza",
+    "address": "7304 N Leavitt Ave, Portland, OR 97203",
+    "website": "https://www.graciesapizza.com/",
+    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
+    "latitude": 45.589974368346105,
+    "longitude": -122.75392355397106,
+    "visible": False,
+    "type_id": 1
+  }
+```
+
 
 ### Miscellaneous
 
