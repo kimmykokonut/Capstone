@@ -2,27 +2,63 @@
 ### by [Kim Robinson](https://github.com/kimmykokonut)
 
 ---------------------------
-### Jump around!
-* <a href="#about-the-project">About the Project</a>
-* <a href="#description">Description</a>
-* <a href="#built-with">Built With</a>
-* <a href="#known-bugs">Known Bugs</a>
+### Jump around!* <a href="#about">About the Project</a>
+  * <a href="#description">Description</a>
+  * <a href="#built-with">Built With</a>
+  * <a href="#known-bugs">Known Bugs</a>
 * <a href="#getting-started">Getting Started</a>
-* <a href="#prerequisites">Prerequisites</a>
-* <a href="#setup">Setup</a>
+  * <a href="#prerequisites">Prerequisites</a>
+  * <a href="#setup">Setup</a>
 * <a href="#api-documentation">API Documention</a>
-* <a href="#setup-client-side">Setup Client Side</a>
-* <a href="#stretch-goals">Stretch Goals</a>
-* <a href="#license">License</a>
-* <a href="#acknowledgements">Acknowledgements</a>
+  * <a href="#user-authentication">User Authentication & Authorization</a>
+  * <a href="#api-endpoints">API Endpoints</a>
+* <a href="#miscellaneous">Miscellaneous</a>
+  * <a href="#license">License</a>
+  * <a href="#acknowledgements">Acknowledgements</a>
+  * <a href="#stretch-goals">Stretch Goals</a>
+  * <a href="#contact">Contact</a>
 ---------------------------
 ### About the Project
 
 ### Description
-describe here
+
+Myco Matrix API allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  There is also a mushroom model in the database with a many to many relationship with trips, with a stretch goal for users to attach mushrooms seen on specific field trips.  This API utilizes RESTful principles and uses Token Authentication for user authentication and authorization.  Tokens are stored in browser cookies.
 
 ### Built With
 python, django, react, typescript, postgresql
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+* Psycopg2
+* Python Decouple
+* Django CORS Headers
+* SMTP Email Backend
+* Testing: Django TestCase class
+
+### Known Bugs 
+* None known for WebAPI
+
+_Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs_ 
+
+### Getting Started
+
+### Prerequisites
+
+#### Install Postman
+(Optional) Download and install [Postman] to test API calls(https://www.postman.com/downloads/).
+(Optional) Download and install VS Code [RestClient extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+
+#### Code Editor
+  To view or edit the code, you will need a code editor or text editor. The open-source code editor we used is VisualStudio Code.
+
+  1) Code Editor Download: [VisualStudio Code](https://www.npmjs.com/)
+  2) Click the download most applicable to your OS and system.
+  3) Wait for download to complete, then install -- Windows will run the setup exe and macOS will drag and drop into applications.
+
 
 ### Known Bugs 
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
