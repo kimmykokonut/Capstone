@@ -1,5 +1,6 @@
 import Trip from "./Trip";
 import { Link } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
 
 interface TripListProps {
   trips: {
@@ -29,11 +30,14 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
   }
   return (
     <>
-      <h2>Upcoming Field Trips</h2>
+      <Typography variant="h4" align="center" mt="30px">Upcoming Field Trips</Typography>
+      <hr />
       {/* make this visible to admin/coordinator/leader */}
       <Link to='/add-trip'>Add new trip (auth only)</Link>
-      <hr />
-      {trips.map((trip: TripProps) => (
+      <Grid container spacing={2}>
+          {trips.map((trip: TripProps) => (
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+
         <Trip
           key={trip.id}
           id={trip.id}
@@ -43,8 +47,10 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
           image_url={trip.image_url}
           status={trip.status}
         />
+              </Grid>
+
       ))}
-      <hr />
+      </Grid>
     </>
   );
 };

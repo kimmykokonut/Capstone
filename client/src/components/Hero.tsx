@@ -3,7 +3,7 @@ import { signIn, signUp } from "../api-helper";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, CssBaseline, Grid, Typography, Avatar, Paper, TextField, Button } from "@mui/material";
 import HikingIcon from '@mui/icons-material/Hiking';
-import chicken from '../assets/images/chicken.jpg';
+import mushroom from '../assets/images/heart.jpg';
 
 interface HeroProps {
   isAuthenticated: boolean;
@@ -85,8 +85,6 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       </Typography>
     );
   }
-  {/* <h1>Oregon Mycological Society</h1>
-      <h3>Register, Connect, Discover, Learn</h3> */}
 
   return (
     <div id="hero">
@@ -98,11 +96,17 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7}
             sx={{
-              backgroundImage: `url(${chicken})`,
+              backgroundImage: `url(${mushroom})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-            }} />
+            }} >
+              <Box sx={{ m: 5, display: { xs: 'none', sm: 'block' } }}>
+                <Typography variant="h3" color="text.primary">Oregon Mycological Society</Typography>
+                <Typography variant="h5" color="text.primary">Register, Connect, Discover, Learn</Typography>
+              </Box>
+            </Grid>
+
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
               <Avatar sx={{ m: 1, bgcolor: 'success.main' }}>
