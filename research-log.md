@@ -103,4 +103,4 @@
 * 1600: Material UI wip
 
 ### Wed 5/1/24
-* 0800: Working on README
+* 0800: Working on README (3!)
