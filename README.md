@@ -1,64 +1,54 @@
-#  Foray Friends (name wip)
-### by [Kim Robinson](https://github.com/kimmykokonut)
+<hr />
+<div style="text-align: center">
+  <h1>Myco Matrix</h1>
+  <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
+  <p>Initiated April 15, 2024</p>
+  <img src="./client/src/assets/images/logo.png" alt="oregon mycological society logo" width="300">
+</div>
 
 ---------------------------
-### Jump around!* <a href="#about">About the Project</a>
+### Jump around!
+* <a href="#about-the-project">About the Project</a>
   * <a href="#description">Description</a>
   * <a href="#built-with">Built With</a>
   * <a href="#known-bugs">Known Bugs</a>
 * <a href="#getting-started">Getting Started</a>
   * <a href="#prerequisites">Prerequisites</a>
   * <a href="#setup">Setup</a>
-* <a href="#api-documentation">API Documention</a>
-  * <a href="#user-authentication">User Authentication & Authorization</a>
-  * <a href="#api-endpoints">API Endpoints</a>
+* <a href="/client/README.md">Readme - Client Side</a>
+* <a href="/api/README.md">Readme - Backend API (User authentication, API Endpoints, Django Admin)</a>
 * <a href="#miscellaneous">Miscellaneous</a>
   * <a href="#license">License</a>
   * <a href="#acknowledgements">Acknowledgements</a>
-  * <a href="#stretch-goals">Stretch Goals</a>
+  * <a href="#stretch-goals-and-thoughts">Stretch Goals and Thoughts</a>
   * <a href="#contact">Contact</a>
 ---------------------------
-### About the Project
+## About the Project
 
 ### Description
 
-Myco Matrix API allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  There is also a mushroom model in the database with a many to many relationship with trips, with a stretch goal for users to attach mushrooms seen on specific field trips.  This API utilizes RESTful principles and uses Token Authentication for user authentication and authorization.  Tokens are stored in browser cookies.
+  The Myco Matrix application allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users.
+
+  This project was inspired by my years spent as the volunteer field trip coordinator for the [Oregon Mycological Society](https://www.wildmushrooms.org/).  I have a strong desire to streamline and automate the process while freeing up volunteer time for other efforts. My long-term goal is to integrate this project into their website to be used for future field trips and provide archival knowledge and encourage more member connection and community.
 
 ### Built With
-python, django, react, typescript, postgresql
+* [React Leaflet](https://react-leaflet.js.org/) 
+* [OpenWeather API](https://openweathermap.org/api)
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-* Psycopg2
-* Python Decouple
-* Django CORS Headers
-* SMTP Email Backend
-* Testing: Django TestCase class
-
-### Known Bugs 
-* None known for WebAPI
-
-_Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs_ 
-
-### Getting Started
-
-### Prerequisites
-
-#### Install Postman
-(Optional) Download and install [Postman] to test API calls(https://www.postman.com/downloads/).
-(Optional) Download and install VS Code [RestClient extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
-
-#### Code Editor
-  To view or edit the code, you will need a code editor or text editor. The open-source code editor we used is VisualStudio Code.
-
-  1) Code Editor Download: [VisualStudio Code](https://www.npmjs.com/)
-  2) Click the download most applicable to your OS and system.
-  3) Wait for download to complete, then install -- Windows will run the setup exe and macOS will drag and drop into applications.
-
 
 ### Known Bugs 
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
@@ -68,76 +58,105 @@ _Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or 
 
 Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
 
+---
 
-### Getting Started
+## Getting Started
 
 ### Prerequisites
 
-### Setup
+### Code Editor
+  To view or edit the code, you will need a code editor or text editor. The open-source code editor we used is VisualStudio Code.
+
+  1) Code Editor Download: [VisualStudio Code](https://www.npmjs.com/)
+  2) Click the download most applicable to your OS and system.
+  3) Wait for download to complete, then install -- Windows will run the setup exe and macOS will drag and drop into applications.
+
+### Install RestClient Extension for Visual Studio Code
+(Optional) Download and install VS Code [RestClient extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+
+### Install Postman
+(Optional) Download and install [Postman] to test API calls(https://www.postman.com/downloads/).
+
+### Install Homebrew (macOS)
+_I highly recommend you download this package manager to install software._
+
+In terminal:
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+### Install Python via homebrew
+In terminal: 
+`$ brew install python@3`
+(Note: pip is included with Python-it is the standard package manager for Python)
+
+### OpenWeather API
+You will need your own API key if you want to have the weather report functionality that is present on the TripDetails page.
+Go to `https://openweathermap.org/api`, register for an API key and put it in the .env file you will create later on.
 
 
-notes:
-Install Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+## Setup
 
-Install python 3 `$ brew install python@3`
-download python.
-clone project
+### Clone repository
 
-create virtual env
-`$ python3 -m venv .venv`
+1. Navigate to the [repository](https://github.com/kimmykokonut/Capstone).
+2. Click the `Fork` button and you will be taken to a new page where you can give your repository a new name and description. Choose "create fork".
+3. Click the `Code` button and copy the url for HTTPS.
+4. On your local computer, create a working directory of your choice.
+5. In this new directory, via the terminal, type `$ git clone https://github.com/kimmykokonut/Capstone`.
+6. Run the command `cd Capstone` to enter into the project directory.
+7. View or Edit: On your terminal, type `$ code .` to open the project in VS Code.
 
-enter virtual env
-`$ . .venv/bin/activate`
+### Install dependencies - Front/Client Side
+1. In VSCode Terminal: navigate to `client` directory
+2. Enter `$ npm install` to compile the application's code and install all needed dependencies.
+3. Run local server: `$ npm run dev`
+(This will be located at: http://localhost:5173/)
 
-install dependencies
-`$ pip install -r requirements.txt
-run server (http://127.0.0.1:8000/)
-`$ python manage.py runserver`
+### Install dependencies - Backend/WebAPI
+1. In VSCode Terminal: navigate to `api` directory.
+2. Make sure the .gitignore in the root directory has .venv in it.
+3. Create a virtual environment `$ python3 -m venv .venv`
+4. Enter the virtual environment `$ . .venv/bin/activate`
+5. Install packages and dependencies `$ pip install -r requirements.txt`
+<!-- 5.5. Maybe install Django if not in step 5. `$ pip install django` -->
+6. Run backend server (http://127.0.0.1:8000) `$ python manage.py runserver`
+- To exit virtual environment: `$ . deactivate`
 
-to exit virtual env
-`$ . deactivate`
-
-setupadmin?
-
-#### Database
-
-![Sql Relationship Diagram](./assets/diagrams/sql2.png)
-
-
-### API Documention
-
+### API .env
+1. Make sure the .gitignore has .env in it and is committed before step 2.
+2. Create .env file in the root directory for the backend api.
+3. Add in the following fields with your own personal information: (note host and port may differ depending on what service you are using)
 ```
-/signup (post)
-/login (post)
-/logout (post)
-/profile (get, put)-permission to authenticated user, coordinator and admin
-/mushrooms (get, post)-all members. (put/delete in rest admin)
-/trips (get-all members, post-admin/coordinator)
-/trips/{id} (get-all members, put-admin/coordinator, delete-admin/coordinator)
-/trips/{id}/register (post-user registers for trip, their token is their id)
-/trips/{id}/results (get-get results of lottery and users' status on trip) 
+SECRET_KEY = '{YOUR-KEY}'
+DB_USER='{YOUR-USER-NAME}'
+DB_PASSWORD='{YOUR-DATABASE-PASSWORD}'
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='{YOUR-SENDER-EMAIL}'
+EMAIL_HOST_PASSWORD='{YOUR-SENDER-PASSWORD}'
 ```
 
-### Setup Client Side
-- This is a React App scaffolded with Vite using Typescript
-- cd into client
-- in terminal: 
-  ```
-  npm install
-  npm run dev  
-  ```
-Local server will be at  `http://localhost:5173/`
+### Client .env
+1. Create a .env file in the same directory level as package.json (In my file structure this is Capstone/client)
+2. Add the following field with your personal API key `VITE_WEATHER_API={YOUR-API-KEY}`
 
-### Stretch Goals
 
-- there might be a bug if there is more than 1 coordinator in database for auto-email
+### Stretch Goals and Thoughts
+
+- There might be a bug if there is more than 1 coordinator in database for auto-email
 - 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.
-- make lottery weighted. might need more dummy users and more trips to test.
-- add leaflet map component (ranger stations? trip locations?)
-- data vis for ? # people applied on trips over time...
-- google sign in functionality
+- Make lottery weighted. might need more dummy users and more trips to test.
+- Add chart.js for data visualization (for ? # people applied on trips over time...# species seen)
+- Add google sign in functionality
 
-### Notes to self
+### Contact and Support
+
+If you have any feedback or concerns, 
+[Report Bug](https://github.com/kimmykokonut/Capstone/issues)
+[Request Feature](https://github.com/kimmykokonut/Capstone/issues)
+
+
+### Notes to self-to do
 - should test.rest be in git or not?
 - need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
 - make pw stricter but not during testing
@@ -152,4 +171,6 @@ Local server will be at  `http://localhost:5173/`
 GNU, see license.md for more information
 
 ### Acknowledgements
+
+Thank you to the Oregon Mycological Society, a volunteer based nonprofit group in Portland Oregon that I am proud to be a member of.  I am grateful for the community I am part of with them.
 -----------------------------
