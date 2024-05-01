@@ -21,9 +21,10 @@ Return to the [main project README](../README.md) for General information and se
   * <a href="#using-django-admin">Using Django Admin</a>
   * <a href="#user-authentication-and-authorization">User Authentication and Authorization</a>
   * <a href="#api-endpoints">API Endpoints</a>
-* <a href="#miscellaneous">Miscellaneous</a>
-  * <a href="#stretch-goals">Stretch Goals</a>
----------------------------
+* <a href="#license">License</a>
+
+---
+
 ### About the Project
 
 ### Description
@@ -277,16 +278,6 @@ Content-Type: application/json
 }
 ```
 
-### Miscellaneous
+### License
 
-### Stretch Goals
-
-- 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.
-- Make lottery weighted. Need more dummy users and more trips to test.
-
-### Notes to self
-- should test.rest be in git or not?
-- make pw stricter but not during testing
-- better security: https at deploy
-- in deploy: change views-login&signup: secure=False to TRUE once in https
-- may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
+GNU General Public License v3.0, See license.md for more information

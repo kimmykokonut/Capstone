@@ -18,16 +18,18 @@
 * <a href="/client/README.md">Readme - Client Side</a>
 * <a href="/api/README.md">Readme - Backend API (User authentication, API Endpoints, Django Admin)</a>
 * <a href="#miscellaneous">Miscellaneous</a>
+  * <a href="#contact-and-support">Contact and Support</a>
   * <a href="#license">License</a>
   * <a href="#acknowledgements">Acknowledgements</a>
   * <a href="#stretch-goals-and-thoughts">Stretch Goals and Thoughts</a>
-  * <a href="#contact">Contact</a>
 ---------------------------
 ## About the Project
 
 ### Description
 
-  The Myco Matrix application allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users.
+  Myco Matrix is an application where users can register for field trip lotteries, connect with other members and access resources to ensure their foraging experience is safe and permitted.
+
+  The Myco Matrix allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users.
 
   This project was inspired by my years spent as the volunteer field trip coordinator for the [Oregon Mycological Society](https://www.wildmushrooms.org/).  I have a strong desire to streamline and automate the process while freeing up volunteer time for other efforts. My long-term goal is to integrate this project into their website to be used for future field trips and provide archival knowledge and encourage more member connection and community.
 
@@ -88,6 +90,16 @@ In terminal:
 `$ brew install python@3`
 (Note: pip is included with Python-it is the standard package manager for Python)
 
+### Install PostgreSQL via homebrew
+I used PostgreSQL database for this project and pgAdmin as my graphical interface. You are welcome to use the SQLite database that comes built into Django, but it is not as scalable as an option for a database.
+If you use a database other than PostgreSQL, you will need to update the database settings in `settings.py`
+
+* To install: `$ brew install postgresql`
+* To start the server: `$ brew services start postgresql` or `$ brew services run postgresql` to have it not restart at boot time`
+* To connect to the database: `$ psql postgres`
+pgAdmin(optional)
+* Install [pgAdmin](https://www.pgadmin.org/) (Administration and development platform for PostgreSQL) `brew install --cask pgadmin4`
+
 ### OpenWeather API
 You will need your own API key if you want to have the weather report functionality that is present on the TripDetails page.
 Go to `https://openweathermap.org/api`, register for an API key and put it in the .env file you will create later on.
@@ -140,6 +152,19 @@ EMAIL_HOST_PASSWORD='{YOUR-SENDER-PASSWORD}'
 1. Create a .env file in the same directory level as package.json (In my file structure this is Capstone/client)
 2. Add the following field with your personal API key `VITE_WEATHER_API={YOUR-API-KEY}`
 
+### Database
+Django has built in migrations that make it easy to update database changes.
+1. Create a new database:
+  * In pgAdmin:
+    In the ObjectExplorer, right click on Databases and choose Create>Database.  Give it a name and save the database.
+  - or 
+  * In the terminal shell via psql: 
+    `$ psql postgres`
+    `postgres=# CREATE DATABASE <your_database_name>`
+2. Navigate to Capstone/api in the terminal.
+3. Make migrations to update database schema `$ python manage.py makemigrations`
+4. Update database `$ python manage.py migrate`
+Now you should have your database schema all set!
 
 ### Stretch Goals and Thoughts
 
@@ -155,6 +180,16 @@ If you have any feedback or concerns,
 [Report Bug](https://github.com/kimmykokonut/Capstone/issues)
 [Request Feature](https://github.com/kimmykokonut/Capstone/issues)
 
+### License
+
+GNU General Public License v3.0, See license.md for more information
+
+### Acknowledgements
+
+Thank you to the Oregon Mycological Society, a volunteer based nonprofit group in Portland Oregon 
+that I am proud to be a member of.  I am grateful for the community I am part of with them.
+
+---
 
 ### Notes to self-to do
 - should test.rest be in git or not?
@@ -165,12 +200,3 @@ If you have any feedback or concerns,
 - may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
 ** LEFT OFF: want to have user do full registration at sign in? 
 - currently weather results are a 5 day forecast. i want when the trip closes, to have the weather for that date saved and displayed indefinitely and then hide the forecast
-
-
-### License
-GNU, see license.md for more information
-
-### Acknowledgements
-
-Thank you to the Oregon Mycological Society, a volunteer based nonprofit group in Portland Oregon that I am proud to be a member of.  I am grateful for the community I am part of with them.
------------------------------
