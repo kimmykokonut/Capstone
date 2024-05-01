@@ -4,14 +4,13 @@ from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from .models import Profile, Registration, Trip, Mushroom, Permit
 from .serializers import UserSerializer, ProfileSerializer, MushroomSerializer, TripSerializer, RegistrationSerializer, UserNameSerializer, PermitSerializer, TripEditSerializer
-from rest_framework import status, generics
+from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.exceptions import AuthenticationFailed
 
 def welcome(request):
   return HttpResponse("Welcome to the OMS Field Trip API")
@@ -73,7 +72,6 @@ def test_token(request):
 
 @api_view(['GET'])
 @authentication_classes([CookieTokenAuthentication])
-#@permission_classes([AllowAny])
 def check_authentication(request):
   return Response({"isAuthenticated": request.user.is_authenticated})
 
@@ -116,8 +114,6 @@ def user_details(request, pk):
   except Exception as e:
     return Response({'Error': 'something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-  # UPDATE BELOW WITH COOKIE TOKEN AND TEST. not tested
-
 @api_view(['GET', 'POST'])
 @authentication_classes([CookieTokenAuthentication])
 def mushroom_list(request, format=None):
@@ -153,7 +149,6 @@ def trip_list(request, format=None):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
-  #not confirmed sicne cookie change
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])  
 @authentication_classes([CookieTokenAuthentication])
 def trip_detail(request, pk):
@@ -167,9 +162,7 @@ def trip_detail(request, pk):
     return Response(serializer.data)
   
   elif request.method in ['PUT', 'PATCH']:
-      # check logged in user belongs to group admin, coordinator or leader
-    # if  != request.user:
-    #   return Response({'message': 'You do not have permission to edit or delete this trip.'}, status=status.HTTP_403_FORBIDDEN)
+      # Todo: check logged in user belongs to group admin, coordinator or leader
       serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
       if serializer.is_valid():
         serializer.save()

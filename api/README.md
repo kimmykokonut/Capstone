@@ -1,15 +1,17 @@
-#  Web API Backend - Myco Matrix
-
 <hr />
+<div style="text-align: center">
+  <h1> Web API Backend - Myco Matrix</h1>
+  <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
+  <p>Initiated April 15, 2024</p>
+  <img src="../client/src/assets/images/mycena.jpg" alt="mushroom on a pine cone" width="400">
+</div>
 
-### by [Kim Robinson](https://github.com/kimmykokonut)
-
-Initiated April 15, 2024
+---
 
 ---------------------------
 ### Jump around!
 
-[Return to main README](../README.md) for General information and setup instructions
+Return to the [main project README](../README.md) for General information and setup instructions
 
 * <a href="#about-the-project">About the Project</a>
   * <a href="#description">Description</a>
@@ -17,12 +19,10 @@ Initiated April 15, 2024
   * <a href="#known-bugs">Known Bugs</a>
 * <a href="#api-documentation">API Documention</a>
   * <a href="#using-django-admin">Using Django Admin</a>
-  * <a href="#postgresql-database-diagram">PostgreSQL Database Diagram</a>
-  * <a href="#user-authentication">User Authentication & Authorization</a>
+  * <a href="#user-authentication-and-authorization">User Authentication and Authorization</a>
   * <a href="#api-endpoints">API Endpoints</a>
 * <a href="#miscellaneous">Miscellaneous</a>
   * <a href="#stretch-goals">Stretch Goals</a>
-  * <a href="#contact">Contact</a>
 ---------------------------
 ### About the Project
 
@@ -71,76 +71,135 @@ Django Admin [Documentation](https://developer.mozilla.org/en-US/docs/Learn/Serv
 4. In the browser, open the /admin URL `http://127.0.0.1:8000/admin`, enter your new superuser credentials.
 5.  The page you will be brought to displays all the models, which you can explore the data and create, edit or delete records.
 
-#### PostgreSQL Database Diagram
+---
 
 <div style="text-align: center">
   <img src="../assets/diagrams/sql3.png" alt="Database relationship diagram" width="500" >
+  <p>PostgreSQL Database Diagram</p>
 </div>
+
+---
 
 ### User Authentication and Authorization
 
-***ADD***************************************
+In order to be authorized to use `GET`, `POST`, `PATCH`, `DELETE` functionality of the API, you need to be authenticated.  Examples shown are from VS Code extension Rest Client. I keep my endpoint testing in a file named test.rest, where you can test endpoints directly in VS Code.  Your authorization token will be set as a cookie to be embedded in future API calls while your token is valid.
+
+---
+`POST` Register
+```
+###
+POST http://127.0.0.1:8000/signup
+Content-Type: application/json
+
+{ "username": "tester", "email": "test@email.com", "password": "password", "first_name": "Test", "last_name": "User"
+}
+```
+Sample JSON Response
+`201 CREATED`
+```
+{
+  "user": {
+    "id": 33,
+    "username": "tester",
+    "first_name": "Test",
+    "last_name": "User",
+    "email": "test@email.com"
+  }
+}
+```
+---
+`POST` Login
+```
+###
+POST http://127.0.0.1:8000/login
+Content-Type: application/json
+
+{ "username": "tester", 
+  "password": "password" 
+}
+```
+Sample JSON Response
+`200 OK`
+```
+{
+  "user": {
+    "id": 33,
+    "username": "tester",
+    "first_name": "Test",
+    "last_name": "User",
+    "email": "test@email.com"
+  }
+}
+```
+---
+`POST` Logout (Deletes token)
+```
+### 
+POST http://127.0.0.1:8000/logout
+Content-Type: application/json
+```
+Sample JSON Response
+`200 OK`
+```
+{ "logged out: test@email.com" }
+```
+---
 
 
 
 ### API Endpoints
 
-* Pagination built into mushroom_list and trip_list (how much?)
-*** UPDATE---------------------------------------
+* Pagination is built into mushroom_list (20 results per page) and trip_list (10 results per page)
 
-```
-/signup (post)
-/login (post)
-/logout (post)
-/profile (get, put)-permission to authenticated user, coordinator and admin
-/mushrooms (get, post)-all members. (put/delete in rest admin)
-/trips (get-all members, post-admin/coordinator)
-/trips/{id} (get-all members, put-admin/coordinator, delete-admin/coordinator)
-/trips/{id}/register (post-user registers for trip, their token is their id)
-/trips/{id}/results (get-get results of lottery and users' status on trip) 
-```
-- Base Url: `http://127.0.0.1:8000`
+Base Url: `http://127.0.0.1:8000`
 
 #### HTTP Request Structure
-```
-POST /login | Log in registered user and receive auth token
-POST /signup | Register new user
-POST /logout | Logs out user by deleting token
-GET /profile | Retrieves user profile of signed in user
-PUT /profile | Edit user profile data
 
-GET /mushrooms | Retrieves list of mushroom objects from database
-POST /mushrooms | Create new mushroom object
-PATCH?
-DELETE?
+| Method | Endpoint | Description |
+| :---: | :---: | :---: |
+| | Auth |
+| POST | /login | Log in registered user and receive auth token |
+| POST | /signup | Register new user |
+| POST | /logout | Logs out user by deleting token |
+| | Profile |
+| GET | /profile | Retrieves user profile of signed in user |
+| PUT | /profile | Edit user profile data |
+| | Mushrooms |
+| GET | /mushrooms | Retrieves list of mushroom objects from database |
+| POST | /mushrooms | Create new mushroom object                       |
+| | Trips | | 
+| GET   | /trips | Retrieves list of trip objects                       |
+| POST  | /trips | Create new trip object                               |
+| GET   | /trips/:id | Retrieves trip object by id                      |
+| PATCH | /trips/:id | Edits trip object                                |
+| PUT   | /trips/:id | Edits entire trip object                         |
+| DELETE | /trips/:id | Deletes trip object by id                       |
+| POST | /trips/:id/register | Signed in user registers for specific field trip, upon registration, status in Registration join table is 'registered' |
+| GET | /trips/:id/register | Retrieve registration data for specific trip |
+| POST | /trips/:id/lottery | Activate lottery, where registered users are randomized, registration status changed to 'accepted, waitlisted or rejected' and automated emails sent to users with their updated status. Leader is emailed the group of accepted and waitlisted participants. |
+| GET | /trips/:id/results | Retrieve results of lottery and registrants by status |
+| | User |
+| GET | /user/registrations | Retrieve list of trips user is registered for and their status |
+| GET | /user/:id | Retrieve user data by id |
+| | Permits |
+| GET | /permits | Retrieve list of permit objects |
+| GET | /permits?ids={id} | Retrieve permit by id number |
+| | Leaders |
+| GET | /leaders | Retrieve list of users belonging to Leader Group Class |
 
-GET /trips | Retrieves list of trip objects
-POST /trips | Create new trip object
-GET /trips/:id | Retrieves trip object by id
-PATCH /trips/:id | Edits trip object
-PUT /trips/:id | Edits entire trip object
-DELETE /trips/:id | Deletes trip object by id
-POST /trips/:id/register | Signed in user registers for specific field trip, upon registration, status in Registration join table is 'registered'
-GET /trips/:id/register | Retrieve registration data for specific trip
-POST /trips/:id/lottery | Activate lottery, where registered users are randomized, registration status changed to 'accepted, waitlisted or rejected' and automated emails sent to users with their updated status. Leader is emailed the group of accepted and waitlisted participants.
-GET /trips/:id/results | Retrieve results of lottery and registrants by status
-
-GET /user/registrations | Retrieve list of trips user is registered for and their status
-GET /user/:id | Retrieve user data by id
-
-GET /permits | Retrieve list of permit objects
-GET /permits?ids={id} | Retrieve permit by id number
-
-GET /leaders | Retrieve list of users belonging to Leader Group Class
-```
 ---
 
-#### Example Query
+#### Example GET Query
+
+You must be signed in/authenticated to make API calls as the Token at login/signup is used as a cookie to access endpoints.
+
 ```
 http://127.0.0.1:8000/trips/15
 ```
 
 #### Sample JSON Response
+
+`200 OK`
 ```
   {
   "id": 15,
@@ -162,39 +221,61 @@ http://127.0.0.1:8000/trips/15
   ]
 }
 ```
-** NEEDED?
-#### Example Query to create restaurant entry
+
+#### Example Query to create mushroom object
 ```
-POST http://127.0.0.1:8000/restaurants
+POST http://127.0.0.1:8000/mushrooms
 Content-Type: application/json
 
- {
-    "name": "Gracie's Apizza",
-    "address": "7304 N Leavitt Ave, Portland, OR 97203",
-    "website": "https://www.graciesapizza.com/",
-    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
-    "latitude": 45.589974368346105,
-    "longitude": -122.75392355397106,
-    "type_id": 1
-  }
+{
+  "common_name": "Dyer's Polypore",
+  "latin_name": "Phaeolus schweinitzii",
+  "image_url": "https://en.wikipedia.org/wiki/Phaeolus_schweinitzii#/media/File:Phaeolus_schweinitzii_02.jpg",
+  "info_url": "https://www.inaturalist.org/taxa/118084-Phaeolus-schweinitziiwik"
+}
 ```
 
 #### Sample JSON Response
-200 OK
+`201 Created`
 ```
 {
-    "id": 2, 
-    "name": "Gracie's Apizza",
-    "address": "7304 N Leavitt Ave, Portland, OR 97203",
-    "website": "https://www.graciesapizza.com/",
-    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
-    "latitude": 45.589974368346105,
-    "longitude": -122.75392355397106,
-    "visible": False,
-    "type_id": 1
-  }
+  "id": 22,
+  "common_name": "Dyer's Polypore",
+  "latin_name": "Phaeolus schweinitzii",
+  "image_url": "https://en.wikipedia.org/wiki/Phaeolus_schweinitzii#/media/File:Phaeolus_schweinitzii_02.jpg",
+  "info_url": "https://www.inaturalist.org/taxa/118084-Phaeolus-schweinitziiwik"
+}
 ```
-
+#### Example Query to edit trip object
+```
+PATCH http://127.0.0.1:8000/trips/6
+Content-Type: application/json
+{
+  "general_location": "Mount St Helens National Monument",
+  "status": "Closed"
+}
+```
+#### Sample JSON Response
+`200 OK`
+```
+{
+  "id": 6,
+  "date": "2024-05-15",
+  "general_location": "Mount St Helens National Monument",
+  "specific_location": "45.9995647, -121.542026",
+  "time_start": "09:00:00",
+  "time_end": "15:00:00",
+  "capacity": 3,
+  "waitlist": 2,
+  "restrictions": "No dogs, No children",
+  "image_url": "https://cdn.pixabay.com/photo/2023/10/21/11/23/ai-generated-8331261_1280.png",
+  "note": "Strenuous terrain",
+  "status": "Reg Closed",
+  "registration_close_date": "2024-05-06",
+  "leader": 15,
+  "permits": []
+}
+```
 
 ### Miscellaneous
 
@@ -205,7 +286,6 @@ Content-Type: application/json
 
 ### Notes to self
 - should test.rest be in git or not?
-- need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
 - make pw stricter but not during testing
 - better security: https at deploy
 - in deploy: change views-login&signup: secure=False to TRUE once in https
