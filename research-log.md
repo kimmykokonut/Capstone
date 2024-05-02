@@ -108,3 +108,4 @@
 ### Thurs 5/2/24
 * 0830: Job applications
 * 0900: Scrum
+* 1100: styling resources page
