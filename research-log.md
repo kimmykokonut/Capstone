@@ -107,3 +107,4 @@
 
 ### Thurs 5/2/24
 * 0830: Job applications
+* 0900: Scrum
