@@ -104,3 +104,6 @@
 
 ### Wed 5/1/24
 * 0800: Working on README (3!)
+
+### Thurs 5/2/24
+* 0830: Job applications
