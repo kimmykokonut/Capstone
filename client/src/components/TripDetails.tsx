@@ -42,7 +42,6 @@ interface WeatherData {
 const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const { id } = useParams<{ id: string }>();
   const trip = trips.find(trip => trip.id === Number(id));
-  console.log(trip);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -54,7 +53,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [permits, setPermits] = useState<PermitProps[]>([]);
   const [lat, long] = trip?.specific_location.split(', ').map(parseFloat) || [0, 0];
-  console.log(lat, long);
 
   useEffect(() => {
     const checkTripRegistration = async () => {
@@ -154,7 +152,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
       setIsRegistered(true);
       localStorage.setItem(`tripRegistered-${id}`, 'true');
     } catch (error) {
-      console.log('test', error);
       const err = error as any;
       console.error('An error occurred:', err);
       if (err.response && err.statusText === 400) {
@@ -203,15 +200,12 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
       };
       await editTrip(updatedTrip, trip.id);
       updateTrips(updatedTrip);
-      console.log('trip status updated', trip.status);
     } catch (error) {
       console.error('An error occurred:', error);
     } finally {
       setIsLotteryRunning(false);
     }
   };
-  console.log(trip);
-
 
   return (
     <>
