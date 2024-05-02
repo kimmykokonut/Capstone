@@ -1,6 +1,6 @@
 import Trip from "./Trip";
 import { Link } from "react-router-dom";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 
 interface TripListProps {
   trips: {
@@ -33,7 +33,16 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
       <Typography variant="h4" align="center" mt="30px">Upcoming Field Trips</Typography>
       <hr />
       {/* make this visible to admin/coordinator/leader */}
-      <Link to='/add-trip'>Add new trip (auth only)</Link>
+      <Button 
+        variant="outlined"
+        color="success"
+        sx={{
+          borderColor: 'green',
+          color: 'green',
+          '&:hover': { backgroundColor: 'green', color: 'white' },
+          '&:focus': { outline: '2px solid red' } }}>
+        <Link to='/add-trip' style={{ textDecoration: 'none', color: 'inherit' }}>Add new trip (Admin only)</Link>
+      </Button>
       <Grid container spacing={2}>
           {trips.map((trip: TripProps) => (
             <Grid item xs={12} sm={6} md={4} lg={3}>
