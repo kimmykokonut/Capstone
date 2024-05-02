@@ -1,7 +1,11 @@
 const TripComments = () => {
   return (
     <>
-      <h2>Trip Comments</h2>
+    <hr />
+      <h3>Trip Comments</h3>
+      <input type="text" placeholder="logistics? carpooling?"/>
+      <button>comment</button>
+      <hr />
     </>
   )
 }

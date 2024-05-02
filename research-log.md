@@ -100,4 +100,12 @@
 ### Tues 4/30/24
 * 0815: bug: changed code to allow permits to be set as list of ids, but now it is showing as permit objects like before, so permits are not rendering on trip details page.
 * 1300: styling dashboard
-* 1600: wip
+* 1600: Material UI wip
+
+### Wed 5/1/24
+* 0800: Working on README (3!)
+
+### Thurs 5/2/24
+* 0830: Job applications
+* 0900: Scrum
+* 1100: styling resources page
