@@ -46,8 +46,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
     return <div>Loading...</div>
   }
   return (
-    <Container maxWidth="sm">
-      <Card variant="elevation" elevation={3} sx={{ p: 4, display: 'flex', justifyContent: 'center', mt: "64px", backgroundColor: '#e0e0e0'}} style={{ display: 'inline-block' }}>
+    <Container maxWidth="sm" sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#e0e0e0'}} style={{ display: 'inline-block' }}>
         <CardHeader
           avatar={
             <Avatar
