@@ -109,3 +109,4 @@
 * 0830: Job applications
 * 0900: Scrum
 * 1100: styling resources page
+* 2000: adding content to discord capstone channel
