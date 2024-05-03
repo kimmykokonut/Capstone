@@ -110,3 +110,4 @@
 * 0900: Scrum
 * 1100: styling resources page
 * 2000: adding content to discord capstone channel
+* 2030: working on deploying project to render and db to supabase
