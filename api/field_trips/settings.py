@@ -39,7 +39,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 #update when react front is on RENDER
-ALLOWED_HOSTS = ['https://myco-matrix.onrender.com/']
+ALLOWED_HOSTS = ['myco-matrix.onrender.com']
 
 # Application definition
 
