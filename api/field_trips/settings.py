@@ -28,7 +28,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # changed to false now in production
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -89,12 +89,13 @@ WSGI_APPLICATION = 'field_trips.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER': str(os.getenv('SUPA_USER')),
-        'PASSWORD': str(os.getenv('SUPA_PW')),
+        'USER': os.getenv('SUPA_USER'),
+        'PASSWORD': os.getenv('SUPA_PW'),
         'HOST': 'aws-0-us-west-1.pooler.supabase.com',
         'PORT': '5432',
     }
