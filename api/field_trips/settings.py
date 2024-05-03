@@ -20,12 +20,12 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-#setup python decouple
-from decouple import Config, Csv
-config = Config()
+#setup python decouple-dotenv alternative to troubleshoot deploy db issues
+# from decouple import Config, Csv
+# config = Config()
 
-SUPA_USER = config('SUPA_USER')
-SUPA_PW = config('SUPA_PW')
+# SUPA_USER = config('SUPA_USER')
+# SUPA_PW = config('SUPA_PW')
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +38,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # changed to false now in production
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#update when react front is on RENDER
+ALLOWED_HOSTS = ['https://myco-matrix.onrender.com/']
 
 # Application definition
 
@@ -70,6 +71,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:5173',
+#   'frontendaddressdeployed',
 )
 CORS_ALLOW_CREDENTIALS = True
 
@@ -102,8 +104,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER': SUPA_USER,
-        'PASSWORD': SUPA_PW,
+        'USER': str(os.getenv('SUPA_USER')),
+        'PASSWORD': str(os.getenv('SUPA_PW')),
         'HOST': 'aws-0-us-west-1.pooler.supabase.com',
         'PORT': '5432',
     }
@@ -143,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -162,7 +164,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-    #   'field_trips.views.CookieTokenAuthentication',
       'rest_framework.authentication.TokenAuthentication',
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     )
