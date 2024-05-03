@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 8000
 
 # Run Django migrations and start the server
-CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+CMD python api/manage.py makemigrations && python api/manage.py migrate && python api/manage.py runserver 0.0.0.0:8000
