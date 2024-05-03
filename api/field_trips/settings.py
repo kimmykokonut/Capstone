@@ -27,6 +27,7 @@ config = Config()
 SUPA_USER = config('SUPA_USER')
 SUPA_PW = config('SUPA_PW')
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
