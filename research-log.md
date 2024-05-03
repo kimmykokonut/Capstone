@@ -111,3 +111,6 @@
 * 1100: styling resources page
 * 2000: adding content to discord capstone channel
 * 2030: working on deploying project to render and db to supabase
+
+### Fri 5/3/24
+* 1330: deployment troubleshooting
