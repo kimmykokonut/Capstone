@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'field_trips.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'oms',
+        'NAME': 'postgres',
         'USER': str(os.getenv('DB_USER')),
-        'PASSWORD': str(os.getenv('DB_PW')),
-        'HOST': '127.0.0.1',
+        'PASSWORD': str(os.getenv('DB_PASSWORD')),
+        'HOST': 'aws-0-us-west-1.pooler.supabase.com',
         'PORT': '5432',
     }
 }
