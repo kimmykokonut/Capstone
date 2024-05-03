@@ -20,6 +20,13 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
+#setup python decouple
+from decouple import Config, Csv
+config = Config()
+
+SUPA_USER = config('SUPA_USER')
+SUPA_PW = config('SUPA_PW')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -89,13 +96,13 @@ WSGI_APPLICATION = 'field_trips.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
+# user=postgres.kuqgibmovehievotbdmv password=[YOUR-PASSWORD] host=aws-0-us-west-1.pooler.supabase.com port=5432 dbname=postgres
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER': os.getenv('SUPA_USER'),
-        'PASSWORD': os.getenv('SUPA_PW'),
+        'USER': SUPA_USER,
+        'PASSWORD': SUPA_PW,
         'HOST': 'aws-0-us-west-1.pooler.supabase.com',
         'PORT': '5432',
     }
