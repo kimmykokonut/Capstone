@@ -1,5 +1,3 @@
-# import dj_database_url
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -9,14 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 from dotenv import load_dotenv
 import os
 load_dotenv()
-
-#setup python decouple-dotenv alternative to troubleshoot deploy db issues
-# from decouple import Config, Csv
-# config = Config()
-
-# SUPA_USER = config('SUPA_USER')
-# SUPA_PW = config('SUPA_PW')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -29,7 +19,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 #update when react front is on RENDER
-ALLOWED_HOSTS = ['myco-matrix.onrender.com']
+ALLOWED_HOSTS = ['myco-matrix.onrender.com', 'localhost']
 
 # Application definition
 
