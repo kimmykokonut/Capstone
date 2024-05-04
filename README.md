@@ -2,6 +2,7 @@
 <div style="text-align: center">
   <h1>Myco Matrix</h1>
   <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
+  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
   <p>Initiated April 15, 2024</p>
 <div style="display: flex; justify-content: space-around;">
   <div style="width: 40%;">
@@ -12,6 +13,25 @@
   </div>
   </div>
 </div>
+<br />
+<p align="center">
+        <a href="https://github.com/kimmykokonut/Capstone/stargazers">
+            <img src="https://img.shields.io/github/stars/kimmykokonut/Capstone?color=yellow&style=plastic">
+        </a>
+        ¨
+        <a href="https://github.com/kimmykokonut/Capstone/issues">
+            <img src="https://img.shields.io/github/issues/kimmykokonut/Capstone?style=plastic">
+        </a>
+        ¨
+        <a href="https://github.com/kimmykokonut/Capstone/blob/main/LICENSE">
+            <img src="https://img.shields.io/github/license/kimmykokonut/Capstone?color=orange&style=plastic">
+        </a>
+        ¨
+        <a href="https://www.linkedin.com/in/robinson-kim/">
+            <img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&colorB=2867B2">
+        </a>
+    </p>    
+</p>
 
 ---------------------------
 ### Jump around!
