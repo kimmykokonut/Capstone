@@ -47,6 +47,17 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Please enter a valid email.');
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long.');
+      return;
+    }
+
     const userData = {
       username,
       password,
@@ -55,7 +66,6 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       last_name: lName
     };
     try {
-      console.log('going to signup');
       await signUp(userData);
       setUsername('');
       setEmail('');
@@ -67,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
 
       navigate('/dashboard');
     } catch (error) {
-      setErrorMessage('An error occurred during sign up. Please check your username and password and try again.');
+      setErrorMessage('An error occurred during sign up. Please check your details and try again.');
     }
   };
 
@@ -114,9 +124,6 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                 <HikingIcon/>
               </Avatar>
               <Typography component="h1" variant="h5">Sign In</Typography>
-              
-                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-
               <Box component="form" noValidate onSubmit={handleSignIn} sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
@@ -152,6 +159,8 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                       No account? Sign up</Button>
                   </Grid>
                   </Grid>
+                  {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+
                   </Box>    
 
                     {showRegisterForm && (
