@@ -90,7 +90,6 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
 
   return (
     <div id="hero">
-      {errorMessage && <p>{errorMessage}</p>}
       {isAuthenticated ? (
         <p>You are already signed in</p>
       ) : (
@@ -115,6 +114,9 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                 <HikingIcon/>
               </Avatar>
               <Typography component="h1" variant="h5">Sign In</Typography>
+              
+                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+
               <Box component="form" noValidate onSubmit={handleSignIn} sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"

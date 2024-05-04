@@ -29,7 +29,7 @@
 
   Myco Matrix is an application where users can register for field trip lotteries, connect with other members and access resources to ensure their foraging experience is safe and permitted.
 
-  The Myco Matrix allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users.
+  The Myco Matrix allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users. (More stretch goals at bottom).
 
   This project was inspired by my years spent as the volunteer field trip coordinator for the [Oregon Mycological Society](https://www.wildmushrooms.org/).  I have a strong desire to streamline and automate the process while freeing up volunteer time for other efforts. My long-term goal is to integrate this project into their website to be used for future field trips and provide archival knowledge and encourage more member connection and community.
 
@@ -168,11 +168,22 @@ Now you should have your database schema all set!
 
 ### Stretch Goals and Thoughts
 
+- Finish styling (topo map color palate?)
+- Permissions (admin & coordinator: full CRUD access, leader has create and edit permissions, members have read only permission (maybe create mushroom))
+- Add listener to trigger lottery based on closing date to replace the current button to manually make the lottery happen
+- Enhance trip details page for trip leader to add mushroom species seen on trip (Mushroom component exists in database, currently seeded with 20 species)
+- Build out full CRUD for /mushrooms
+- Add a field to trip model for weather to save the day's weather to display in place of the forecast once the trip came comes (another listener to set the state)
+- Add cloud service where users can upload photos to be display on trip detail page
+- Flag banned users to block from applying field trips for a set period of time (status?='blocked')
 - There might be a bug if there is more than 1 coordinator in database for auto-email
-- 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.
+- 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.  Most endpoints and all business logic are tested with Django TestCase class
 - Make lottery weighted. might need more dummy users and more trips to test.
 - Add chart.js for data visualization (for ? # people applied on trips over time...# species seen)
+- Integrate google calendar
 - Add google sign in functionality
+- Add functionality for forgot password link
+- Integrate into OMS existing website, wildmushrooms.org
 
 ### Contact and Support
 
