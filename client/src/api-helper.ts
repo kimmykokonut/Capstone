@@ -54,6 +54,7 @@ export interface PatchTripData {
 
 export async function signUp(userData: UserData) {
   try {
+    console.log('sign up in process');
     const response = await fetch('http://127.0.0.1:8000/signup', {
       method: 'POST',
       headers: {

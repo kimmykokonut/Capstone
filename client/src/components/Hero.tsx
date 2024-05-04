@@ -55,6 +55,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       last_name: lName
     };
     try {
+      console.log('going to signup');
       await signUp(userData);
       setUsername('');
       setEmail('');
@@ -145,9 +146,12 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-
                     <Button onClick={toggleRegisterForm}>
                       No account? Sign up</Button>
+                  </Grid>
+                  </Grid>
+                  </Box>    
+
                     {showRegisterForm && (
                       <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1 }}>
                         <Typography component="h1" variant="h5">Sign Up</Typography>
@@ -210,15 +214,13 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                         />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
                       </Box>
-
                     )}
-                  </Grid>
-                </Grid>
+                  
                 <Box sx={{ mt: 5 }}>
                   <Copyright />
                 </Box>
               </Box>
-            </Box>
+            
           </Grid>
         </Grid>
       )}
