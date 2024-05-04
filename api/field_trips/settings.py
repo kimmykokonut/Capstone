@@ -10,6 +10,14 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
+#setup python decouple-dotenv alternative to troubleshoot deploy db issues
+# from decouple import Config, Csv
+# config = Config()
+
+# SUPA_USER = config('SUPA_USER')
+# SUPA_PW = config('SUPA_PW')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -17,9 +25,11 @@ load_dotenv()
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# changed to false now in production
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#update when react front is on RENDER
+ALLOWED_HOSTS = ['myco-matrix.onrender.com']
 
 # Application definition
 
@@ -52,6 +62,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:5173',
+#   'frontendaddressdeployed',
 )
 CORS_ALLOW_CREDENTIALS = True
 
@@ -126,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -152,7 +163,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-    #   'field_trips.views.CookieTokenAuthentication',
       'rest_framework.authentication.TokenAuthentication',
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     )

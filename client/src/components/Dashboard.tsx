@@ -47,7 +47,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
   }
   return (
     <Container maxWidth="sm" sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#e0e0e0'}} style={{ display: 'inline-block' }}>
+      <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#009eb0'}} style={{ display: 'inline-block' }}>
         <CardHeader
           avatar={
             <Avatar
@@ -71,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
           <Typography variant="subtitle1" color="text.secondary"></Typography>
         </CardContent>
         <Card sx={{
-          mt: 2, backgroundColor: '#f5f5f5' }}>
+          mt: 2, backgroundColor: '#0073e6' }}>
           <Typography variant="h6" align="center">Trip registrations:</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {userRegistrations

@@ -336,7 +336,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                 <CardContent>
               <TripComments />
               <hr />
-              <p>wip-mushroom component</p>
+              <p>wip-mushrooms seen on trip (wip)</p>
               <hr />
               </CardContent>
             </Card>
