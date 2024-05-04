@@ -2,19 +2,7 @@
 <div style="text-align: center">
   <h1>Myco Matrix</h1>
   <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
-  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
-  <p>Initiated April 15, 2024</p>
-<div style="display: flex; justify-content: space-around;">
-  <div style="width: 40%;">
-  <img src="./client/src/assets/images/signIn.png" alt="sign in page" width="100%">
-  </div>
-    <div style="width: 40%;">
-  <img src="./client/src/assets/images/tripDetails.png" alt="trip details page" width="100%">
-  </div>
-  </div>
-</div>
-<br />
-<p align="center">
+  <p align="center">
         <a href="https://github.com/kimmykokonut/Capstone/stargazers">
             <img src="https://img.shields.io/github/stars/kimmykokonut/Capstone?color=yellow&style=plastic">
         </a>
@@ -32,6 +20,17 @@
         </a>
     </p>    
 </p>
+  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
+  <p>Initiated April 15, 2024</p>
+<div style="display: flex; justify-content: space-around;">
+  <div style="width: 40%;">
+  <img src="./client/src/assets/images/signIn.png" alt="sign in page" width="100%">
+  </div>
+    <div style="width: 40%;">
+  <img src="./client/src/assets/images/tripDetails.png" alt="trip details page" width="100%">
+  </div>
+  </div>
+</div>
 
 ---------------------------
 ### Jump around!

@@ -51,10 +51,12 @@ export interface PatchTripData {
   permits?: number[];
 }
 
+const baseUrl = 'https://myco-matrix.onrender.com'
+
 
 export async function signUp(userData: UserData) {
   try {
-    const response = await fetch('http://127.0.0.1:8000/signup', {
+    const response = await fetch(`${baseUrl}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -76,7 +78,7 @@ export async function signUp(userData: UserData) {
 }
 export async function signIn(userSignInData: UserSignInData) {
   try {
-    const response = await fetch('http://127.0.0.1:8000/login', {
+    const response = await fetch(`${baseUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -98,7 +100,7 @@ export async function signIn(userSignInData: UserSignInData) {
 
 export async function signOut() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/logout', {
+    const response = await fetch(`${baseUrl}/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,7 +121,7 @@ export async function signOut() {
 
 export async function checkAuthentication() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/check-authentication', {
+    const response = await fetch(`${baseUrl}/check-authentication`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -140,7 +142,7 @@ export async function checkAuthentication() {
 
 export async function getProfile() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/profile', {
+    const response = await fetch(`${baseUrl}/profile`, {
       method: 'GET',
       credentials: 'include',
     });
@@ -158,7 +160,7 @@ export async function getProfile() {
 
 export async function updateProfile(profileData: ProfileData) {
   try {
-    const response = await fetch('http://127.0.0.1:8000/profile', {
+    const response = await fetch(`${baseUrl}/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -179,7 +181,7 @@ export async function updateProfile(profileData: ProfileData) {
 }
 export async function getTrips() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/trips', {
+    const response = await fetch(`${baseUrl}/trips`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -199,7 +201,7 @@ export async function getTrips() {
 }
 export async function getUser(id: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/user/${id}`, {
+    const response = await fetch(`${baseUrl}/user/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -220,7 +222,7 @@ export async function getUser(id: number) {
 
 export async function registerTrip(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/register`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -241,7 +243,7 @@ export async function registerTrip(tripId: number) {
 // returns a boolean
 export async function getRegistration(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/register`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}/register`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -262,7 +264,7 @@ export async function getRegistration(tripId: number) {
 //returns who is accepted, waitlisted, rejected, registered(should be empty)
 export async function getLotteryResults(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/results`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}/results`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -282,7 +284,7 @@ export async function getLotteryResults(tripId: number) {
 }
 export async function getUserRegistrations() {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/user/registrations`, {
+    const response = await fetch(`${baseUrl}/user/registrations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -302,7 +304,7 @@ export async function getUserRegistrations() {
 }
 export async function getPermitList() {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/permits`, {
+    const response = await fetch(`${baseUrl}/permits`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -322,7 +324,7 @@ export async function getPermitList() {
 }
 export async function getPermitsByIds(ids: number[]) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/permits?ids=${ids.join(',')}`, {
+    const response = await fetch(`${baseUrl}/permits?ids=${ids.join(',')}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -342,7 +344,7 @@ export async function getPermitsByIds(ids: number[]) {
 }
 export async function getLeaders() {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/leaders`, {
+    const response = await fetch(`${baseUrl}/leaders`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -363,7 +365,7 @@ export async function getLeaders() {
 // creates trip
 export async function createTrip(tripData: NewTripData) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips`, {
+    const response = await fetch(`${baseUrl}/trips`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -384,7 +386,7 @@ export async function createTrip(tripData: NewTripData) {
 }
 export async function editTrip(tripData: PatchTripData, tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -405,7 +407,7 @@ export async function editTrip(tripData: PatchTripData, tripId: number) {
 }
 export async function deleteTrip(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -428,7 +430,7 @@ export async function deleteTrip(tripId: number) {
 }
 export async function getMushrooms() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/mushrooms', {
+    const response = await fetch(`${baseUrl}/mushrooms`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -449,7 +451,7 @@ export async function getMushrooms() {
 // Run lottery automatically via button for testing purposes
 export async function closeTripRunLotto(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}/lottery`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}/lottery`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -487,7 +489,7 @@ export async function getWeather(location: string) {
 }
 export async function getTripById(tripId: number) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/trips/${tripId}`, {
+    const response = await fetch(`${baseUrl}/trips/${tripId}`, {
       method: 'GET',
       credentials: 'include',
     });
