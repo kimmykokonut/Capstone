@@ -51,8 +51,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-  'http://localhost:5173',
-#   'frontendaddressdeployed',
+    'http://localhost:5173',
+    "https://myco.onrender.com",
 )
 CORS_ALLOW_CREDENTIALS = True
 
