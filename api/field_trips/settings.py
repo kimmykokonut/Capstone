@@ -16,7 +16,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # changed to false now in production
-DEBUG = True
+DEBUG = False
 
 #update when react front is on RENDER
 ALLOWED_HOSTS = ['myco-matrix.onrender.com', 'localhost', '127.0.0.1']
