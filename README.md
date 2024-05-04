@@ -1,7 +1,8 @@
 <center>
+
   <h1>Myco Matrix</h1>
   <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
-  <p align="center">
+  <p>
         <a href="https://github.com/kimmykokonut/Capstone/stargazers">
             <img src="https://img.shields.io/github/stars/kimmykokonut/Capstone?color=yellow&style=plastic">
         </a>
@@ -21,6 +22,7 @@
 </p>
   <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
   <p>Initiated April 15, 2024</p>
+  
   </center>
 
 <div style="display: flex; justify-content: space-around;">
