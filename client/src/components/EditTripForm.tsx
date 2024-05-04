@@ -76,9 +76,7 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
       registration_close_date: formData.get('registrationClose') as string,
       permits: formData.getAll('permits').map(value => Number(value)),
     };
-    console.log('permits', formEdits.permits);
-    const updatedTrip = await editTrip(formEdits, trip.id);
-    console.log(updatedTrip);
+    await editTrip(formEdits, trip.id);
     const fetchedTrip = await getTripById(trip.id);
       updateTrips(fetchedTrip);
       navigate('/trips');
