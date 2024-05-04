@@ -6,7 +6,7 @@ import TripComments from "./TripComments";
 import "../App.css"
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Card, Box, Grid, CardContent, Typography, Button, CardMedia } from "@mui/material";
+import { Card, Box, Grid, CardContent, Typography, Button, CardMedia, FormControlLabel, Checkbox } from "@mui/material";
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 
 interface TripDetailProps {
@@ -225,7 +225,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         <Grid item xs={12} md={6}>
           <Box display="flex" justifyContent="center">
             <Grid container justifyContent="flex-start" style={{ maxWidth: '500px' }}>
-              <Card sx={{ padding: '25px', backgroundColor: '#e0f7fa' }}>
+              <Card sx={{ padding: '25px', backgroundColor: 'lightblue' }}>
                 <CardMedia>
                   <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
                 </CardMedia>
@@ -249,9 +249,9 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                   </ul>
                   <hr />
                   <p>(ADMIN ONLY PERMISSIONS WIP)</p>
-                  <Button>
-                    <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link></Button>
-                  <Button onClick={handleDelete}>Delete Trip</Button>
+                  <Button color="primary" variant="outlined" sx={{ borderColor: 'green' }}>
+                    <Link to={`/trips/edit/${trip.id}`} style={{ color: 'green', textDecoration: 'none' }}>Edit Trip</Link></Button>
+                  <Button onClick={handleDelete} variant="outlined" color="success">Delete Trip</Button>
                 </CardContent>
               </Card>
             </Grid>
@@ -259,7 +259,9 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         </Grid>
         {!lotteryRun ? (
           <Grid item xs={12} md={6}>
-            <Card sx={{ backgroundColor: '#e0f7fa' }}>
+            <Box display="flex" justifyContent="center">
+              <Grid container justifyContent="flex-start" style={{ maxWidth: '600px' }}>
+            <Card sx={{ backgroundColor: 'lightblue' }}>
               <CardContent>
               <h3>Registration closes: {closeDate}</h3>
               <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
@@ -292,13 +294,21 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
               {errorMessage && <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>}
               {!isRegistered ? (
                 <form onSubmit={handleRegistration}>
-                  <legend>Apply</legend>
-                  <input id="agree" type="checkbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
-                  <label htmlFor="agree">I agree to the terms and conditions.</label>
-                  <button type="button" onClick={openModal}>Read terms and conditions</button>
+                        <Typography variant="h6">Registration</Typography>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isCheckboxChecked}
+                              onChange={handleCheckboxChange}
+                              id="agree"
+                            />
+                          }
+                          label="I agree to the terms and conditions."
+                        />
+                  <Button variant="outlined" type="button" onClick={openModal}>Read terms and conditions</Button>
                   {isModalOpen && (
                     <div className="modal">
-                      <button type="button" onClick={closeModal}>Close terms</button>
+                      <Button type="button" onClick={closeModal}>Close terms</Button>
                       <p>I understand if I am selected and fail to attend this field trip, I may not attend future trips through next season. </p>
                       <p>I accept responsibility for my safety and conduct, and of others I bring on this field trip.</p>
                       <h5>Oregon Mycological Society / Liability Release and Promise Not to Sue</h5>
@@ -310,17 +320,19 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                         release and promise is part of the consideration I give in order to participate in an OMS mycology camp, field trip or other activity. I understand it affects my legal rights. I intend it to apply not only to me but to anyone who may have the right to make a claim on my behalf.</p>
                     </div>
                   )}
-                  <button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</button>
+                  <Button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</Button>
                 </form>
               ) : (
                 <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
               )}
               </CardContent>
             </Card>
+            </Grid>
+            </Box>
           </Grid>
         ) : (
             <Grid item xs={12} md={6}>
-              <Card sx={{ backgroundColor: '#e0f7fa' }}>
+              <Card sx={{ backgroundColor: 'lightblue' }}>
                 <CardContent>
               <TripComments />
               <hr />
@@ -331,12 +343,12 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           </Grid>
         )}
         <Grid item xs={12}>
-          <Card sx={{ border: '1px solid green' }}>
+          <Card>
             <Typography variant="h6" align="center">5 day forecast</Typography>
             <Grid container spacing={3} justifyContent="center" alignItems="center">
               {forecast.map((item, index) => (
                 <Grid item key={index}>
-                  <Card sx={{ maxHeight: '25vh', overflow: 'auto', backgroundColor: 'gold', border: '1px solid brown' }}>
+                  <Card sx={{ maxHeight: '25vh', overflow: 'auto', backgroundColor: 'lightyellow', border: '1px solid gold' }}>
                     <CardContent>
                       <CloudQueueIcon />
                       <Typography variant="subtitle1" sx={{ fontSize: '0.75rem' }}>{item.date}</Typography>

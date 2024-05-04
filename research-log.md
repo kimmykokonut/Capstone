@@ -111,3 +111,8 @@
 * 1100: styling resources page
 * 2000: adding content to discord capstone channel
 * 2030: working on deploying project to render and db to supabase
+
+### Fri 5/3/24
+* 1330: deployment troubleshooting
+* 1530: db success to supabase, issue with render backend host: django.db.utils.OperationalError: connection to server at "aws-0-us-west-1.pooler.supabase.com" (54.177.55.191), port 5432 failed: FATAL:  Tenant or user not found
+going to try hosting on python anywhere instead.

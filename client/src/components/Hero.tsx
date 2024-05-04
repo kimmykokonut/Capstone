@@ -47,6 +47,17 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Please enter a valid email.');
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long.');
+      return;
+    }
+
     const userData = {
       username,
       password,
@@ -66,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
 
       navigate('/dashboard');
     } catch (error) {
-      setErrorMessage('An error occurred during sign up. Please check your username and password and try again.');
+      setErrorMessage('An error occurred during sign up. Please check your details and try again.');
     }
   };
 
@@ -89,7 +100,6 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
 
   return (
     <div id="hero">
-      {errorMessage && <p>{errorMessage}</p>}
       {isAuthenticated ? (
         <p>You are already signed in</p>
       ) : (
@@ -145,9 +155,14 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-
                     <Button onClick={toggleRegisterForm}>
                       No account? Sign up</Button>
+                  </Grid>
+                  </Grid>
+                  {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+
+                  </Box>    
+
                     {showRegisterForm && (
                       <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1 }}>
                         <Typography component="h1" variant="h5">Sign Up</Typography>
@@ -210,15 +225,13 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                         />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
                       </Box>
-
                     )}
-                  </Grid>
-                </Grid>
+                  
                 <Box sx={{ mt: 5 }}>
                   <Copyright />
                 </Box>
               </Box>
-            </Box>
+            
           </Grid>
         </Grid>
       )}

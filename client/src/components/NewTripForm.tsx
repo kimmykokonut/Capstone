@@ -47,10 +47,15 @@ const NewTripForm = () => {
 
     const formData = new FormData(e.currentTarget);
 
+    let specificLocation = formData.get('specificLocation') as string;
+    if (!specificLocation) {
+      specificLocation = "45.3420633, -121.9420244";
+    }
+
     const newTrip: NewTripData = {
       date: formData.get('date') as string,
       general_location: formData.get('generalLocation') as string,
-      specific_location: formData.get('specificLocation') as string,
+      specific_location: specificLocation,
       time_start: formData.get('timeStart') as string,
       time_end: formData.get('timeEnd') as string,
       leader: Number(formData.get('leader')),
