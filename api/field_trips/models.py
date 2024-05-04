@@ -6,13 +6,16 @@ from django.utils import timezone
 import random
 from .email_utils import send_applicant_email, send_leader_email
 
+def get_expiration_date():
+  return datetime.date.today() + datetime.timedelta(days=365)
+
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   phone = models.CharField(max_length=20)
   e_name = models.CharField(max_length=100)
   e_phone = models.CharField(max_length=20)
   avatar = models.URLField(default='https://cdn.pixabay.com/photo/2024/01/24/09/01/ai-generated-8529072_1280.png')
-  expiration_date = models.DateField(default=timezone.now() + timedelta(days=365))
+  expiration_date = models.DateField(default=get_expiration_date)
   notes = models.TextField(null=True)
   family = models.CharField(max_length=255, null=True, blank=True)
   skills = models.CharField(max_length=500, null=True, blank=True)
