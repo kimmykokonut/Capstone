@@ -22,6 +22,8 @@
 </p>
   <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
   <p>Initiated April 15, 2024</p>
+  </div>
+
 <div style="display: flex; justify-content: space-around;">
   <div style="width: 40%;">
   <img src="./client/src/assets/images/signIn.png" alt="sign in page" width="100%">
@@ -30,7 +32,6 @@
   <img src="./client/src/assets/images/tripDetails.png" alt="trip details page" width="100%">
   </div>
   </div>
-</div>
 
 ---------------------------
 ### Jump around!
