@@ -225,7 +225,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         <Grid item xs={12} md={6}>
           <Box display="flex" justifyContent="center">
             <Grid container justifyContent="flex-start" style={{ maxWidth: '500px' }}>
-              <Card sx={{ padding: '25px', backgroundColor: '#e0f7fa' }}>
+              <Card sx={{ padding: '25px', backgroundColor: 'lightblue' }}>
                 <CardMedia>
                   <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
                 </CardMedia>
@@ -249,9 +249,9 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                   </ul>
                   <hr />
                   <p>(ADMIN ONLY PERMISSIONS WIP)</p>
-                  <Button>
-                    <Link to={`/trips/edit/${trip.id}`}>Edit Trip</Link></Button>
-                  <Button onClick={handleDelete}>Delete Trip</Button>
+                  <Button color="primary" variant="outlined" sx={{ borderColor: 'green' }}>
+                    <Link to={`/trips/edit/${trip.id}`} style={{ color: 'green', textDecoration: 'none' }}>Edit Trip</Link></Button>
+                  <Button onClick={handleDelete} variant="outlined" color="success">Delete Trip</Button>
                 </CardContent>
               </Card>
             </Grid>
@@ -259,7 +259,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         </Grid>
         {!lotteryRun ? (
           <Grid item xs={12} md={6}>
-            <Card sx={{ backgroundColor: '#e0f7fa' }}>
+            <Card sx={{ backgroundColor: 'lightblue' }}>
               <CardContent>
               <h3>Registration closes: {closeDate}</h3>
               <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
@@ -320,7 +320,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           </Grid>
         ) : (
             <Grid item xs={12} md={6}>
-              <Card sx={{ backgroundColor: '#e0f7fa' }}>
+              <Card sx={{ backgroundColor: 'lightblue' }}>
                 <CardContent>
               <TripComments />
               <hr />
@@ -331,12 +331,12 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           </Grid>
         )}
         <Grid item xs={12}>
-          <Card sx={{ border: '1px solid green' }}>
+          <Card>
             <Typography variant="h6" align="center">5 day forecast</Typography>
             <Grid container spacing={3} justifyContent="center" alignItems="center">
               {forecast.map((item, index) => (
                 <Grid item key={index}>
-                  <Card sx={{ maxHeight: '25vh', overflow: 'auto', backgroundColor: 'gold', border: '1px solid brown' }}>
+                  <Card sx={{ maxHeight: '25vh', overflow: 'auto', backgroundColor: 'lightyellow', border: '1px solid gold' }}>
                     <CardContent>
                       <CloudQueueIcon />
                       <Typography variant="subtitle1" sx={{ fontSize: '0.75rem' }}>{item.date}</Typography>
