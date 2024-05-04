@@ -45,10 +45,9 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
       </Button>
       <Grid container spacing={2}>
           {trips.map((trip: TripProps) => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={trip.id}>
 
         <Trip
-          key={trip.id}
           id={trip.id}
           date={trip.date}
           general_location={trip.general_location}

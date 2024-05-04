@@ -210,7 +210,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   return (
     <>
       <Box mt={2} mb={2}>
-        <MapContainer id="map" style={{ height: '200px' }} center={[lat, long]} zoom={13} scrollWheelZoom={false}>
+        <MapContainer id="map" style={{ height: '150px' }} center={[lat, long]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -221,19 +221,29 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           </Marker>
         </MapContainer>
       </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+      <Grid container spacing={0}>
+        <Grid item xs={12} md={5}>
           <Box display="flex" justifyContent="center">
             <Grid container justifyContent="flex-start" style={{ maxWidth: '500px' }}>
-              <Card sx={{ padding: '25px', backgroundColor: 'lightblue' }}>
+              <Card id="details" sx={{ fontSize: '0.8rem', padding: '25px', backgroundColor: 'lightblue', height: '500px', overflow: 'auto' }}>
                 <CardMedia>
-                  <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px' }} />
+                  <Grid container spacing={3}>
+                    <Grid item xs={4}>
+                      <img src={trip.image_url} alt="forest photo" style={{ width: '150px', height: '150px', display: 'block' }} />
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Box display="flex" flexDirection="column" justifyContent="center">
+                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Status: {trip.status}</Typography>
+                        <br />
+                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Date: {dateString}</Typography>
+                        <br />
+                        <Typography variant="body1">Time: {startTime} to {endTime}</Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
                 </CardMedia>
                 <CardContent>
-                  <h3>Status: {trip.status}</h3>
-                  <p>Date: {dateString}</p>
                   <p>Leader: {trip.leaderName}</p>
-                  <p>Time: {startTime} to {endTime}</p>
                   <p>Area: {trip.general_location}</p>
                   <p>Capacity: {trip.capacity}</p>
                   <p>Restrictions: {trip.restrictions}</p>
@@ -258,42 +268,42 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           </Box>
         </Grid>
         {!lotteryRun ? (
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={7}>
             <Box display="flex" justifyContent="center">
               <Grid container justifyContent="flex-start" style={{ maxWidth: '600px' }}>
-            <Card sx={{ backgroundColor: 'lightblue' }}>
-              <CardContent>
-              <h3>Registration closes: {closeDate}</h3>
-              <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
-              {isLotteryRunning && <p>Running lottery, please wait...</p>}
-              <p>See the <Link to="/resources">resources page</Link> for more info about permits and preparation</p>
-              <hr />
-              <div id="genericInfo">
-                <p>Field trips are for educational purposes. They take place rain or shine.  There is no guarantee of what will be found in the area.</p>
-                <p></p>
-                <ul>
-                  <li>Participation is limited to current OMS members and any household members with whom you share a membership.</li>
-                  <li>No guests allowed.</li>
-                  <li>Please register only if you are confident you can go if selected.
-                    No-shows and late cancellations will be banned from field trips through the following season. (For example, if you cancel last minute on a Spring trip, you will be banned through the following Fall season.) We've already had several people no-show or cancel late this season.</li>
-                  <li>Participants will be selected by a weighted random number lottery, with priority given to volunteers.</li>
-                  <li>You will be notified by email within 2 days of the registration closing date. If you do not see an email, check your spam folder.</li>
-                </ul>
-                <p>Covid-19 restrictions for this trip
-                  Carpooling: At your own risk
-                  If you have any covid symptoms, you may not attend the field trip. If you develop any covid-related symptoms within 10 days of said field trip, you must notify the trip leader.</p>
+                <Card id="registration" sx={{ fontSize: '0.8rem', backgroundColor: 'lightblue', height: '550px', overflow: 'auto' }}>
+                  <CardContent>
+                    <h3>Registration closes: {closeDate}</h3>
+                    <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
+                    {isLotteryRunning && <p>Running lottery, please wait...</p>}
+                    <p>See the <Link to="/resources">resources page</Link> for more info about permits and preparation</p>
+                    <hr />
+                    <div id="genericInfo">
+                      <p>Field trips are for educational purposes. They take place rain or shine.  There is no guarantee of what will be found in the area.</p>
+                      <p></p>
+                      <ul>
+                        <li>Participation is limited to current OMS members and any household members with whom you share a membership.</li>
+                        <li>No guests allowed.</li>
+                        <li>Please register only if you are confident you can go if selected.
+                          No-shows and late cancellations will be banned from field trips through the following season. (For example, if you cancel last minute on a Spring trip, you will be banned through the following Fall season.) We've already had several people no-show or cancel late this season.</li>
+                        <li>Participants will be selected by a weighted random number lottery, with priority given to volunteers.</li>
+                        <li>You will be notified by email within 2 days of the registration closing date. If you do not see an email, check your spam folder.</li>
+                      </ul>
+                      <p>Covid-19 restrictions for this trip
+                        Carpooling: At your own risk
+                        If you have any covid symptoms, you may not attend the field trip. If you develop any covid-related symptoms within 10 days of said field trip, you must notify the trip leader.</p>
 
-                <p>Can't make it on this trip?
-                  Organize your own foray with members outside of a regular field trip. Go to Members Only/Forums/Self Led Trips.</p>
-                <p>We have a forum organized by interest group to socialize and connect here:
-                  https://www.wildmushrooms.org/resources/forums/</p>
-                <p>If you have general questions about this process or our field trips, contact us at fieldtrips@wildmushrooms.org.
-                  For general questions about OMS, email us at info@wildmushrooms.org.</p>
-              </div>
-              <hr />
-              {errorMessage && <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>}
-              {!isRegistered ? (
-                <form onSubmit={handleRegistration}>
+                      <p>Can't make it on this trip?
+                        Organize your own foray with members outside of a regular field trip. Go to Members Only/Forums/Self Led Trips.</p>
+                      <p>We have a forum organized by interest group to socialize and connect here:
+                        https://www.wildmushrooms.org/resources/forums/</p>
+                      <p>If you have general questions about this process or our field trips, contact us at fieldtrips@wildmushrooms.org.
+                        For general questions about OMS, email us at info@wildmushrooms.org.</p>
+                    </div>
+                    <hr />
+                    {errorMessage && <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>}
+                    {!isRegistered ? (
+                      <form onSubmit={handleRegistration}>
                         <Typography variant="h6">Registration</Typography>
                         <FormControlLabel
                           control={
@@ -305,39 +315,39 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                           }
                           label="I agree to the terms and conditions."
                         />
-                  <Button variant="outlined" type="button" onClick={openModal}>Read terms and conditions</Button>
-                  {isModalOpen && (
-                    <div className="modal">
-                      <Button type="button" onClick={closeModal}>Close terms</Button>
-                      <p>I understand if I am selected and fail to attend this field trip, I may not attend future trips through next season. </p>
-                      <p>I accept responsibility for my safety and conduct, and of others I bring on this field trip.</p>
-                      <h5>Oregon Mycological Society / Liability Release and Promise Not to Sue</h5>
-                      <p>I understand there is some risk in participating in a mushroom mycology camp, field trip or other activity - all those risks one assumes by being away from home, risks associated with moving about in fields and woods, risks involved in eating wild mushrooms, risks of losing personal property by theft or misplacement, and all other expected and unexpected risks.
-                        In joining OMS or registering for or attending any OMS mycology camp, field trip or other activity, I agree to assume total responsibility during an event for my own
-                        safety and well-being and that of any minor children under my care, and for the protection of my and their personal property.
-                        I release The Oregon Mycological Society (OMS), its directors, officers, volunteers, contractors, and all other persons assisting in the planning and presentation of an OMS mycology camp, field trip or other activity from liability for any sickness, injury, or loss, I, or any minor children under my care, may suffer during an OMS mycology camp, field trip or other activity or as a result of attending or participating. I further promise not to file a lawsuit or make a claim against any of the persons listed above, even if they negligently cause me or any minor children under my care injury or loss.
-                        Finally, I agree to hold The Oregon Mycological Society harmless from any liability it may incur as a result of any damage to any property I may cause. This
-                        release and promise is part of the consideration I give in order to participate in an OMS mycology camp, field trip or other activity. I understand it affects my legal rights. I intend it to apply not only to me but to anyone who may have the right to make a claim on my behalf.</p>
-                    </div>
-                  )}
-                  <Button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</Button>
-                </form>
-              ) : (
-                <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
-              )}
-              </CardContent>
-            </Card>
-            </Grid>
+                        <Button variant="outlined" type="button" onClick={openModal}>Read terms and conditions</Button>
+                        {isModalOpen && (
+                          <div className="modal">
+                            <Button type="button" onClick={closeModal}>Close terms</Button>
+                            <p>I understand if I am selected and fail to attend this field trip, I may not attend future trips through next season. </p>
+                            <p>I accept responsibility for my safety and conduct, and of others I bring on this field trip.</p>
+                            <h5>Oregon Mycological Society / Liability Release and Promise Not to Sue</h5>
+                            <p>I understand there is some risk in participating in a mushroom mycology camp, field trip or other activity - all those risks one assumes by being away from home, risks associated with moving about in fields and woods, risks involved in eating wild mushrooms, risks of losing personal property by theft or misplacement, and all other expected and unexpected risks.
+                              In joining OMS or registering for or attending any OMS mycology camp, field trip or other activity, I agree to assume total responsibility during an event for my own
+                              safety and well-being and that of any minor children under my care, and for the protection of my and their personal property.
+                              I release The Oregon Mycological Society (OMS), its directors, officers, volunteers, contractors, and all other persons assisting in the planning and presentation of an OMS mycology camp, field trip or other activity from liability for any sickness, injury, or loss, I, or any minor children under my care, may suffer during an OMS mycology camp, field trip or other activity or as a result of attending or participating. I further promise not to file a lawsuit or make a claim against any of the persons listed above, even if they negligently cause me or any minor children under my care injury or loss.
+                              Finally, I agree to hold The Oregon Mycological Society harmless from any liability it may incur as a result of any damage to any property I may cause. This
+                              release and promise is part of the consideration I give in order to participate in an OMS mycology camp, field trip or other activity. I understand it affects my legal rights. I intend it to apply not only to me but to anyone who may have the right to make a claim on my behalf.</p>
+                          </div>
+                        )}
+                        <Button type="submit" disabled={isLoading}>{isLoading ? 'Registration in progress...' : 'Register'}</Button>
+                      </form>
+                    ) : (
+                      <h3 style={{ color: 'green', fontWeight: 'bold' }}>You have registered for this trip</h3>
+                    )}
+                  </CardContent>
+                </Card>
+              </Grid>
             </Box>
           </Grid>
         ) : (
-            <Grid item xs={12} md={6}>
-              <Card sx={{ backgroundColor: 'lightblue' }}>
-                <CardContent>
-              <TripComments />
-              <hr />
-              <p>wip-mushrooms seen on trip (wip)</p>
-              <hr />
+          <Grid item xs={12} md={6}>
+            <Card sx={{ backgroundColor: 'lightblue' }}>
+              <CardContent>
+                <TripComments />
+                <hr />
+                <p>wip-mushrooms seen on trip (wip)</p>
+                <hr />
               </CardContent>
             </Card>
           </Grid>

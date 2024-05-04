@@ -3,7 +3,14 @@
   <h1>Myco Matrix</h1>
   <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
   <p>Initiated April 15, 2024</p>
-  <img src="./client/src/assets/images/logo.png" alt="oregon mycological society logo" width="300">
+<div style="display: flex; justify-content: space-around;">
+  <div style="width: 40%;">
+  <img src="./client/src/assets/images/signIn.png" alt="sign in page" width="100%">
+  </div>
+    <div style="width: 40%;">
+  <img src="./client/src/assets/images/tripDetails.png" alt="trip details page" width="100%">
+  </div>
+  </div>
 </div>
 
 ---------------------------
