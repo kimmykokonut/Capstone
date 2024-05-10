@@ -77,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
 
       navigate('/dashboard');
     } catch (error) {
-      setErrorMessage('An error occurred during sign up. Please check your details and try again.');
+      setErrorMessage('An error occurred during sign up. Please check your details and try again.  If the problem persists, please choose a different username');
     }
   };
 

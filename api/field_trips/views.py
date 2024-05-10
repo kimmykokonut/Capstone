@@ -11,6 +11,7 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.conf import settings
 
 def welcome(request):
   return HttpResponse("Welcome to the OMS Field Trip API")
@@ -42,6 +43,9 @@ def login(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
+  username = request.data.get('username')
+  if username in settings.ACCOUNT_USERNAME_BLACKLIST:
+    return Response({"detail": "This username is not allowed."}, status.HTTP_400_BAD_REQUEST)
   serializer = UserSerializer(data=request.data)
   if serializer.is_valid():
     user = serializer.save()
