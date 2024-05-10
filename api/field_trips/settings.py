@@ -157,3 +157,5 @@ REST_FRAMEWORK = {
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     )
 }
+
+ACCOUNT_USERNAME_BLACKLIST = [ 'admin', 'accounts', 'profile', 'category', 'post', 'inbox' ]
