@@ -50,9 +50,10 @@ export interface PatchTripData {
   registrationClose?: Date;
   permits?: number[];
 }
-
+//dev url
+//const baseUrl = 'http://127.0.0.1:8000'
+//prod url
 const baseUrl = 'https://myco-matrix.onrender.com'
-
 
 export async function signUp(userData: UserData) {
   try {

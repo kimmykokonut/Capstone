@@ -15,6 +15,9 @@ load_dotenv()
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+# true for dev mode
+# DEBUG = True
 # changed to false now in production
 DEBUG = False
 
@@ -80,8 +83,19 @@ WSGI_APPLICATION = 'field_trips.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# to use supabase db
+# developement local db
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'oms',
+#         'USER': str(os.getenv('DB_USER')),
+#         'PASSWORD': str(os.getenv('DB_PW')),
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
+# to use supabase db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
