@@ -12,6 +12,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.conf import settings
+from rest_framework.exceptions import PermissionDenied
+from .permissions import IsLeaderOrCoordinator
 
 def welcome(request):
   return HttpResponse("Welcome to the OMS Field Trip API")
@@ -37,6 +39,7 @@ def login(request):
   serializer = UserSerializer(instance=user)
   response = Response({"user": serializer.data})
   # once using Https change samesite='None'
+  # http-local dev: samesite='', secure=False
   response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True)
   return response
 
@@ -136,6 +139,7 @@ def mushroom_list(request, format=None):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
   # not confirmed since cookie change
+
 @api_view(['GET', 'POST'])
 @authentication_classes([CookieTokenAuthentication])
 def trip_list(request, format=None):
@@ -146,7 +150,12 @@ def trip_list(request, format=None):
     paginated_trips = paginator.paginate_queryset(trips, request)
     serializer = TripSerializer(paginated_trips, many=True)
     return paginator.get_paginated_response(serializer.data)
+  
   if request.method == 'POST':
+    # only Leader/Coordinator group has permission
+    if not (IsAuthenticated().has_permission(request, None) and IsLeaderOrCoordinator().has_permission(request, None)):
+      return Response(status=status.HTTP_403_FORBIDDEN)
+    
     serializer = TripSerializer(data=request.data)
     if serializer.is_valid():
       serializer.save()
@@ -166,13 +175,21 @@ def trip_detail(request, pk):
     return Response(serializer.data)
   
   elif request.method in ['PUT', 'PATCH']:
-      # Todo: check logged in user belongs to group admin, coordinator or leader
-      serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
-      if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # only Leader/Coordinator group has permission
+    if not (IsAuthenticated().has_permission(request, None) and IsLeaderOrCoordinator().has_permission(request, None)):
+      return Response(status=status.HTTP_403_FORBIDDEN)
+
+    serializer = TripEditSerializer(trip, data=request.data, partial=(request.method == 'PATCH'))
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
   elif request.method == 'DELETE':
+    # only Leader/Coordinator group has permission
+    if not (IsAuthenticated().has_permission(request, None) and IsLeaderOrCoordinator().has_permission(request, None)):
+      return Response(status=status.HTTP_403_FORBIDDEN)
+    
     trip.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
     
@@ -232,6 +249,10 @@ def lottery_results(request, trip_id):
     return Response(data)
   
   elif request.method == 'POST':
+    # only Leader/Coordinator group has permission
+    if not (IsAuthenticated().has_permission(request, None) and IsLeaderOrCoordinator().has_permission(request, None)):
+      return Response(status=status.HTTP_403_FORBIDDEN)
+    
     trip = get_object_or_404(Trip, pk=trip_id)
     trip.run_lottery()
     return Response({'message': 'Lottery run success'})

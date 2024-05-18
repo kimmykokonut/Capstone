@@ -198,6 +198,7 @@ Now you should have your database schema all set!
 
 - Finish styling (topo map color palate?)
 - Permissions (admin & coordinator: full CRUD access, leader has create and edit permissions, members have read only permission (maybe create mushroom))
+  -Permissions Completed for /trips and /trips/:id and /trips/:id/lottery. Need to update Read front to disable buttons/add error handling.
 - Add listener to trigger lottery based on closing date to replace the current button to manually make the lottery happen
 - Enhance trip details page for trip leader to add mushroom species seen on trip (Mushroom component exists in database, currently seeded with 20 species)
 - Build out full CRUD for /mushrooms
