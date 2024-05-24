@@ -58,7 +58,7 @@ CORS_ORIGIN_WHITELIST = (
     "https://myco.onrender.com",
 )
 CORS_ALLOW_CREDENTIALS = True
-
+ 
 ROOT_URLCONF = 'field_trips.urls'
 
 TEMPLATES = [

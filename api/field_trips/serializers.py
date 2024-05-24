@@ -12,9 +12,17 @@ class UserSerializer(serializers.ModelSerializer):
   username = serializers.CharField(
     validators=[UniqueValidator(queryset=User.objects.all())]
     )
+  group_status = serializers.SerializerMethodField()
+
   class Meta(object):
     model = User
-    fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
+    fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password', 'group_status']
+  
+  def get_group_status(self, obj):
+    print("Getting group status for user:", obj.username)
+    group_status = [g.name for g in obj.groups.all()]
+    print("Group status:", group_status)
+    return group_status
 
 class UserNameSerializer(serializers.ModelSerializer):
   class Meta:
