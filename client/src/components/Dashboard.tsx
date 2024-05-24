@@ -12,6 +12,7 @@ type User = {
     first_name: string;
     last_name: string;
     email: string;
+    group_status: string[];
   };
   phone: string;
   e_name: string;
@@ -45,6 +46,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
   if (!user) {
     return <div>Loading...</div>
   }
+  
   return (
     <Container maxWidth="sm" sx={{ display: 'flex', justifyContent: 'center' }}>
       <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#009eb0'}} style={{ display: 'inline-block' }}>
@@ -68,7 +70,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
           <Typography variant="subtitle1" color="text.secondary">Membership expiration: {user?.expiration_date ? new Date(user.expiration_date).toLocaleDateString() : 'None provided'}</Typography>
           <Typography variant="subtitle1" color="text.secondary">Family: {user?.family || 'None provided'}</Typography>
           <Typography variant="subtitle1" color="text.secondary">Skills: {user?.skills || 'None provided'}</Typography>
-          <Typography variant="subtitle1" color="text.secondary"></Typography>
+          <Typography variant="subtitle1" color="text.secondary">Status: {user?.user.group_status.join(', ') || 'none'}</Typography>
         </CardContent>
         <Card sx={{
           mt: 2, backgroundColor: '#0073e6' }}>
