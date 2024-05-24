@@ -130,41 +130,6 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
         </CardActions>
       </Card>
     </Container>
-
-    // <div style={{ marginTop: '64px' }}>
-    //   <img src={user.avatar} alt="user avatar" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
-    //   <h1>{user?.user.first_name} {user?.user.last_name}</h1>
-    //   <p>Username: {user?.user.username}</p>
-    //   <p>Phone: {user?.phone || 'None provided'}</p>
-    //   <p>Emergency Contact: {user?.e_name || 'None provided'} ({user?.e_phone || 'None provided'}) </p>
-    //   <p>Membership expiration: {user?.expiration_date ? new Date(user.expiration_date).toLocaleDateString() : 'None provided'}</p>
-    //   <p>Family: {user?.family || 'None provided'}</p>
-    //   <p>Skills: {user?.skills || 'None provided'}</p>
-    //   <Link to="/dashboard/profile">Update info</Link>
-    //   <Routes>
-    //     <Route path='profile' element={<ProfileForm user={user} />} />
-    //   </Routes>
-    //   <hr />
-    //   <p>Trip registrations:</p>
-    //   {userRegistrations
-    //     .sort((a, b) => {
-    //       const tripA = trips.find(trip => trip.id === a.trip_id);
-    //       const tripB = trips.find(trip => trip.id === b.trip_id);
-    //       if (!tripA || !tripB) {
-    //         return 0;
-    //       }
-    //       return new Date(tripB.date).getTime() - new Date(tripA.date).getTime();
-    //     })
-    //     .map((regStatus, index) => {
-    //       const trip = trips.find(trip => trip.id === regStatus.trip_id);
-    //       return (
-    //         <p key={index}>{regStatus.status}: {trip ? new Date(trip.date).toLocaleDateString() : 'Not found'} </p>
-    //       );
-    //     })}
-    //   <hr />
-    //   <a href="/trips">See upcoming trips</a>
-    //   <hr />
-    // </div>
   );
 };
 export default Dashboard;

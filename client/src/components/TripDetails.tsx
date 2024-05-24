@@ -42,6 +42,7 @@ interface WeatherData {
 const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   const { id } = useParams<{ id: string }>();
   const trip = trips.find(trip => trip.id === Number(id));
+  const groupStatus = JSON.parse(localStorage.getItem('group_status') || '[]');
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -216,7 +217,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <Marker position={[lat, long]}>
             <Popup>
-              Not exact location <br /> Leader will provide location closer to trip
+              Not exact location <br /> Leader will provide specific location closer to trip date
             </Popup>
           </Marker>
         </MapContainer>
@@ -257,11 +258,13 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                       </li>
                     ))}
                   </ul>
-                  <hr />
-                  <p>(ADMIN ONLY PERMISSIONS WIP)</p>
-                  <Button color="primary" variant="outlined" sx={{ borderColor: 'green' }}>
-                    <Link to={`/trips/edit/${trip.id}`} style={{ color: 'green', textDecoration: 'none' }}>Edit Trip</Link></Button>
-                  <Button onClick={handleDelete} variant="outlined" color="success">Delete Trip</Button>
+                  {(groupStatus.includes('Leader') || groupStatus.includes('Coordinator')) && (
+                    <div style={{ textAlign: 'center' }}>
+                      <Button color="primary" variant="outlined" sx={{ marginRight: '5px', borderColor: 'green' }}>
+                        <Link to={`/trips/edit/${trip.id}`} style={{ marginLeft: '5px', color: 'green', textDecoration: 'none' }}>Edit Trip</Link></Button>
+                      <Button onClick={handleDelete} variant="outlined" color="success">Delete Trip</Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
@@ -274,7 +277,9 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                 <Card id="registration" sx={{ fontSize: '0.8rem', backgroundColor: 'lightblue', height: '550px', overflow: 'auto' }}>
                   <CardContent>
                     <h3>Registration closes: {closeDate}</h3>
-                    <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
+                    {(groupStatus.includes('Leader') || groupStatus.includes('Coordinator')) && (
+                      <Button variant="outlined" onClick={runLottery} disabled={isLotteryRunning}>Close trip & Run lottery (test mode)</Button>
+                    )}
                     {isLotteryRunning && <p>Running lottery, please wait...</p>}
                     <p>See the <Link to="/resources">resources page</Link> for more info about permits and preparation</p>
                     <hr />
