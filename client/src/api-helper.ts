@@ -50,9 +50,9 @@ export interface PatchTripData {
   registrationClose?: Date;
   permits?: number[];
 }
-//dev url
-//const baseUrl = 'http://127.0.0.1:8000'
-//prod url
+// dev url
+// const baseUrl = 'http://127.0.0.1:8000'
+// prod url
 const baseUrl = 'https://myco-matrix.onrender.com'
 
 export async function signUp(userData: UserData) {
@@ -89,6 +89,7 @@ export async function signIn(userSignInData: UserSignInData) {
     });
     if (response.ok) {
       const responseData = await response.json();
+      localStorage.setItem('group_status', JSON.stringify(responseData.user.group_status));
       return responseData;
     } else {
       throw new Error('Failed to fetch');
@@ -110,6 +111,7 @@ export async function signOut() {
     });
     if (response.ok) {
       const responseData = await response.json();
+      localStorage.removeItem('group_status');
       return responseData;
     } else {
       throw new Error('Failed to fetch');
