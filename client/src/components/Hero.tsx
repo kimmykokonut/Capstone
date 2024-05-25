@@ -90,7 +90,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
     return (
       <Typography variant="body2" color="text.success" align="center">
         {'Copyright © '}
-        <Link color="inherit" to="https://kimmykokonut.github.io/">
+        <Link style={{ color: "green"}} to="https://kimmykokonut.github.io/">
           kimmykokonut
         </Link>{' '}
         {new Date().getFullYear()}
@@ -148,20 +148,28 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                   autoComplete="current-password"
                   value={pwIn}
                   onChange={(e) => setPwIn(e.target.value)} />
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign In</Button>
+                <Button 
+                  type="submit" 
+                  fullWidth 
+                  variant="contained"
+                  color="success" 
+                  sx={{ mt: 3, mb: 2 }}>
+                    Sign In
+                    </Button>
                 <Grid container>
                   <Grid item xs>
                     <Typography variant="body2">
-                      <Link to='#'>Forgot password?</Link>
+                      <Link to='#' style={{ color: "green" }}>Forgot password?</Link>
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button onClick={toggleRegisterForm}>
+                    <Button 
+                    color="success"
+                    onClick={toggleRegisterForm}>
                       No account? Sign up</Button>
                   </Grid>
                   </Grid>
                   {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-
                   </Box>    
 
                     {showRegisterForm && (
