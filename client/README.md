@@ -85,13 +85,22 @@ Displays 10 upcoming field trips, sorted by date and clearly marked if registrat
 
 ### Trip Details Page
 
-<img src="./src/assets/images/tripDetails.png" alt="field trip details page" width="400">
+  <img src="./src/assets/images/tripDetails.png" alt="field trip details page" width="400">
 
 The information on the page renders differently depending on the trip status.
 If registration is open, user is presented with the trip details, important information, a checkbox to agree to terms and conditions and a registration button.
-Admin/Coordinator will have access to the manual run lottery button, edit and delete field trip buttons. (permissions wip)
+Admin/Coordinator will have access to the manual run lottery button, edit and delete field trip buttons.
+
+<img src="./src/assets/images/comments.png" alt="field trip details page with comments" width="400">
+
 If registration is closed, the boilerplate information is hidden and the trip comments component (and to come-the mushroom component) where users can post on that trip logistical information like arranging carpools (and adding mushrooms seen to that trip).
 Regardless of registration status, user is presented with the trip's basic information, a 5 day weather forecast and a map pinpointing the latitude/longitude that was added when the trip was created.
+
+### Create/Edit Trip Details Page
+
+<img src="./src/assets/images/createTrip.png" alt="field trip create page" width="400">
+
+If the signed in user is part of the Leader or Coordinator (designated by admin via Django Rest Admin), they have full CRUD access for trips and can create, edit and delete trips.  They can also access the automated lottery button which is not visible for basic members. A stretch goal for this app is to not have the leader click the lottery button, but a date listener will be built into the program so when the registration close date occurs, it acts like the button, but adds one more layer of automation.
 
 ### Resources
 

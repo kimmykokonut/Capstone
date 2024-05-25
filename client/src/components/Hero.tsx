@@ -232,7 +232,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                           value={lName}
                           onChange={(e) => setLName(e.target.value)}
                         />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
+                        <Button type="submit" fullWidth variant="contained" color="success" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
                       </Box>
                     )}
                   
