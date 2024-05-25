@@ -63,7 +63,7 @@ const Header = () => {
                 <img src={logo} alt="logo for Oregon Mycological Society" style={{ maxHeight: '100%', maxWidth: '100%' }} />
               </Box>
 
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
                 <MenuItem
                   component={Link}
                   to="/dashboard"
@@ -86,7 +86,7 @@ const Header = () => {
 
               <Box
                 sx={{
-                  display: { xs: 'none', md: 'flex' },
+                  display: { xs: 'none', sm: 'flex' },
                   gap: 0.5,
                   alignItems: 'center',
                 }} >
@@ -96,7 +96,7 @@ const Header = () => {
                   onClick={handleLogout}>Sign out</Button>
               </Box>
 
-              <Box sx={{ display: { sm: '', md: 'none' } }}>
+              <Box sx={{ display: { xs: '', sm: 'none' } }}>
                 <Button
                   variant="text"
                   color="success"
