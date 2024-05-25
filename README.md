@@ -85,6 +85,7 @@
 * MushroomList: issue displaying image-console log says the cookie will expire. The issue is not related to storing the URLs, but to the same-origin policy of the browser, which restricts how resources loaded from different origins can interact.  Look into GoogleCloud Storage and django-storages library
 * Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
 * Chrome console warning: Reading cookie in cross-site context will be blocked in future Chrome versions. Once deployed in https, try: cookie = "name=value; SameSite=None; Secure";  (currently: response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True))
+* There is an issue when entering the lat/long in create trip form, the default is set regardless if something is entered.  Would prefer a more user-friendly way to get location than form input (Take location name and input gps coordinates on backend?)
 
 Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
 
