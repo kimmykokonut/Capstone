@@ -27,8 +27,14 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
   const groupStatus = JSON.parse(localStorage.getItem('group_status') || '[]');
 
   if (!trips) {
-    return <div>Loading...</div>
+    return (
+      <div className="loaderCentered">
+        <div className="loader"></div>
+        <h3>Loading...</h3>
+      </div>
+    )
   }
+
   return (
     <>
       <Typography variant="h4" align="center" mt="30px">Upcoming Field Trips</Typography>
@@ -51,10 +57,10 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
 
       <Grid container spacing={2}>
         {trips.map((trip: TripProps) => (
-          <Grid 
-            item xs={12} sm={6} md={4} lg={3} 
+          <Grid
+            item xs={12} sm={6} md={4} lg={3}
             key={trip.id}
-            >
+          >
             <Trip
               id={trip.id}
               date={trip.date}

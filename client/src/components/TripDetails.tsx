@@ -119,13 +119,11 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   }, [trip]);
 
   if (!trip) {
-    return (<div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 'calc(100vh - 60px)', // Adjust as needed
-    }}>
-      Loading...</div>
+    return (
+      <div className="loaderCentered">
+        <div className="loader"></div>
+        <h3>Loading...</h3>
+      </div>
     );
   }
 
@@ -287,10 +285,10 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                   <Grid container spacing={1} justifyContent="center" alignItems="center">
                     {forecast.map((item, index) => (
                       <Grid item key={index}>
-                        <Card sx={{ 
-                          backgroundColor: '#ffffff', 
+                        <Card sx={{
+                          backgroundColor: '#ffffff',
                           border: '1px solid grey', borderRadius: '15px',
-                          }} elevation={3}>
+                        }} elevation={3}>
                           <CardContent sx={{ padding: '10px 10px' }}>
                             <Typography variant="subtitle1" sx={{ fontSize: '0.75rem', fontWeight: 'bold' }}>{item.date}</Typography>
                             <Typography variant="h6" sx={{ fontSize: '0.75rem' }}>{Math.round(((item.tempMin - 273.15) * 9 / 5 + 32))}°F</Typography>
@@ -341,7 +339,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                       {errorMessage && <Typography variant="h6" style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</Typography>}
                       {!isRegistered ? (
                         <form onSubmit={handleRegistration}>
-                          <Typography variant="h6">Register!</Typography>
                           <FormControlLabel
                             control={
                               <Checkbox

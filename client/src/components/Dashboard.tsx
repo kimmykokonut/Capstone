@@ -44,12 +44,17 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
   }, []);
 
   if (!user) {
-    return <div>Loading...</div>
+    return (
+      <div className="loaderCentered">
+        <div className="loader"></div>
+        <h3>Loading...</h3>
+      </div>
+    )
   }
-  
+
   return (
     <Container maxWidth="sm" sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#b2c89e'}} style={{ display: 'inline-block' }}>
+      <Card variant="elevation" elevation={3} sx={{ p: 4, mt: "64px", backgroundColor: '#b2c89e' }} style={{ display: 'inline-block' }}>
         <CardHeader
           avatar={
             <Avatar
@@ -73,7 +78,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
           <Typography variant="subtitle1" color="text.secondary">Status: {user?.user.group_status.join(', ') || 'none'}</Typography>
         </CardContent>
         <Card sx={{
-          mt: 2, backgroundColor: '#81ba75' }}>
+          mt: 2, backgroundColor: '#81ba75'
+        }}>
           <Typography variant="h6" align="center">Trip registrations:</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {userRegistrations
@@ -107,25 +113,25 @@ const Dashboard: React.FC<DashboardProps> = ({ userRegistrations, trips }) => {
               }
             }}
           >
-          <Link to="/trips">See upcoming trips</Link>
+            <Link to="/trips">See upcoming trips</Link>
           </Box>
-            <Box
-              component="span"
-              sx={{
-                '& a': {
-                  textDecoration: 'none',
-                  color: 'green',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                    color: 'black'
-                  }
+          <Box
+            component="span"
+            sx={{
+              '& a': {
+                textDecoration: 'none',
+                color: 'green',
+                '&:hover': {
+                  textDecoration: 'underline',
+                  color: 'black'
                 }
-              }}
-            >
-          <Link to="/dashboard/profile">Update info</Link>
-          <Routes>
-            <Route path='profile' element={<ProfileForm user={user} />} />
-          </Routes>
+              }
+            }}
+          >
+            <Link to="/dashboard/profile">Update info</Link>
+            <Routes>
+              <Route path='profile' element={<ProfileForm user={user} />} />
+            </Routes>
           </Box>
         </CardActions>
       </Card>
