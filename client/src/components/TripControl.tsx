@@ -62,49 +62,49 @@ const TripControl: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-    const fetchTrips = async () => {
-      try {
-        const response: { results: TripProps[] } = await getTrips();
-        const tripsWithLeaderName = await Promise.all(response.results.map(async (trip) => {
-          const leaderData = await getUser(trip.leader);
-          return { ...trip, leaderName: leaderData.first_name }
-        }));
-        setTrips(tripsWithLeaderName);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchTrips();
-  }
+      const fetchTrips = async () => {
+        try {
+          const response: { results: TripProps[] } = await getTrips();
+          const tripsWithLeaderName = await Promise.all(response.results.map(async (trip) => {
+            const leaderData = await getUser(trip.leader);
+            return { ...trip, leaderName: leaderData.first_name }
+          }));
+          setTrips(tripsWithLeaderName);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+      fetchTrips();
+    }
   }, [isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
 
-    const fetchUserRegistrations = async () => {
-      try {
-        const registrations = await getUserRegistrations();
-        setUserRegistrations(registrations);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchUserRegistrations();
-  }
+      const fetchUserRegistrations = async () => {
+        try {
+          const registrations = await getUserRegistrations();
+          setUserRegistrations(registrations);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+      fetchUserRegistrations();
+    }
   }, [isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
-    const fetchMushrooms = async () => {
-      try {
-        const response: { results: MushroomProps[] } = await getMushrooms();
-        setMushrooms(response.results);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchMushrooms();
-  }
+      const fetchMushrooms = async () => {
+        try {
+          const response: { results: MushroomProps[] } = await getMushrooms();
+          setMushrooms(response.results);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+      fetchMushrooms();
+    }
   }, [isAuthenticated]);
 
   const updateTrips = (updatedTrip: TripProps) => {
@@ -122,7 +122,7 @@ const TripControl: React.FC = () => {
           element={<Dashboard userRegistrations={userRegistrations} trips={trips} />} />
         <Route
           path='/trips/:id'
-          element={<TripDetails trips={trips} updateTrips={updateTrips}/>} />
+          element={<TripDetails trips={trips} updateTrips={updateTrips} />} />
         <Route
           path='/trips'
           element={<TripList trips={trips} />} />
@@ -131,7 +131,7 @@ const TripControl: React.FC = () => {
           element={<NewTripForm />} />
         <Route
           path='/trips/edit/:id'
-          element={<EditTripForm trips={trips} updateTrips={updateTrips}/>} />
+          element={<EditTripForm trips={trips} updateTrips={updateTrips} />} />
         <Route
           path='/resources/checklist'
           element={<Checklist />} />
@@ -141,7 +141,6 @@ const TripControl: React.FC = () => {
         <Route
           path='/mushrooms'
           element={<MushroomList mushrooms={mushrooms} />} />
-
       </Routes>
     </>
   )

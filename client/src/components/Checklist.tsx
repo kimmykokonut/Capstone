@@ -6,13 +6,13 @@ const Checklist = () => {
   };
 
   return (
-    <Container sx={{mt:5}}>
-    <Button onClick={handlePrint} variant="outlined" color="success">Print Me</Button>
+    <Container sx={{ mt: 5 }}>
+      <Button onClick={handlePrint} variant="outlined" color="success">Print Me</Button>
       <h2>Mushroom Hunting Checklist</h2>
-      <Typography variant="subtitle2">Mushroom hunting is generally a fun day trip!  But we all know that it is not all that difficult to get turned around and lost.</Typography> 
+      <Typography variant="subtitle2">Mushroom hunting is generally a fun day trip!  But we all know that it is not all that difficult to get turned around and lost.</Typography>
       <Typography variant="subtitle2">PLEASE be prepared with the following items, and ask yourself: Could I survive a night in the woods with the gear that I am carrying?</Typography>
       <h3>Essential Items</h3>
-        <Typography><Checkbox/><strong>Whistle</strong></Typography>
+      <Typography><Checkbox /><strong>Whistle</strong></Typography>
       <Typography><Checkbox /><strong>Watch</strong></Typography>
       <Typography><Checkbox /><strong>Permits</strong>: Foraging and/or Parking Permits as required</Typography>
       <Typography><Checkbox /><strong>Water</strong>(pack extra)</Typography>
@@ -37,7 +37,7 @@ const Checklist = () => {
       <Typography><Checkbox />Mittens or gloves </Typography>
       <Typography><Checkbox />Brightly colored - Highly visible - Reflective vest or jacket</Typography>
       <h3>In your flat-bottomed basket:</h3>
-     <Typography><Checkbox />Knife, brightly marked</Typography>
+      <Typography><Checkbox />Knife, brightly marked</Typography>
       <Typography><Checkbox />Brush for cleaning mushrooms prior to putting them in your basket</Typography>
       <Typography><Checkbox />Waxed or paper bags</Typography>
       <h3>Extras</h3>

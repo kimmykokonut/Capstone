@@ -54,7 +54,6 @@ const TripList: React.FC<TripListProps> = ({ trips }) => {
           </Button>
         </Box>
       )}
-
       <Grid container spacing={2}>
         {trips.map((trip: TripProps) => (
           <Grid

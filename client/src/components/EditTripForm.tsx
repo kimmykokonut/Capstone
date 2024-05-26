@@ -3,8 +3,7 @@ import { getPermitList, getLeaders, editTrip } from "../api-helper";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTripById } from "../api-helper";
 import { TripProps } from "./TripControl";
-import { TextField, Button, InputLabel, Checkbox, Typography, Container, Grid, Input } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import { TextField, Button, InputLabel, Checkbox, Typography, Container } from "@mui/material";
 
 interface LeaderProps {
   id: number;
@@ -80,8 +79,8 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
     };
     await editTrip(formEdits, trip.id);
     const fetchedTrip = await getTripById(trip.id);
-      updateTrips(fetchedTrip);
-      navigate('/trips');
+    updateTrips(fetchedTrip);
+    navigate('/trips');
   };
 
   return (
@@ -90,28 +89,28 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
         <Typography mt={2} variant="h5">Edit Trip</Typography>
         <fieldset>
           <legend>Trip Details</legend>
-          <InputLabel htmlFor="date">Date <TextField type="date" name="date" placeholder="Date" id="date" defaultValue={trip?.date} variant="standard"/></InputLabel>
+          <InputLabel htmlFor="date">Date <TextField type="date" name="date" placeholder="Date" id="date" defaultValue={trip?.date} variant="standard" /></InputLabel>
           <br />
           <InputLabel htmlFor="generalLocation">General Location
-            <TextField name="generalLocation" placeholder="Location (i.e. Mt Hood NF)" id="generalLocation" defaultValue={trip?.general_location} variant="standard" fullWidth/></InputLabel>
+            <TextField name="generalLocation" placeholder="Location (i.e. Mt Hood NF)" id="generalLocation" defaultValue={trip?.general_location} variant="standard" fullWidth /></InputLabel>
           <br />
           <InputLabel htmlFor="specificLocation">Latitude, Longitude
-            <TextField 
-            name="specificLocation" 
-            placeholder="Lat/Long of location" 
-            id="specificLocation" 
-              defaultValue={trip?.specific_location} variant="standard"/></InputLabel>
+            <TextField
+              name="specificLocation"
+              placeholder="Lat/Long of location"
+              id="specificLocation"
+              defaultValue={trip?.specific_location} variant="standard" /></InputLabel>
           <br />
           <InputLabel htmlFor="timeStart">Start Time <TextField type="time" name="timeStart" placeholder="Start Time" id="timeStart" defaultValue={trip?.time_start} variant="standard" /></InputLabel>
           <InputLabel htmlFor="timeEnd">End Time <TextField type="time" name="timeEnd" placeholder="End time" id="timeEnd" defaultValue={trip?.time_end} variant="standard" /></InputLabel>
         </fieldset>
         <fieldset>
           <legend>Trip Leader</legend>
-          <select 
-          name="leader" 
-          id="leader"
+          <select
+            name="leader"
+            id="leader"
             style={{ fontSize: '16px', height: '30px', width: '25%' }}
-            >
+          >
             {leaders.map((leader) => (
               <option value={leader.id} key={leader.id}>{leader.first_name} {leader.last_name}</option>
             ))}
@@ -119,14 +118,14 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
         </fieldset>
         <fieldset>
           <InputLabel htmlFor="capacity">Capacity
-            <TextField type="number" name="capacity" placeholder="Capacity Number" id="capacity" defaultValue={trip?.capacity} variant="standard"/></InputLabel>
+            <TextField type="number" name="capacity" placeholder="Capacity Number" id="capacity" defaultValue={trip?.capacity} variant="standard" /></InputLabel>
           <br />
           <InputLabel htmlFor="waitlist">Waitlist size
-            <TextField type="number" name="waitlist" 
-            id="waitlist" defaultValue={trip?.waitlist} variant="standard" /></InputLabel>
+            <TextField type="number" name="waitlist"
+              id="waitlist" defaultValue={trip?.waitlist} variant="standard" /></InputLabel>
           <br />
           <InputLabel htmlFor="restrictions">Restrictions
-            <TextField name="restrictions" id="restrictions" defaultValue={trip?.restrictions} variant="standard" multiline/></InputLabel>
+            <TextField name="restrictions" id="restrictions" defaultValue={trip?.restrictions} variant="standard" multiline /></InputLabel>
           <br />
           <InputLabel htmlFor="note">Additional information
             <TextField name="note" id="note" defaultValue={trip?.note} variant="standard" /></InputLabel>
@@ -138,14 +137,14 @@ const EditTripForm: React.FC<EditTripProps> = ({ trips, updateTrips }) => {
           {permitList.map((permit) => (
             <div key={permit.id}>
               <InputLabel htmlFor={`permit-${permit.id}`}>
-                <Checkbox id={`permit-${permit.id}`} name="permits" value={permit.id} defaultChecked={trip?.permits.includes(permit.id)}/>{permit.name}</InputLabel>
+                <Checkbox id={`permit-${permit.id}`} name="permits" value={permit.id} defaultChecked={trip?.permits.includes(permit.id)} />{permit.name}</InputLabel>
             </div>
           ))}
         </fieldset>
-        <Button 
-        type="submit"
-        variant="contained"
-        color="success"
+        <Button
+          type="submit"
+          variant="contained"
+          color="success"
         >Edit trip</Button>
       </form>
     </Container>
