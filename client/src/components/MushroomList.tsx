@@ -10,7 +10,12 @@ interface MushroomListProps {
 const MushroomList: React.FC<MushroomListProps> = ({ mushrooms }) => {
 
   if (!mushrooms) {
-    return <div>Loading...</div>
+    return (
+      <div className="loaderCentered">
+        <div className="loader"></div>
+        <h3>Loading...</h3>
+      </div>
+    )
   }
   return (
     <>

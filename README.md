@@ -57,7 +57,7 @@
 
   Myco Matrix is an application where users can register for field trip lotteries, connect with other members and access resources to ensure their foraging experience is safe and permitted.
 
-  The Myco Matrix allows users to register and sign in to their own account as well as edit their profile information, register for upcoming field trips and access resources such as packing lists and parking and foraging permits needed by location.  Administrators and users within the Coordinator group can create, edit and delete field trips and manually run the lottery, which randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a functional comment thread on each field trip, for users to connect with other users. (More stretch goals at bottom).
+  The Myco Matrix allows users to register, sign in, and edit their profile information.  They can register for upcoming field trips with one button click and access resources such as packing lists and permits needed by location (in the Pacific Northwest).  Administrators and users within the Coordinator and Leader groups can create, edit and delete field trips as well as manually run the lottery with one button click.  The lottery randomizes registrants and assigns them their trip status (accepted, waitlisted, rejected).  The automated lottery function emails the registrants their status once the lottery is complete and emails the trip leader the group's contact information.  Stretch goals include incorporating the existing mushroom information in the database to attach mushrooms seen on field trips and have that data visible, as well as a fully functional comment thread on each field trip, for users to connect with other users. (See other stretch goals at bottom of Readme).
 
   This project was inspired by my years spent as the volunteer field trip coordinator for the [Oregon Mycological Society](https://www.wildmushrooms.org/).  I have a strong desire to streamline and automate the process while freeing up volunteer time for other efforts. My long-term goal is to integrate this project into their website to be used for future field trips and provide archival knowledge and encourage more member connection and community.
 
@@ -85,6 +85,7 @@
 * MushroomList: issue displaying image-console log says the cookie will expire. The issue is not related to storing the URLs, but to the same-origin policy of the browser, which restricts how resources loaded from different origins can interact.  Look into GoogleCloud Storage and django-storages library
 * Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
 * Chrome console warning: Reading cookie in cross-site context will be blocked in future Chrome versions. Once deployed in https, try: cookie = "name=value; SameSite=None; Secure";  (currently: response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True))
+* There is an issue when entering the lat/long in create trip form, the default is set regardless if something is entered.  Would prefer a more user-friendly way to get location than form input (Take location name and input gps coordinates on backend?)
 
 Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
 
@@ -196,22 +197,22 @@ Now you should have your database schema all set!
 
 ### Stretch Goals and Thoughts
 
-- Finish styling (topo map color palate?)
-- Permissions (admin & coordinator: full CRUD access, leader has create and edit permissions, members have read only permission (maybe create mushroom))
-  -Permissions Completed for /trips and /trips/:id and /trips/:id/lottery. Need to update Read front to disable buttons/add error handling.
+- Finish styling
 - Add listener to trigger lottery based on closing date to replace the current button to manually make the lottery happen
 - Enhance trip details page for trip leader to add mushroom species seen on trip (Mushroom component exists in database, currently seeded with 20 species)
 - Build out full CRUD for /mushrooms
-- Add a field to trip model for weather to save the day's weather to display in place of the forecast once the trip came comes (another listener to set the state)
-- Add cloud service where users can upload photos to be display on trip detail page
+- Add a field to trip model for weather to save the day's weather to display in place of the forecast once the trip came comes (another listener to set the state). Then hide forecast.
+- Add cloud service where users can upload photos to be display on trip detail page, or embed instagram tagged-photos
 - Flag banned users to block from applying field trips for a set period of time (status?='blocked')
-- There might be a bug if there is more than 1 coordinator in database for auto-email
+- There might be a bug if there is more than 1 coordinator in database for auto-email? Untested.
 - 100% line coverage for testing.  Haven't tested the actual lottery data because it is random-but testing passes for the right number of people chosen per category.  Most endpoints and all business logic are tested with Django TestCase class
-- Make lottery weighted. might need more dummy users and more trips to test.
+- Make lottery weighted. Might need more dummy users and more trips to test.
 - Add chart.js for data visualization (for ? # people applied on trips over time...# species seen)
 - Integrate google calendar
 - Add google sign in functionality
 - Add functionality for forgot password link
+- Stricter password rules?
+- Have user do full registration at sign in for one less click? 
 - Integrate into OMS existing website, wildmushrooms.org
 
 ### Contact and Support
@@ -231,12 +232,7 @@ that I am proud to be a member of.  I am grateful for the community I am part of
 
 ---
 
-### Notes to self-to do
-- should test.rest be in git or not?
-- need to add listener for trip lottery to happen on reg_close date (right now an endpoint which will be a button for testing.)
-- make pw stricter but not during testing
-- better security: https at deploy
-- in deploy: change views-login&signup: secure=False to TRUE once in https
+### Notes to self
+
+- in deploy mode: change views-/signin & /signup: secure=False to TRUE once in https
 - may need to rewrite tests now that i've switched from Token header auth to Cookie holding token in browser
-** LEFT OFF: want to have user do full registration at sign in? 
-- currently weather results are a 5 day forecast. i want when the trip closes, to have the weather for that date saved and displayed indefinitely and then hide the forecast

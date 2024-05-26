@@ -98,7 +98,7 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
           })
           .map((item: WeatherData) => {
             const date = new Date(item.dt_txt);
-            const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+            const formattedDate = date.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
             const weather = item.weather[0].main;
             const description = item.weather[0].description;
             const tempMin = item.main.temp_min;
@@ -119,13 +119,11 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
   }, [trip]);
 
   if (!trip) {
-    return (<div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 'calc(100vh - 60px)', // Adjust as needed
-    }}>
-      Loading...</div>
+    return (
+      <div className="loaderCentered">
+        <div className="loader"></div>
+        <h3>Loading...</h3>
+      </div>
     );
   }
 
@@ -225,7 +223,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Box display="flex" justifyContent="center">
-
               <Grid container justifyContent="flex-start" max-width="90%" direction="column">
                 <Grid item>
                   <Card id="details" sx={{
@@ -269,7 +266,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                         </Grid>
                       </Grid>
                       {(groupStatus.includes('Leader') || groupStatus.includes('Coordinator')) && (
-
                         <div style={{ textAlign: 'center' }}>
                           <CardActions>
                             <Button color="success"
@@ -285,21 +281,21 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                     </CardContent>
                   </Card>
                 </Grid>
-
-
                 <Grid item style={{ marginTop: '7px' }} >
-                  <Grid container spacing={3} justifyContent="center" alignItems="center">
+                  <Grid container spacing={1} justifyContent="center" alignItems="center">
                     {forecast.map((item, index) => (
                       <Grid item key={index}>
-                        <Card sx={{ backgroundColor: '#ffffff', border: '1px solid grey', borderRadius: '15px' }} elevation={3}>
-                          <CardContent>
-                            <Typography variant="subtitle1" sx={{ fontSize: '0.75rem' }}>{item.date}</Typography>
-                            <hr />
+                        <Card sx={{
+                          backgroundColor: '#ffffff',
+                          border: '1px solid grey', borderRadius: '15px',
+                        }} elevation={3}>
+                          <CardContent sx={{ padding: '10px 10px' }}>
+                            <Typography variant="subtitle1" sx={{ fontSize: '0.75rem', fontWeight: 'bold' }}>{item.date}</Typography>
                             <Typography variant="h6" sx={{ fontSize: '0.75rem' }}>{Math.round(((item.tempMin - 273.15) * 9 / 5 + 32))}°F</Typography>
                             <Typography variant="body1" sx={{ fontSize: '0.75rem' }}>{item.weather}: {item.description}</Typography>
                             <Typography variant="caption" sx={{ fontSize: '0.75rem' }}>{(item.chanceRain * 100)}% chance of rain</Typography><br />
                             <Typography variant="caption" sx={{ fontSize: '0.75rem' }}>{(item.volumeRain * 0.0393701).toFixed(2)} inches</Typography>
-                            <Typography variant="caption" sx={{ fontSize: '0.75rem' }}> (last 3 hours)</Typography>
+                            <Typography variant="caption" sx={{ fontSize: '0.75rem' }}> (last 3 hrs)</Typography>
                           </CardContent>
                         </Card>
                       </Grid>
@@ -343,7 +339,6 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
                       {errorMessage && <Typography variant="h6" style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</Typography>}
                       {!isRegistered ? (
                         <form onSubmit={handleRegistration}>
-                          <Typography variant="h6">Register!</Typography>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -393,18 +388,13 @@ const TripDetails: React.FC<TripDetailProps> = ({ trips, updateTrips }) => {
             </Grid>
           ) : (
             <Grid item xs={12} md={6}>
-              <Card sx={{ backgroundColor: 'lightblue' }}>
-                <CardContent>
-                  <TripComments />
-                  <hr />
-                  <p>wip-mushrooms seen on trip (wip)</p>
-                  <hr />
-                </CardContent>
-              </Card>
+              <TripComments />
+              <hr />
+              <p>WIP: Mushrooms seen on trip</p>
+              <p>Placeholder for after trip has completed.  Users can add mushrooms seen to this page</p>
+              <hr />
             </Grid>
           )}
-
-          <hr />
         </Grid >
       </Box>
     </>

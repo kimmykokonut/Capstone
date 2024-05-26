@@ -36,25 +36,25 @@ const ProfileForm = ({ user }: Props) => {
 
   return (
     <>
-    <Container>
-      <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
-        <title>Update your info needed for field tirp registration</title>
-        <fieldset>
-          <legend>You</legend>
+      <Container>
+        <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
+          <title>Update your info needed for field tirp registration</title>
+          <fieldset>
+            <legend>You</legend>
             <TextField name="phone" label="Phone Number" id="phone" defaultValue={user?.phone} variant="standard" />
             <TextField name="avatar" label="url of avatar image" id="avatar" variant="standard" defaultValue={user?.avatar} />
             <TextField name="family" label="Family you share a membership with" id="family" variant="standard" defaultValue={user?.family} />
             <TextField name="skills" label="skills? i.e. identication level" variant="standard" defaultValue={user?.skills} />
-        </fieldset>
-        <fieldset>
-          <legend>Emergency Contact Info</legend>
+          </fieldset>
+          <fieldset>
+            <legend>Emergency Contact Info</legend>
             <TextField name="e_name" label="Name" id="eName" variant="standard" defaultValue={user?.e_name} />
             <TextField name="e_phone" label="Phone" id="ePhone" variant="standard" defaultValue={user?.e_phone} />
-        </fieldset>
-        <Button type="submit" variant="contained" color="success" sx={{ mt: 2 }}>Update</Button>
+          </fieldset>
+          <Button type="submit" variant="contained" color="success" sx={{ mt: 2 }}>Update</Button>
         </Box>
       </Container>
-      </>
+    </>
   )
 }
 export default ProfileForm;

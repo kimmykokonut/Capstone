@@ -11,6 +11,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CabinIcon from '@mui/icons-material/Cabin';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const Resources = () => {
   const [openCamp, setOpenCamp] = useState(false);
@@ -35,16 +36,27 @@ const Resources = () => {
   const handleCloseFederal = () => {
     setOpenFederal(false);
   };
+  const theme = createTheme({
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            color: 'green',
+          },
+        },
+      },
+    },
+  });
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Grid item xs={12}>
-        <Typography variant="h3" align="center" mt={2}>Resources</Typography>
+        <Typography variant="h4" align="center" mt={2}>Resources</Typography>
       </Grid>
       <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ bgcolor: '#d4d0c7' }}>
+          <Card sx={{ bgcolor: '#e0e0e0' }} elevation={3}>
             <CardHeader title={<Typography variant="h5">Pack it!</Typography>} avatar={<CheckCircleOutlineIcon />} />
             <CardActions>
               <Link to="/resources/checklist">Foraging checklist</Link>
@@ -61,8 +73,9 @@ const Resources = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ bgcolor: '#d4d0c7' }}>
-            <CardHeader title="Foraging Permits" />            <CardContent>
+          <Card sx={{ bgcolor: '#e0e0e0' }} elevation={3}>
+            <CardHeader title="Foraging Permits" />
+            <CardContent>
               <List>
                 <ListItem>
                   <ListItemIcon><HikingIcon /></ListItemIcon>
@@ -118,7 +131,7 @@ const Resources = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ bgcolor: '#d4d0c7' }}>
+          <Card sx={{ bgcolor: '#e0e0e0' }} elevation={3}>
             <CardHeader title="Parking Passes" />
             <CardContent>
               <Typography variant="subtitle1">Federal</Typography>
@@ -171,7 +184,7 @@ const Resources = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card onClick={handleOpenState} sx={{ bgcolor: '#d4d0c7' }}>
+          <Card onClick={handleOpenState} sx={{ bgcolor: '#e0e0e0' }} elevation={3}>
             <CardHeader title={<Typography variant="h5">State Regulations</Typography>} avatar={<EditNoteIcon />} />
             <CardContent sx={{ height: '300px', overflow: 'auto', textOverflow: 'ellipsis' }}>
               <List>
@@ -216,7 +229,7 @@ const Resources = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card onClick={handleOpenFederal} sx={{ bgcolor: '#d4d0c7' }}>
+          <Card onClick={handleOpenFederal} sx={{ bgcolor: '#e0e0e0' }} elevation={3}>
             <CardHeader title={<Typography variant="h5">Federal Regulations</Typography>} avatar={<EditNoteIcon />} />
             <CardContent sx={{ height: '300px', overflow: 'auto', textOverflow: 'ellipsis' }}>
               <List>
@@ -275,7 +288,7 @@ const Resources = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card onClick={handleOpenCamp} >
+          <Card onClick={handleOpenCamp} elevation={3}>
             <CardHeader title={<Typography variant="h5">Campgrounds</Typography>} avatar={<CabinIcon />} />
             <CardContent>
               <Typography variant="body1" sx={{ display: '-webkit-box', WebkitLineClamp: 5, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>Rules for a campground may differ from the general rules for the park or forest lands in which the campground resides.  Always check to see if there are any signs about picking mushrooms and/or forest products.  If there are no signs, follow the rules for the park or forest land the campground is located within. Fortunately, many campgrounds close down sections in the fall, or in some cases an entire campground closes.  Picking in a closed area or campground is best.  If you do go into an occupied area do not disturb the campers.</Typography>
@@ -289,7 +302,7 @@ const Resources = () => {
           </Dialog>
         </Grid>
       </Masonry >
-    </>
+    </ThemeProvider>
   )
 }
 export default Resources;

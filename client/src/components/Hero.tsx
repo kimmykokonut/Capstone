@@ -2,7 +2,6 @@ import { useState } from "react";
 import { signIn, signUp } from "../api-helper";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, CssBaseline, Grid, Typography, Avatar, Paper, TextField, Button } from "@mui/material";
-//import HikingIcon from '@mui/icons-material/Hiking';
 import mushroom from '../assets/images/heart.jpg';
 import logo from '../assets/images/logo.png';
 import forageIcon from '../assets/images/forageIcon.png';
@@ -90,7 +89,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
     return (
       <Typography variant="body2" color="text.success" align="center">
         {'Copyright © '}
-        <Link color="inherit" to="https://kimmykokonut.github.io/">
+        <Link style={{ color: "green" }} to="https://kimmykokonut.github.io/">
           kimmykokonut
         </Link>{' '}
         {new Date().getFullYear()}
@@ -113,16 +112,16 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }} >
-              <Box sx={{ m: 5, display: { xs: 'none', sm: 'block' } }}>
-                <img src={logo} alt="Myco Matrix logo" height="250vh" style={{ marginLeft: '64px' }} />
-                <Typography variant="h5" color="text.primary" sx={{ mt: -3 }}>Connect, Forage, Discover</Typography>
-              </Box>
-            </Grid>
+            <Box sx={{ m: 5, display: { xs: 'none', sm: 'block' } }}>
+              <img src={logo} alt="Myco Matrix logo" height="250vh" style={{ marginLeft: '64px' }} />
+              <Typography variant="h5" color="text.primary" sx={{ mt: -3 }}>Connect, Forage, Discover</Typography>
+            </Box>
+          </Grid>
 
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
               <Avatar sx={{ m: 1, bgcolor: 'success.main', width: '100px', height: '100px' }}>
-                  <img src={forageIcon} alt="Person picking a mushroom" style={{ objectFit: 'cover', height: '100%', width: '100%', padding: '10%' }}/>
+                <img src={forageIcon} alt="Person picking a mushroom" style={{ objectFit: 'cover', height: '100%', width: '100%', padding: '10%' }} />
               </Avatar>
               <Typography component="h1" variant="h5">Sign In</Typography>
               <Box component="form" noValidate onSubmit={handleSignIn} sx={{ mt: 1 }}>
@@ -148,91 +147,97 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                   autoComplete="current-password"
                   value={pwIn}
                   onChange={(e) => setPwIn(e.target.value)} />
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign In</Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="success"
+                  sx={{ mt: 3, mb: 2 }}>
+                  Sign In
+                </Button>
                 <Grid container>
                   <Grid item xs>
                     <Typography variant="body2">
-                      <Link to='#'>Forgot password?</Link>
+                      <Link to='#' style={{ color: "green" }}>Forgot password?</Link>
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button onClick={toggleRegisterForm}>
+                    <Button
+                      color="success"
+                      onClick={toggleRegisterForm}>
                       No account? Sign up</Button>
                   </Grid>
-                  </Grid>
-                  {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-
-                  </Box>    
-
-                    {showRegisterForm && (
-                      <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1 }}>
-                        <Typography component="h1" variant="h5">Sign Up</Typography>
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="userName"
-                          label="Username"
-                          name="userName"
-                          autoComplete="username"
-                          autoFocus
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="userEmail"
-                          label="Email"
-                          name="userEmail"
-                          autoComplete="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="userPW"
-                          label="Password"
-                          name="userPW"
-                          type="password"
-                          autoComplete="current-password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="firstName"
-                          label="First Name"
-                          name="firstName"
-                          autoComplete="given-name"
-                          value={fName}
-                          onChange={(e) => setFName(e.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="lastName"
-                          label="Last Name"
-                          name="lastName"
-                          autoComplete="family-name"
-                          value={lName}
-                          onChange={(e) => setLName(e.target.value)}
-                        />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
-                      </Box>
-                    )}
-                  
-                <Box sx={{ mt: 5 }}>
-                  <Copyright />
-                </Box>
+                </Grid>
+                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
               </Box>
-            
+
+              {showRegisterForm && (
+                <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1 }}>
+                  <Typography component="h1" variant="h5">Sign Up</Typography>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="userName"
+                    label="Username"
+                    name="userName"
+                    autoComplete="username"
+                    autoFocus
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="userEmail"
+                    label="Email"
+                    name="userEmail"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="userPW"
+                    label="Password"
+                    name="userPW"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    name="firstName"
+                    autoComplete="given-name"
+                    value={fName}
+                    onChange={(e) => setFName(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                    value={lName}
+                    onChange={(e) => setLName(e.target.value)}
+                  />
+                  <Button type="submit" fullWidth variant="contained" color="success" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
+                </Box>
+              )}
+              <Box sx={{ mt: 5 }}>
+                <Copyright />
+              </Box>
+            </Box>
           </Grid>
         </Grid>
       )}
