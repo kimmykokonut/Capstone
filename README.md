@@ -36,6 +36,8 @@
 
 ---------------------------
 ### Jump around!
+* <a href="/client/README.md">Readme - Client Side (User experience walk through and documentation)</a>
+* <a href="/api/README.md">Readme - Backend API (User authentication, API Endpoints, Django Admin)</a>
 * <a href="#about-the-project">About the Project</a>
   * <a href="#description">Description</a>
   * <a href="#built-with">Built With</a>
@@ -43,8 +45,6 @@
 * <a href="#getting-started">Getting Started</a>
   * <a href="#prerequisites">Prerequisites</a>
   * <a href="#setup">Setup</a>
-* <a href="/client/README.md">Readme - Client Side (User experience previews and documentation)</a>
-* <a href="/api/README.md">Readme - Backend API (User authentication, API Endpoints, Django Admin)</a>
 * <a href="#miscellaneous">Miscellaneous</a>
   * <a href="#contact-and-support">Contact and Support</a>
   * <a href="#license">License</a>
