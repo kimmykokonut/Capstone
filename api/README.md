@@ -1,27 +1,26 @@
-<hr />
-<div style="text-align: center">
-  <h1> Web API Backend - Myco Matrix</h1>
-  <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
-  <p>Initiated April 15, 2024</p>
-  <img src="../client/src/assets/images/mycena.jpg" alt="mushroom on a pine cone" width="400">
-</div>
+# Web API Backend - Myco Matrix
+
+### by [Kim Robinson](https://github.com/kimmykokonut)
+
+Initiated April 15, 2024
+
+![mushroom on a pine cone](./../client/src/assets/images/mycena.jpg)
 
 ---
 
----------------------------
 ### Jump around!
 
 Return to the [main project README](../README.md) for General information and setup instructions
 
-* <a href="#about-the-project">About the Project</a>
-  * <a href="#description">Description</a>
-  * <a href="#built-with">Built With</a>
-  * <a href="#known-bugs">Known Bugs</a>
-* <a href="#api-documentation">API Documention</a>
-  * <a href="#using-django-admin">Using Django Admin</a>
-  * <a href="#user-authentication-and-authorization">User Authentication and Authorization</a>
-  * <a href="#api-endpoints">API Endpoints</a>
-* <a href="#license">License</a>
+* [About the Project](#about-the-project)
+  * [Description](#description)
+  * [Built With](#built-with)
+  * [Known Bugs](#known-bugs)
+* [API Documention](#api-documentation)
+  * [Using Django Admin](#using-django-admin)
+  * [User Authentication and Authorization](#user-authentication-and-authorization)
+  * [API Endpoints](#api-endpoints)
+* [License](#license)
 
 ---
 

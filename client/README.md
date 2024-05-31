@@ -1,25 +1,26 @@
-<hr />
-<div style="text-align: center">
-  <h1>Myco Matrix</h1>
-  <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
-  <p>Initiated April 15, 2024</p>
-  <img src="../client/src/assets/images/morelBasket.jpg" alt="morel mushrooms" width="300">
-</div>
+# Myco Matrix
+
+### by [Kim Robinson](https://github.com/kimmykokonut)
+
+Initiated April 15, 2024
+
+![morel mushrooms](../client/src/assets/images/morelBasket.jpg)
 
 ---------------------------
 ### Jump around!
-* <a href="#about-the-project">About the Project</a>
-  * <a href="#description">Description</a>
-  * <a href="#built-with">Built With</a>
-  * <a href="../README.md">Known Bugs (Main Readme)</a>
-* <a href="#previews-and-documentation">Previews and Documentation</a>
-* <a href="./README.md">Getting Started: Prerequisites & Setup (main Readme)</a>
-* <a href="/api/README.md">Readme - Backend API Documentation (User authentication, API Endpoints, Django Admin)</a>
-* <a href="#miscellaneous">Miscellaneous</a>
-  * <a href="#react-component-diagrams">React Component Diagram</a>
-  * <a href="#contact-and-support">Contact and Support</a>
-  * <a href="#license">License</a>
+* [About the Project](#about-the-project)
+  * [Description](#description)
+  * [Built With](#built-with)
+  * [Known Bugs (Main Readme)](../README.md)
+* [Previews and Documentation](#previews-and-documentation)
+* [Getting Started: Prerequisites & Setup (main Readme)](./README.md)
+* [Readme - Backend API Documentation (User authentication, API Endpoints, Django Admin)](/api/README.md)
+* [Miscellaneous](#miscellaneous)
+  * [React Component Diagram](#react-component-diagrams)
+  * [Contact and Support](#contact-and-support)
+  * [License](#license)
 ---------------------------
+
 ## About the Project
 
 ### Description
