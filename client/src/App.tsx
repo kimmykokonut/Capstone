@@ -14,13 +14,11 @@ function App() {
     <>
       <Router>
         <ConditionalHeader />
-        {/* <Header /> */}
         <TripControl />
         <Footer />
       </Router>
     </>
   )
 }
-
 
 export default App
