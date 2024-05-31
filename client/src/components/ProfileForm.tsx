@@ -1,5 +1,6 @@
 import { ProfileData, updateProfile } from "../api-helper";
 import { Container, Box, Button, TextField } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 type User = {
   phone: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const ProfileForm = ({ user }: Props) => {
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +32,9 @@ const ProfileForm = ({ user }: Props) => {
     };
 
     updateProfile(formValues).then(() => {
-      window.location.href = '/dashboard';
+      navigate('/dashboard');
+    }).catch(error => {
+      console.error('Error updating profile:', error);
     });
   };
 
