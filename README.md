@@ -1,56 +1,39 @@
-<center>
+# Myco Matrix
 
-  <h1>Myco Matrix</h1>
-  <h3>by <a href="https://github.com/kimmykokonut">Kim Robinson</a></h3>
-  <p>
-        <a href="https://github.com/kimmykokonut/Capstone/stargazers">
-            <img src="https://img.shields.io/github/stars/kimmykokonut/Capstone?color=yellow&style=plastic">
-        </a>
-        ¨
-        <a href="https://github.com/kimmykokonut/Capstone/issues">
-            <img src="https://img.shields.io/github/issues/kimmykokonut/Capstone?style=plastic">
-        </a>
-        ¨
-        <a href="https://github.com/kimmykokonut/Capstone/blob/main/LICENSE">
-            <img src="https://img.shields.io/github/license/kimmykokonut/Capstone?color=orange&style=plastic">
-        </a>
-        ¨
-        <a href="https://www.linkedin.com/in/robinson-kim/">
-            <img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&colorB=2867B2">
-        </a>
-    </p>    
-</p>
-  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
-  <p>Initiated April 15, 2024</p>
-  
-  </center>
+### by [Kim Robinson](https://github.com/kimmykokonut)
 
-<div style="display: flex; justify-content: space-around;">
-  <div style="width: 40%;">
-  <img src="./client/src/assets/images/signIn.png" alt="sign in page" width="100%">
-  </div>
-    <div style="width: 40%;">
-  <img src="./client/src/assets/images/tripDetails.png" alt="trip details page" width="100%">
-  </div>
-  </div>
+![GitHub Stars](https://img.shields.io/github/stars/kimmykokonut/Capstone?color=yellow&style=plastic)
+![GitHub Issues](https://img.shields.io/github/issues/kimmykokonut/Capstone?style=plastic)
+![GitHub License](https://img.shields.io/github/license/kimmykokonut/Capstone?color=orange&style=plastic)
+![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&colorB=2867B2)
+
+[See it live on Render](https://myco.onrender.com/)
+Initiated April 15, 2024
+
+![Sign In Page](./client/src/assets/images/signIn.png)
+![Trip Details Page](./client/src/assets/images/tripDetails.png)
 
 ---------------------------
+
 ### Jump around!
-* <a href="/client/README.md">Readme - Client Side (User experience walk through and documentation)</a>
-* <a href="/api/README.md">Readme - Backend API (User authentication, API Endpoints, Django Admin)</a>
-* <a href="#about-the-project">About the Project</a>
-  * <a href="#description">Description</a>
-  * <a href="#built-with">Built With</a>
-  * <a href="#known-bugs">Known Bugs</a>
-* <a href="#getting-started">Getting Started</a>
-  * <a href="#prerequisites">Prerequisites</a>
-  * <a href="#setup">Setup</a>
-* <a href="#miscellaneous">Miscellaneous</a>
-  * <a href="#contact-and-support">Contact and Support</a>
-  * <a href="#license">License</a>
-  * <a href="#acknowledgements">Acknowledgements</a>
-  * <a href="#stretch-goals-and-thoughts">Stretch Goals and Thoughts</a>
+
+* [Readme - Client Side (User experience walk through and documentation)](/client/README.md)
+* [Readme - Backend API (User authentication, API Endpoints, Django Admin)](/api/README.md)
+* [About the Project](#about-the-project)
+  * [Description](#description)
+  * [Built With](#built-with)
+  * [Known Bugs](#known-bugs)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Setup](#setup)
+* Miscellaneous
+  * [Contact and Support](#contact-and-support)
+  * [License](#license)
+  * [Acknowledgements](#acknowledgements)
+  * [Stretch Goals and Thoughts](#stretch-goals-and-thoughts)
+
 ---------------------------
+
 ## About the Project
 
 ### Description
@@ -62,7 +45,8 @@
   This project was inspired by my years spent as the volunteer field trip coordinator for the [Oregon Mycological Society](https://www.wildmushrooms.org/).  I have a strong desire to streamline and automate the process while freeing up volunteer time for other efforts. My long-term goal is to integrate this project into their website to be used for future field trips and provide archival knowledge and encourage more member connection and community.
 
 ### Built With
-* [React Leaflet](https://react-leaflet.js.org/) 
+
+* [React Leaflet](https://react-leaflet.js.org/)
 * [OpenWeather API](https://openweathermap.org/api)
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -80,14 +64,15 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
-### Known Bugs 
+### Known Bugs
+
 * `POST /trips/10/register HTTP/1.1" 400` Once a user registers for a trip, the page disables the register button and lets then know they have registered for the trip.  If they navigate away from the page and back, it is the same.  If they refresh the page /trips/{id} right after they register, they are offered the registration button again and can sign up for the trip.  I have error handling in the api endpoint that won't allow the user to register twice and in react, an error message has been created to address this error. (if the user leaves the page and comes back, it is functional.)
 * MushroomList: issue displaying image-console log says the cookie will expire. The issue is not related to storing the URLs, but to the same-origin policy of the browser, which restricts how resources loaded from different origins can interact.  Look into GoogleCloud Storage and django-storages library
 * Issue with state updating: after lottery closes, can navigate to dashboard but trip status is not updated unless I refresh the page, then it is fine.
 * Chrome console warning: Reading cookie in cross-site context will be blocked in future Chrome versions. Once deployed in https, try: cookie = "name=value; SameSite=None; Secure";  (currently: response.set_cookie('auth_token', token.key, httponly=True, samesite='None', secure=True))
 * There is an issue when entering the lat/long in create trip form, the default is set regardless if something is entered.  Would prefer a more user-friendly way to get location than form input (Take location name and input gps coordinates on backend?)
 
-Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs 
+Please [report](https://github.com/kimmykokonut/Capstone/issues) any issues or bugs
 
 ---
 
@@ -115,7 +100,7 @@ In terminal:
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
 ### Install Python via homebrew
-In terminal: 
+In terminal:
 `$ brew install python@3`
 (Note: pip is included with Python-it is the standard package manager for Python)
 
@@ -133,7 +118,6 @@ pgAdmin(optional)
 You will need your own API key if you want to have the weather report functionality that is present on the TripDetails page.
 Go to `https://openweathermap.org/api`, register for an API key and put it in the .env file you will create later on.
 
-
 ## Setup
 
 ### Clone repository
@@ -147,12 +131,14 @@ Go to `https://openweathermap.org/api`, register for an API key and put it in th
 7. View or Edit: On your terminal, type `$ code .` to open the project in VS Code.
 
 ### Install dependencies - Front/Client Side
+
 1. In VSCode Terminal: navigate to `client` directory
 2. Enter `$ npm install` to compile the application's code and install all needed dependencies.
 3. Run local server: `$ npm run dev`
 (This will be located at: http://localhost:5173/)
 
 ### Install dependencies - Backend/WebAPI
+
 1. In VSCode Terminal: navigate to `api` directory.
 2. Make sure the .gitignore in the root directory has .venv in it.
 3. Create a virtual environment `$ python3 -m venv .venv`
@@ -163,6 +149,7 @@ Go to `https://openweathermap.org/api`, register for an API key and put it in th
 - To exit virtual environment: `$ . deactivate`
 
 ### API .env
+
 1. Make sure the .gitignore has .env in it and is committed before step 2.
 2. Create .env file in the root directory for the backend api.
 3. Add in the following fields with your own personal information: (note host and port may differ depending on what service you are using)
@@ -178,16 +165,18 @@ EMAIL_HOST_PASSWORD='{YOUR-SENDER-PASSWORD}'
 ```
 
 ### Client .env
+
 1. Create a .env file in the same directory level as package.json (In my file structure this is Capstone/client)
 2. Add the following field with your personal API key `VITE_WEATHER_API={YOUR-API-KEY}`
 
 ### Database
+
 Django has built in migrations that make it easy to update database changes.
 1. Create a new database:
   * In pgAdmin:
     In the ObjectExplorer, right click on Databases and choose Create>Database.  Give it a name and save the database.
-  - or 
-  * In the terminal shell via psql: 
+  - or
+  * In the terminal shell via psql:
     `$ psql postgres`
     `postgres=# CREATE DATABASE <your_database_name>`
 2. Navigate to Capstone/api in the terminal.
@@ -212,12 +201,12 @@ Now you should have your database schema all set!
 - Add google sign in functionality
 - Add functionality for forgot password link
 - Stricter password rules?
-- Have user do full registration at sign in for one less click? 
+- Have user do full registration at sign in for one less click?
 - Integrate into OMS existing website, wildmushrooms.org
 
 ### Contact and Support
 
-If you have any feedback or concerns, 
+If you have any feedback or concerns,
 [Report Bug](https://github.com/kimmykokonut/Capstone/issues)
 [Request Feature](https://github.com/kimmykokonut/Capstone/issues)
 
@@ -227,7 +216,7 @@ GNU General Public License v3.0, See license.md for more information
 
 ### Acknowledgements
 
-Thank you to the Oregon Mycological Society, a volunteer based nonprofit group in Portland Oregon 
+Thank you to the Oregon Mycological Society, a volunteer based nonprofit group in Portland Oregon
 that I am proud to be a member of.  I am grateful for the community I am part of with them.
 
 ---
