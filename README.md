@@ -20,7 +20,7 @@
         </a>
     </p>    
 </p>
-  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render</a>
+  <a href="https://myco.onrender.com/" alt="hosted site">See it live on Render (sign in required)</a>     ||     <a href="https://www.linkedin.com/feed/update/urn:li:activity:7203485384104693762/" alt="linked in reference">Learn more here via LinkedIn</a> 
   <p>Initiated April 15, 2024</p>
   
   </center>
