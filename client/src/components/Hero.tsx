@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   CssBaseline,
   Grid,
   Paper,
@@ -30,6 +31,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,6 +42,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       username: userIn,
       password: pwIn,
     };
+    setIsLoading(true);
     try {
       await signIn(userSignInData);
       setUserIn("");
@@ -50,8 +53,10 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       navigate("/dashboard");
     } catch (error) {
       setErrorMessage(
-        "An error occurred during sign in. Please check your username and password and try again."
+        "An error occurred during sign in. Please check your username and password and try again.",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +94,7 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       navigate("/dashboard");
     } catch (error) {
       setErrorMessage(
-        "An error occurred during sign up. Please check your details and try again.  If the problem persists, please choose a different username"
+        "An error occurred during sign up. Please check your details and try again.  If the problem persists, please choose a different username",
       );
     }
   };
@@ -99,14 +104,17 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
       username: import.meta.env.VITE_DEMO_USER,
       password: import.meta.env.VITE_DEMO_PW,
     };
+    setIsLoading(true);
     try {
       await signIn(demoUser);
       setIsAuthenticated(true);
       navigate("/dashboard");
     } catch (error) {
       setErrorMessage(
-        "An error occurred during demo sign in. Please try again later."
+        "An error occurred during demo sign in. Please try again later.",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -235,15 +243,22 @@ const Hero: React.FC<HeroProps> = ({ isAuthenticated, setIsAuthenticated }) => {
                   variant="outlined"
                   color="success"
                   sx={{ mt: 3, mb: 2 }}
+                  disabled={loading}
                 >
                   Sign In
                 </Button>
+                {loading && (
+                  <Box display="flex" justifyContent="center">
+                    <CircularProgress color="success" aria-label="Loading…" />
+                  </Box>
+                )}
                 <Button
                   fullWidth
                   variant="contained"
                   color="success"
                   sx={{ mt: 1, mb: 2 }}
                   onClick={handleDemoSignIn}
+                  disabled={loading}
                 >
                   Demo Sign In
                 </Button>
