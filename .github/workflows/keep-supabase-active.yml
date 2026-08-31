@@ -2,14 +2,14 @@ name: Keep Supabase Active
 
 on:
   schedule:
-    # Runs every 6 days at 9am UTC
-    - cron: "0 9 */6 * *"
+    # Runs every 4 days at 9am UTC
+    - cron: "0 9 */4 * *"
   workflow_dispatch: # allows manual trigger from the Actions tab too
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping backend endpoint (queries DB via trip list)
+      - name: Keep Supabase active (health check with DB query)
         run: |
-          curl -f -s -o /dev/null -w "Status: %{http_code}\n" https://myco-matrix.onrender.com/trips
+          curl -f -s -o /dev/null -w "Status: %{http_code}\n" https://myco-matrix.onrender.com/health-check
